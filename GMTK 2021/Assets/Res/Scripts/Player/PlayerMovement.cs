@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     [Range(0, 100)]
     private int m_jumpHeight;
 
+    private bool m_inAir;
+    private bool m_pickup;
     private Vector2 m_velocity;
     private Rigidbody2D m_rb;
 
@@ -16,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        m_inAir = true;
         m_rb = GetComponent<Rigidbody2D>();
         m_input = new InputMaster();
 
@@ -34,9 +37,9 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (m_rb.velocity.x > 0)
+        if (m_rb.velocity.x != 0)
         {
-            transform.localScale = new Vector2(Mathf.Sign(m_rb.velocity.x), transform.localScale.y);
+            transform.localScale = new Vector3(Mathf.Sign(m_rb.velocity.x), 1, 1);
         }
     }
 
@@ -60,7 +63,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        m_rb.AddForce(new Vector2(0, m_jumpHeight), ForceMode2D.Impulse);
+        if (!m_inAir)
+        {
+            m_inAir = true;
+            m_rb.AddForce(new Vector2(0, m_jumpHeight), ForceMode2D.Impulse);
+        }
     }
 
     private void MoveStart(Vector2 in_velocity)
@@ -75,6 +82,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void Pickup()
     {
-        m_velocity = new Vector2(0, 0);
+        if (!m_pickup)
+        {
+            m_pickup = true;
+        }
+        else
+        {
+            m_pickup = false;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Terrain"))
+        {
+            m_inAir = false;
+        }
     }
 }
