@@ -36,10 +36,9 @@ namespace bluModule
                     break;
 
                 case 1: // main menu
-                    GameObject module = GameObject.Instantiate(Resources.Load<GameObject>("Audio Module"));
-                    module.transform.parent = transform;
-
-                    audioModule = module.GetComponent<bluModule.AudioModule>();
+                    GameObject.Instantiate(Resources.Load<GameObject>("Audio Module")).transform.parent = transform;
+                    audioModule = GetComponentInChildren<bluModule.AudioModule>();
+                    audioModule.Init();
 
                     break;
 
