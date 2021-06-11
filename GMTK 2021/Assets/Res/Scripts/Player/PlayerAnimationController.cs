@@ -34,4 +34,11 @@ public class PlayerAnimationController : MonoBehaviour
 
         bodyAnim.SetBool("isFalling", (velocity.y < 0));
     }
+
+    public static void Footstep()
+    {
+        bluModule.Application.instance.audioModule.NewOneShot("event:/player/footstep");
+    }
+
+
 }

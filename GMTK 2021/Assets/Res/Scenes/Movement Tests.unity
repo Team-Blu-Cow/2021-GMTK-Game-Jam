@@ -446,7 +446,7 @@ Transform:
   m_LocalScale: {x: 0.47172, y: 0.47172, z: 0.47172}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1354030107
 GameObject:
@@ -568,6 +568,7 @@ GameObject:
   - component: {fileID: 1476162603}
   - component: {fileID: 1476162605}
   - component: {fileID: 1476162604}
+  - component: {fileID: 1476162606}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -659,6 +660,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1476162606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476162602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c94c5ec43886c1c4f83c5bccb2f5fe78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1907118127
 GameObject:
   m_ObjectHideFlags: 0
