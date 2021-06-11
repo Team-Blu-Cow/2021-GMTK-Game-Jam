@@ -9,7 +9,7 @@ namespace Nodes
     {
         private Nodes.NodeConnection m_other = null;
 
-        Nodes.Node m_node = null;
+        private Nodes.Node m_node = null;
 
         private void Start()
         {
@@ -27,9 +27,11 @@ namespace Nodes
 
         public void Disconnect()
         {
-            m_other.SetConnection(null);
-            this.SetConnection(null);
+            if (m_other != null)
+            {
+                m_other.SetConnection(null);
+                this.SetConnection(null);
+            }
         }
-
     }
 }
