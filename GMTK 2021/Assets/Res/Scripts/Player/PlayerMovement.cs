@@ -3,13 +3,27 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    private int speed;
+    private int m_speed;
 
-    private Vector2 velocity;
+    [SerializeField]
+    [Range(0, 100)]
+    private int m_jumpHeight;
 
-    private bool direction;
+    private Vector2 m_velocity;
+    private Rigidbody2D m_rb;
+    private bool m_direction;
 
-    private INpu
+    private InputMaster m_input;
+
+    private void Awake()
+    {
+        m_rb = GetComponent<Rigidbody2D>();
+        m_input = new InputMaster();
+
+        m_input.PlayerMovement.Jump.started += _ => Jump();
+        m_input.PlayerMovement.WASD.started += ctx => MoveStart(ctx.ReadValue<Vector2>());
+        m_input.PlayerMovement.WASD.canceled += _ => MoveEnd();
+    }
 
     // Start is called before the first frame update
     private void Start()
@@ -23,5 +37,34 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (m_velocity.x != 0 || m_velocity.y != 0)
+        {
+            m_rb.AddForce(m_velocity * m_speed * Time.deltaTime);
+        }
+    }
+
+    private void OnEnable()
+    {
+        m_input.Enable();
+    }
+
+    private void OnDisable()
+    {
+        m_input.Disable();
+    }
+
+    private void Jump()
+    {
+        m_rb.AddForce(new Vector2(0, m_jumpHeight), ForceMode2D.Impulse);
+    }
+
+    private void MoveStart(Vector2 in_velocity)
+    {
+        m_velocity = in_velocity;
+    }
+
+    private void MoveEnd()
+    {
+        m_velocity = new Vector2(0, 0);
     }
 }
