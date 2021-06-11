@@ -57,6 +57,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Pickup"",
+                    ""type"": ""Button"",
+                    ""id"": ""5ccd583e-1050-43ea-b0fd-f8774afde9f9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -169,6 +177,17 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""WASD"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ec739523-dcce-4bdc-bbda-991ab7a29b6f"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pickup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -182,6 +201,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_PlayerMovement_MouseRClick = m_PlayerMovement.FindAction("MouseRClick", throwIfNotFound: true);
         m_PlayerMovement_Jump = m_PlayerMovement.FindAction("Jump", throwIfNotFound: true);
         m_PlayerMovement_WASD = m_PlayerMovement.FindAction("WASD", throwIfNotFound: true);
+        m_PlayerMovement_Pickup = m_PlayerMovement.FindAction("Pickup", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -236,6 +256,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerMovement_MouseRClick;
     private readonly InputAction m_PlayerMovement_Jump;
     private readonly InputAction m_PlayerMovement_WASD;
+    private readonly InputAction m_PlayerMovement_Pickup;
     public struct PlayerMovementActions
     {
         private @InputMaster m_Wrapper;
@@ -245,6 +266,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @MouseRClick => m_Wrapper.m_PlayerMovement_MouseRClick;
         public InputAction @Jump => m_Wrapper.m_PlayerMovement_Jump;
         public InputAction @WASD => m_Wrapper.m_PlayerMovement_WASD;
+        public InputAction @Pickup => m_Wrapper.m_PlayerMovement_Pickup;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -269,6 +291,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @WASD.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnWASD;
                 @WASD.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnWASD;
                 @WASD.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnWASD;
+                @Pickup.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnPickup;
+                @Pickup.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnPickup;
+                @Pickup.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnPickup;
             }
             m_Wrapper.m_PlayerMovementActionsCallbackInterface = instance;
             if (instance != null)
@@ -288,6 +313,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @WASD.started += instance.OnWASD;
                 @WASD.performed += instance.OnWASD;
                 @WASD.canceled += instance.OnWASD;
+                @Pickup.started += instance.OnPickup;
+                @Pickup.performed += instance.OnPickup;
+                @Pickup.canceled += instance.OnPickup;
             }
         }
     }
@@ -299,5 +327,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnMouseRClick(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnWASD(InputAction.CallbackContext context);
+        void OnPickup(InputAction.CallbackContext context);
     }
 }

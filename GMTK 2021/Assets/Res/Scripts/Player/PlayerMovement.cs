@@ -11,7 +11,6 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 m_velocity;
     private Rigidbody2D m_rb;
-    private bool m_direction;
 
     private InputMaster m_input;
 
@@ -23,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
         m_input.PlayerMovement.Jump.started += _ => Jump();
         m_input.PlayerMovement.WASD.started += ctx => MoveStart(ctx.ReadValue<Vector2>());
         m_input.PlayerMovement.WASD.canceled += _ => MoveEnd();
+
+        m_input.PlayerMovement.Pickup.performed += _ => Pickup();
     }
 
     // Start is called before the first frame update
@@ -33,11 +34,15 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (m_rb.velocity.x > 0)
+        {
+            transform.localScale = new Vector2(Mathf.Sign(m_rb.velocity.x), transform.localScale.y);
+        }
     }
 
     private void FixedUpdate()
     {
-        if (m_velocity.x != 0 || m_velocity.y != 0)
+        if (m_velocity.x != 0)
         {
             m_rb.AddForce(m_velocity * m_speed * Time.deltaTime);
         }
@@ -64,6 +69,11 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void MoveEnd()
+    {
+        m_velocity = new Vector2(0, 0);
+    }
+
+    private void Pickup()
     {
         m_velocity = new Vector2(0, 0);
     }
