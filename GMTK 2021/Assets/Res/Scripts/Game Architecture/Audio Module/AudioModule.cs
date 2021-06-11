@@ -23,14 +23,17 @@ namespace bluModule
 
         private void Update() // TODO: @anyone optimise
         {
-            foreach (AudioEvent aEvent in _audioEvents)
+            if (_audioEvents.Count != 0)
             {
-                if (aEvent.released)
+                foreach (AudioEvent aEvent in _audioEvents)
                 {
-                    _audioEvents.Remove(aEvent);
-                    Debug.Log("Removed Audio Event");
-                    break;
+                    if (aEvent.released)
+                    {
+                        _audioEvents.Remove(aEvent);
+                        break;
+                    }
                 }
+                Debug.Log(_audioEvents.Count);
             }
         }
     }
