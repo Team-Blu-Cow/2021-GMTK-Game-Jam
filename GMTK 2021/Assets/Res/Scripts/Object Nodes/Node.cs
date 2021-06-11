@@ -26,6 +26,9 @@ namespace Nodes
 
         protected List<OutputConnection> m_outputConnections = new List<OutputConnection>();
 
+        public List<InputConnection> inputConnections { get { return m_inputConnections; } }
+        public List<OutputConnection> outputConnections { get { return m_outputConnections; } }
+
         public abstract bool IsSupplyingPower();
 
         public bool IsPowered()
