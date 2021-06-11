@@ -6,6 +6,13 @@ namespace Nodes
 {
     public abstract class Node : MonoBehaviour
     {
+        protected bool m_isPowered = false;
+
+        public void SetPowered()
+        {
+            m_isPowered = true;
+        }
+
         private void Awake()
         {
             InputConnection[] inCon = gameObject.transform.GetComponentsInChildren<InputConnection>();
@@ -22,32 +29,31 @@ namespace Nodes
             }
         }
 
+        protected virtual void OnEnable()
+        {
+            NodeClock.Instance.NodeUpdate += OnInvoke;
+        }
+
+        protected virtual void OnDisable()
+        {
+            NodeClock.Instance.NodeUpdate -= OnInvoke;
+        }
+
+        protected virtual void OnInvoke()
+        {
+            m_isPowered = false;
+        }
+
         protected List<InputConnection> m_inputConnections = new List<InputConnection>();
 
         protected List<OutputConnection> m_outputConnections = new List<OutputConnection>();
 
-        public abstract bool IsSupplyingPower();
+        public List<InputConnection> inputConnections { get { return m_inputConnections; } }
+        public List<OutputConnection> outputConnections { get { return m_outputConnections; } }
 
         public bool IsPowered()
         {
-            if (IsSupplyingPower())
-            { return true; }
-
-            for (int i = 0; i < m_inputConnections.Count; i++)
-            {
-                if (m_inputConnections[i] != null)
-                {
-                    if (m_inputConnections[i].node != null)
-                    {
-                        if (m_inputConnections[i].node.IsPowered())
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
-
-            return false;
+            return m_isPowered;
         }
     }
 };

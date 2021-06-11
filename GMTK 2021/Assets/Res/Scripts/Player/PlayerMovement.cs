@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
 
     private bool m_inAir;
     private bool m_pickup;
+    private GameObject m_pickedUp;
+
     private Vector2 m_velocity;
     private Rigidbody2D m_rb;
 
@@ -43,6 +45,11 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         m_anim.UpdateAnim(m_rb.velocity);
+
+        if (m_pickedUp)
+        {
+            m_pickedUp.transform.position = (transform.position);
+        }
     }
 
     private void FixedUpdate()
@@ -50,12 +57,6 @@ public class PlayerMovement : MonoBehaviour
         if (m_velocity.x != 0)
         {
             m_rb.velocity = new Vector2(m_maxSpeed * Mathf.Sign(m_velocity.x), m_rb.velocity.y);
-
-            //m_rb.AddForce(m_velocity * m_speed * Time.deltaTime);
-            //if (Mathf.Abs(m_rb.velocity.x) > m_maxSpeed)
-            //{
-            //    m_rb.velocity = new Vector2(m_maxSpeed * Mathf.Sign(m_rb.velocity.x), m_rb.velocity.y);
-            //}
         }
     }
 
@@ -95,10 +96,26 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!m_pickup)
         {
-            m_pickup = true;
+            Collider2D[] collisions = new Collider2D[10];
+
+            m_rb.OverlapCollider(new ContactFilter2D().NoFilter(), collisions);
+
+            foreach (Collider2D collide in collisions)
+            {
+                if (collide)
+                {
+                    if (collide.gameObject.CompareTag("Connector"))
+                    {
+                        m_pickedUp = collide.gameObject;
+                        m_pickup = true;
+                        break;
+                    }
+                }
+            }
         }
         else
         {
+            m_pickedUp = null;
             m_pickup = false;
         }
     }

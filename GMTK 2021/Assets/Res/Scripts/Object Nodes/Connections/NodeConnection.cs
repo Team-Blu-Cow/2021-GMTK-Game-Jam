@@ -7,23 +7,29 @@ namespace Nodes
     [System.Serializable]
     public class NodeConnection : MonoBehaviour
     {
-        private Nodes.Node m_other = null;
+        private Nodes.NodeConnection m_other = null;
+
+        Nodes.Node m_node = null;
+
+        private void Start()
+        {
+            m_node = transform.parent.gameObject.GetComponent<Nodes.Node>();
+        }
 
         public bool HasConnection { get { return m_other != null; } }
 
-        public Nodes.Node node { get { return m_other; } }
+        public Nodes.Node node { get { return m_node; } }
 
-        public bool Connect(Nodes.Node node)
+        public void SetConnection(Nodes.NodeConnection node)
         {
-            if (HasConnection)
-            {
-                return false;
-            }
-            else
-            {
-                m_other = node;
-                return true;
-            }
+            m_other = node;
         }
+
+        public void Disconnect()
+        {
+            m_other.SetConnection(null);
+            this.SetConnection(null);
+        }
+
     }
 }
