@@ -6,18 +6,21 @@ namespace Nodes
 {
     public class PressurePlate : Node
     {
-        public bool powered = false;
-
-        // Start is called before the first frame update
-        private void Start()
+        protected override void OnEnable()
         {
+            NodeClock.Instance.NodePowerSupplyUpdate += OnInvoke;
+        }
+
+        protected override void OnDisable()
+        {
+            NodeClock.Instance.NodePowerSupplyUpdate -= OnInvoke;
         }
 
         // Update is called once per frame
         private void Update()
         {
             Vector3 position = transform.parent.localPosition;
-            if (powered && position.y > 0.35)
+            if (m_isPowered && position.y > 0.35)
             {
                 transform.parent.localPosition = new Vector3(position.x, position.y - 0.005f, position.z);
             }
@@ -31,7 +34,7 @@ namespace Nodes
         {
             if (collision.gameObject.name == "Box")
             {
-                powered = true;
+                m_isPowered = true;
             }
         }
 
@@ -39,13 +42,37 @@ namespace Nodes
         {
             if (collision.gameObject.name == "Box")
             {
-                powered = false;
+                m_isPowered = false;
             }
         }
 
-        public override bool IsSupplyingPower()
+        protected override void OnInvoke()
         {
-            return powered;
+            if (m_isPowered)
+            {
+                Queue<Node> nodes = new Queue<Node>();
+                nodes.Enqueue(this);
+
+                while (nodes.Count > 0)
+                {
+                    Node node = nodes.Dequeue();
+                    List<OutputConnection> conns = node.outputConnections;
+                    for (int i = 0; i < conns.Count; i++)
+                    {
+                        if (conns[i] != null)
+                        {
+                            if (conns[i].node != null)
+                            {
+                                if (!conns[i].node.IsPowered())
+                                {
+                                    conns[i].node.SetPowered();
+                                    nodes.Enqueue(conns[i].node);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
