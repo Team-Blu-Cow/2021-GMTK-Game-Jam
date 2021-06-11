@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (m_pickedUp)
         {
-            m_pickedUp.transform.position = (transform.position);
+            m_pickedUp.transform.position = transform.position;
         }
     }
 
@@ -99,10 +99,16 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (collide)
                 {
-                    if (collide.gameObject.CompareTag("Connector"))
+                    if (collide.gameObject.CompareTag("Pickup"))
                     {
                         m_pickedUp = collide.gameObject;
                         m_pickup = true;
+
+                        if (collide.TryGetComponent<Rigidbody2D>(out var rb))
+                        {
+                            collide.GetComponent<BoxCollider2D>().isTrigger = true;
+                            rb.freezeRotation = true;
+                        }
                         break;
                     }
                 }
@@ -110,6 +116,11 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            if (m_pickedUp.TryGetComponent<Rigidbody2D>(out var rb))
+            {
+                m_pickedUp.GetComponent<BoxCollider2D>().isTrigger = false;
+                rb.freezeRotation = false;
+            }
             m_pickedUp = null;
             m_pickup = false;
         }
