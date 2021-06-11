@@ -2,38 +2,56 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.AddressableAssets;
 
-public class Application : MonoBehaviour
+namespace bluModule
 {
-    [HideInInspector] public Module sceneModule = null;
-
-    [HideInInspector] public Module audioModule = null;
-
-    [HideInInspector] public Module settingsModule = null;
-
-    private void Awake()
+    public class Application : MonoBehaviour
     {
-        switch (SceneManager.GetActiveScene().buildIndex)
+        [HideInInspector] public static Application instance = null;
+
+        [HideInInspector] public bluModule.SceneModule sceneModule = null;
+
+        [HideInInspector] public bluModule.AudioModule audioModule = null;
+
+        [HideInInspector] public bluModule.SettingsModule settingsModule = null;
+
+        private void Awake()
         {
-            case 0: // splash screen
-                GameObject.Instantiate(Resources.Load<GameObject>("Scene Module")).transform.parent = transform;
-                sceneModule = GetComponentInChildren<SceneModule>();
-                break;
+            if (instance == null)
+            {
+                instance = this;
+            }
+            else if (instance != this)
+            {
+                Destroy(gameObject);
+            }
 
-            case 1: // main menu
-                GameObject.Instantiate(Resources.Load<GameObject>("Audio Module")).transform.parent = transform;
-                audioModule = GetComponentInChildren<AudioModule>();
-                break;
+            switch (SceneManager.GetActiveScene().buildIndex)
+            {
+                case 0: // splash screen
+                    GameObject.Instantiate(Resources.Load<GameObject>("Scene Module")).transform.parent = transform;
+                    sceneModule = GetComponentInChildren<bluModule.SceneModule>();
+                    GameObject.Instantiate(Resources.Load<GameObject>("Audio Module")).transform.parent = transform;
+                    audioModule = GetComponentInChildren<bluModule.AudioModule>();
+                    break;
 
-            default: // gameplay
-                GameObject.Instantiate(Resources.Load<GameObject>("Scene Module")).transform.parent = transform;
-                sceneModule = GetComponentInChildren<SceneModule>();
-                GameObject.Instantiate(Resources.Load<GameObject>("Audio Module")).transform.parent = transform;
-                audioModule = GetComponentInChildren<AudioModule>();
-                GameObject.Instantiate(Resources.Load<GameObject>("Settings Module")).transform.parent = transform;
-                settingsModule = GetComponentInChildren<SettingsModule>();
-                break;
+                case 1: // main menu
+                    GameObject module = GameObject.Instantiate(Resources.Load<GameObject>("Audio Module"));
+                    module.transform.parent = transform;
+
+                    audioModule = module.GetComponent<bluModule.AudioModule>();
+
+                    break;
+
+                default: // gameplay
+                    GameObject.Instantiate(Resources.Load<GameObject>("Scene Module")).transform.parent = transform;
+                    sceneModule = GetComponentInChildren<bluModule.SceneModule>();
+                    GameObject.Instantiate(Resources.Load<GameObject>("Audio Module")).transform.parent = transform;
+                    audioModule = GetComponentInChildren<bluModule.AudioModule>();
+                    GameObject.Instantiate(Resources.Load<GameObject>("Settings Module")).transform.parent = transform;
+                    settingsModule = GetComponentInChildren<bluModule.SettingsModule>();
+                    break;
+            }
         }
     }
 }

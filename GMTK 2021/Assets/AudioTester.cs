@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class AudioModule : Module
+public class AudioTester : MonoBehaviour
 {
     // Start is called before the first frame update
     private void Start()
@@ -12,5 +13,9 @@ public class AudioModule : Module
     // Update is called once per frame
     private void Update()
     {
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            bluModule.Application.instance.audioModule.NewAudioEvent("event:/player/footstep");
+        }
     }
 }

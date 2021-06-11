@@ -1,5 +1,51 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7628796313804024517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/player/footstep
+  m_EditorClassIdentifier: 
+  Path: event:/player/footstep
+  guid: 3ddeaf79ffe9b646b06fbab29daafa08
+  Banks:
+  - {fileID: -269122166652608107}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1500
+--- !u!114 &-6666384342295291435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/Footstep
+  m_EditorClassIdentifier: 
+  Path: event:/Player/Footstep
+  guid: 3ddeaf79ffe9b646b06fbab29daafa08
+  Banks:
+  - {fileID: -269122166652608107}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1501
 --- !u!114 &-269122166652608107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15,7 +61,7 @@ MonoBehaviour:
   Path: FMODAssets/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637590372352637481
+  lastModified: 637590421849952794
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -34,14 +80,39 @@ MonoBehaviour:
   EditorBanks:
   - {fileID: 8001193398099666961}
   - {fileID: -269122166652608107}
-  EditorEvents: []
+  EditorEvents:
+  - {fileID: -7628796313804024517}
+  - {fileID: 1079800480106994479}
   EditorParameters: []
   MasterBanks:
   - {fileID: -269122166652608107}
   StringsBanks:
   - {fileID: 8001193398099666961}
-  stringsBankWriteTime: 637590372352647488
+  stringsBankWriteTime: 637590421849962752
   cacheVersion: 6
+--- !u!114 &1079800480106994479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Warning Noise/New Event
+  m_EditorClassIdentifier: 
+  Path: event:/Warning Noise/New Event
+  guid: 08118ecfe2377749b37dd5eab60d7a1f
+  Banks:
+  - {fileID: -269122166652608107}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 2500
 --- !u!114 &8001193398099666961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57,9 +128,9 @@ MonoBehaviour:
   Path: FMODAssets/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637590372352647488
+  lastModified: 637590421849962752
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 700
+    Value: 818
   Exists: 1
