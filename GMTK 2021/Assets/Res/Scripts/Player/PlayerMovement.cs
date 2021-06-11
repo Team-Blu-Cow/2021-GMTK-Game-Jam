@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    private int m_speed;
+    private int m_maxSpeed;
 
     [SerializeField]
     [Range(0, 100)]
@@ -47,7 +47,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (m_velocity.x != 0)
         {
-            m_rb.AddForce(m_velocity * m_speed * Time.deltaTime);
+            m_rb.velocity = new Vector2(m_maxSpeed * Mathf.Sign(m_velocity.x), m_rb.velocity.y);
+
+            //m_rb.AddForce(m_velocity * m_speed * Time.deltaTime);
+            //if (Mathf.Abs(m_rb.velocity.x) > m_maxSpeed)
+            //{
+            //    m_rb.velocity = new Vector2(m_maxSpeed * Mathf.Sign(m_rb.velocity.x), m_rb.velocity.y);
+            //}
         }
     }
 
