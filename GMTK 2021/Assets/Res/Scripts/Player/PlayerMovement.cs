@@ -16,11 +16,16 @@ public class PlayerMovement : MonoBehaviour
 
     private InputMaster m_input;
 
+    public PlayerAnimationController m_anim;
+
     private void Awake()
     {
         m_inAir = true;
         m_rb = GetComponent<Rigidbody2D>();
         m_input = new InputMaster();
+        m_anim = GetComponent<PlayerAnimationController>();
+
+        Debug.Log((m_anim == null));
 
         m_input.PlayerMovement.Jump.started += _ => Jump();
         m_input.PlayerMovement.WASD.started += ctx => MoveStart(ctx.ReadValue<Vector2>());
@@ -37,10 +42,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (m_rb.velocity.x != 0)
-        {
-            transform.localScale = new Vector3(Mathf.Sign(m_rb.velocity.x), 1, 1);
-        }
+        m_anim.UpdateAnim(m_rb.velocity);
     }
 
     private void FixedUpdate()
@@ -72,17 +74,20 @@ public class PlayerMovement : MonoBehaviour
         if (!m_inAir)
         {
             m_inAir = true;
+            m_anim.SetBool("isGrounded", false);
             m_rb.AddForce(new Vector2(0, m_jumpHeight), ForceMode2D.Impulse);
         }
     }
 
     private void MoveStart(Vector2 in_velocity)
     {
+        m_anim.SetBool("isRunning", true);
         m_velocity = in_velocity;
     }
 
     private void MoveEnd()
     {
+        m_anim.SetBool("isRunning", false);
         m_velocity = new Vector2(0, 0);
     }
 
@@ -103,6 +108,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Terrain"))
         {
             m_inAir = false;
+            m_anim.SetBool("isGrounded", true);
         }
     }
 }
