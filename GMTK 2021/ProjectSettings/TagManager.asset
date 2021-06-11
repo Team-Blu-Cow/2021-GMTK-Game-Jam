@@ -5,7 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Terrain
-  - Connector
+  - Pickup
+  - PressurePlate
   layers:
   - Default
   - TransparentFX
@@ -13,7 +14,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Walkable
   - 
   - 
   - 

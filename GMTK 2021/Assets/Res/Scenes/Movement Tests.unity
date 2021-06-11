@@ -325,7 +325,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2544882910289073989, guid: 4ee47d86d54a45445bcf8f5bdb07729a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 1.31
       objectReference: {fileID: 0}
     - target: {fileID: 2544882910289073989, guid: 4ee47d86d54a45445bcf8f5bdb07729a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -524,9 +524,9 @@ GameObject:
   - component: {fileID: 1354030110}
   - component: {fileID: 1354030109}
   - component: {fileID: 1354030108}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Floor
-  m_TagString: Terrain
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -633,7 +633,7 @@ GameObject:
   - component: {fileID: 1400638222}
   - component: {fileID: 1400638224}
   - component: {fileID: 1400638225}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plate
   m_TagString: PressurePlate
   m_Icon: {fileID: 0}
@@ -743,7 +743,7 @@ GameObject:
   - component: {fileID: 1835154969}
   - component: {fileID: 1835154971}
   - component: {fileID: 1835154970}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -814,7 +814,7 @@ GameObject:
   - component: {fileID: 1902385562}
   - component: {fileID: 1902385561}
   - component: {fileID: 1902385560}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Box
   m_TagString: Pickup
   m_Icon: {fileID: 0}
@@ -1136,7 +1136,7 @@ GameObject:
   - component: {fileID: 1990934608}
   - component: {fileID: 1990934607}
   - component: {fileID: 1990934606}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PressurePlate
   m_TagString: Untagged
   m_Icon: {fileID: 0}

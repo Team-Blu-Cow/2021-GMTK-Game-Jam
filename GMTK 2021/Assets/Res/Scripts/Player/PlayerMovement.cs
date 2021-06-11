@@ -6,10 +6,24 @@ public class PlayerMovement : MonoBehaviour
     private int m_maxSpeed;
 
     [SerializeField]
+    private Transform m_groundSensor;
+
+    [SerializeField]
+    private float m_groundSensorRadius;
+
+    private LayerMask walkable;
+
+    [SerializeField]
+    private Transform m_pickupSensor;
+
+    [SerializeField]
+    private float m_pickupSensorRadius;
+
+    [SerializeField]
     [Range(0, 100)]
     private int m_jumpHeight;
 
-    private bool m_inAir;
+    private bool m_grounded = false;
     private bool m_pickup;
     private GameObject m_pickedUp;
 
@@ -22,7 +36,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        m_inAir = true;
         m_rb = GetComponent<Rigidbody2D>();
         m_input = new InputMaster();
         m_anim = GetComponent<PlayerAnimationController>();
@@ -34,17 +47,15 @@ public class PlayerMovement : MonoBehaviour
         m_input.PlayerMovement.WASD.canceled += _ => MoveEnd();
 
         m_input.PlayerMovement.Pickup.performed += _ => Pickup();
-    }
 
-    // Start is called before the first frame update
-    private void Start()
-    {
+        walkable = LayerMask.GetMask("Walkable");
     }
 
     // Update is called once per frame
     private void Update()
     {
         m_anim.UpdateAnim(m_rb.velocity);
+        CheckSurroundings();
 
         if (m_pickedUp)
         {
@@ -72,9 +83,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        if (!m_inAir)
+        if (m_grounded)
         {
-            m_inAir = true;
+            m_grounded = false;
             m_anim.SetBool("isGrounded", false);
             m_rb.AddForce(new Vector2(0, m_jumpHeight), ForceMode2D.Impulse);
         }
@@ -96,9 +107,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!m_pickup)
         {
-            Collider2D[] collisions = new Collider2D[10];
-
-            m_rb.OverlapCollider(new ContactFilter2D().NoFilter(), collisions);
+            Collider2D[] collisions = Physics2D.OverlapCircleAll(m_pickupSensor.position, m_pickupSensorRadius, walkable);
 
             foreach (Collider2D collide in collisions)
             {
@@ -131,12 +140,18 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void CheckSurroundings()
     {
-        if (collision.gameObject.CompareTag("Terrain"))
-        {
-            m_inAir = false;
+        if (m_grounded)
             m_anim.SetBool("isGrounded", true);
-        }
+        m_grounded = Physics2D.OverlapCircle(m_groundSensor.position, m_groundSensorRadius, walkable);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+
+        Gizmos.DrawWireSphere(m_groundSensor.position, m_groundSensorRadius);
+        Gizmos.DrawWireSphere(m_pickupSensor.position, m_pickupSensorRadius);
     }
 }
