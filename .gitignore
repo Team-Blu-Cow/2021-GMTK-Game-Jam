@@ -61,6 +61,5 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
-GMTK 2021/fmod_editor.log
 *.log
-GMTK 2021/Assets/Plugins/FMOD/Cache/Editor/FMODStudioCache.asset
+**/Editor/FMODStudioCache.asset
