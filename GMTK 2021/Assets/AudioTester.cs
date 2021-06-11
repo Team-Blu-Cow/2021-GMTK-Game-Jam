@@ -15,7 +15,23 @@ public class AudioTester : MonoBehaviour
     {
         if (Keyboard.current.spaceKey.wasPressedThisFrame)
         {
-            bluModule.Application.instance.audioModule.NewAudioEvent("event:/player/footstep");
+            bluModule.Application.instance.audioModule.NewOneShot("event:/player/footstep");
+        }
+        if (Keyboard.current.pKey.wasPressedThisFrame)
+        {
+            bluModule.Application.instance.audioModule.NewMusicEvent("event:/music/New Event");
+        }
+        if (Keyboard.current.sKey.wasPressedThisFrame)
+        {
+            bluModule.Application.instance.audioModule.StopMusicEvent("event:/music/New Event");
+        }
+        if (Keyboard.current.lKey.wasPressedThisFrame)
+        {
+            bluModule.Application.instance.audioModule.StopMusicEvent("event:/music/New Event", true);
+        }
+        if (Keyboard.current.oKey.wasPressedThisFrame)
+        {
+            bluModule.Application.instance.audioModule.PauseMusicEvent("event:/music/New Event");
         }
     }
 }
