@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
 
     private bool direction;
 
+    private INpu
+
     // Start is called before the first frame update
     private void Start()
     {

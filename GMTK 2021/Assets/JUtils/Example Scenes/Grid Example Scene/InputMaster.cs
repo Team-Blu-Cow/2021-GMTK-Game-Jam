@@ -15,7 +15,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
     ""name"": ""InputMaster"",
     ""maps"": [
         {
-            ""name"": ""test map"",
+            ""name"": ""PlayerMovement"",
             ""id"": ""77164e1f-6adb-484a-9512-1643b08347b3"",
             ""actions"": [
                 {
@@ -43,7 +43,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Space"",
+                    ""name"": ""Jump"",
                     ""type"": ""Button"",
                     ""id"": ""b4983e7d-9c0d-4934-9ec5-3227fd3b8b7d"",
                     ""expectedControlType"": ""Button"",
@@ -100,7 +100,18 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Space"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3808f8c6-78e0-4c12-b1ac-cf91d46724a7"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -164,13 +175,13 @@ public class @InputMaster : IInputActionCollection, IDisposable
     ],
     ""controlSchemes"": []
 }");
-        // test map
-        m_testmap = asset.FindActionMap("test map", throwIfNotFound: true);
-        m_testmap_MousePosition = m_testmap.FindAction("MousePosition", throwIfNotFound: true);
-        m_testmap_MouseLClick = m_testmap.FindAction("MouseLClick", throwIfNotFound: true);
-        m_testmap_MouseRClick = m_testmap.FindAction("MouseRClick", throwIfNotFound: true);
-        m_testmap_Space = m_testmap.FindAction("Space", throwIfNotFound: true);
-        m_testmap_WASD = m_testmap.FindAction("WASD", throwIfNotFound: true);
+        // PlayerMovement
+        m_PlayerMovement = asset.FindActionMap("PlayerMovement", throwIfNotFound: true);
+        m_PlayerMovement_MousePosition = m_PlayerMovement.FindAction("MousePosition", throwIfNotFound: true);
+        m_PlayerMovement_MouseLClick = m_PlayerMovement.FindAction("MouseLClick", throwIfNotFound: true);
+        m_PlayerMovement_MouseRClick = m_PlayerMovement.FindAction("MouseRClick", throwIfNotFound: true);
+        m_PlayerMovement_Jump = m_PlayerMovement.FindAction("Jump", throwIfNotFound: true);
+        m_PlayerMovement_WASD = m_PlayerMovement.FindAction("WASD", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -217,49 +228,49 @@ public class @InputMaster : IInputActionCollection, IDisposable
         asset.Disable();
     }
 
-    // test map
-    private readonly InputActionMap m_testmap;
-    private ITestmapActions m_TestmapActionsCallbackInterface;
-    private readonly InputAction m_testmap_MousePosition;
-    private readonly InputAction m_testmap_MouseLClick;
-    private readonly InputAction m_testmap_MouseRClick;
-    private readonly InputAction m_testmap_Space;
-    private readonly InputAction m_testmap_WASD;
-    public struct TestmapActions
+    // PlayerMovement
+    private readonly InputActionMap m_PlayerMovement;
+    private IPlayerMovementActions m_PlayerMovementActionsCallbackInterface;
+    private readonly InputAction m_PlayerMovement_MousePosition;
+    private readonly InputAction m_PlayerMovement_MouseLClick;
+    private readonly InputAction m_PlayerMovement_MouseRClick;
+    private readonly InputAction m_PlayerMovement_Jump;
+    private readonly InputAction m_PlayerMovement_WASD;
+    public struct PlayerMovementActions
     {
         private @InputMaster m_Wrapper;
-        public TestmapActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
-        public InputAction @MousePosition => m_Wrapper.m_testmap_MousePosition;
-        public InputAction @MouseLClick => m_Wrapper.m_testmap_MouseLClick;
-        public InputAction @MouseRClick => m_Wrapper.m_testmap_MouseRClick;
-        public InputAction @Space => m_Wrapper.m_testmap_Space;
-        public InputAction @WASD => m_Wrapper.m_testmap_WASD;
-        public InputActionMap Get() { return m_Wrapper.m_testmap; }
+        public PlayerMovementActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MousePosition => m_Wrapper.m_PlayerMovement_MousePosition;
+        public InputAction @MouseLClick => m_Wrapper.m_PlayerMovement_MouseLClick;
+        public InputAction @MouseRClick => m_Wrapper.m_PlayerMovement_MouseRClick;
+        public InputAction @Jump => m_Wrapper.m_PlayerMovement_Jump;
+        public InputAction @WASD => m_Wrapper.m_PlayerMovement_WASD;
+        public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(TestmapActions set) { return set.Get(); }
-        public void SetCallbacks(ITestmapActions instance)
+        public static implicit operator InputActionMap(PlayerMovementActions set) { return set.Get(); }
+        public void SetCallbacks(IPlayerMovementActions instance)
         {
-            if (m_Wrapper.m_TestmapActionsCallbackInterface != null)
+            if (m_Wrapper.m_PlayerMovementActionsCallbackInterface != null)
             {
-                @MousePosition.started -= m_Wrapper.m_TestmapActionsCallbackInterface.OnMousePosition;
-                @MousePosition.performed -= m_Wrapper.m_TestmapActionsCallbackInterface.OnMousePosition;
-                @MousePosition.canceled -= m_Wrapper.m_TestmapActionsCallbackInterface.OnMousePosition;
-                @MouseLClick.started -= m_Wrapper.m_TestmapActionsCallbackInterface.OnMouseLClick;
-                @MouseLClick.performed -= m_Wrapper.m_TestmapActionsCallbackInterface.OnMouseLClick;
-                @MouseLClick.canceled -= m_Wrapper.m_TestmapActionsCallbackInterface.OnMouseLClick;
-                @MouseRClick.started -= m_Wrapper.m_TestmapActionsCallbackInterface.OnMouseRClick;
-                @MouseRClick.performed -= m_Wrapper.m_TestmapActionsCallbackInterface.OnMouseRClick;
-                @MouseRClick.canceled -= m_Wrapper.m_TestmapActionsCallbackInterface.OnMouseRClick;
-                @Space.started -= m_Wrapper.m_TestmapActionsCallbackInterface.OnSpace;
-                @Space.performed -= m_Wrapper.m_TestmapActionsCallbackInterface.OnSpace;
-                @Space.canceled -= m_Wrapper.m_TestmapActionsCallbackInterface.OnSpace;
-                @WASD.started -= m_Wrapper.m_TestmapActionsCallbackInterface.OnWASD;
-                @WASD.performed -= m_Wrapper.m_TestmapActionsCallbackInterface.OnWASD;
-                @WASD.canceled -= m_Wrapper.m_TestmapActionsCallbackInterface.OnWASD;
+                @MousePosition.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnMousePosition;
+                @MousePosition.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnMousePosition;
+                @MousePosition.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnMousePosition;
+                @MouseLClick.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnMouseLClick;
+                @MouseLClick.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnMouseLClick;
+                @MouseLClick.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnMouseLClick;
+                @MouseRClick.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnMouseRClick;
+                @MouseRClick.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnMouseRClick;
+                @MouseRClick.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnMouseRClick;
+                @Jump.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnJump;
+                @WASD.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnWASD;
+                @WASD.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnWASD;
+                @WASD.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnWASD;
             }
-            m_Wrapper.m_TestmapActionsCallbackInterface = instance;
+            m_Wrapper.m_PlayerMovementActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @MousePosition.started += instance.OnMousePosition;
@@ -271,22 +282,22 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @MouseRClick.started += instance.OnMouseRClick;
                 @MouseRClick.performed += instance.OnMouseRClick;
                 @MouseRClick.canceled += instance.OnMouseRClick;
-                @Space.started += instance.OnSpace;
-                @Space.performed += instance.OnSpace;
-                @Space.canceled += instance.OnSpace;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
                 @WASD.started += instance.OnWASD;
                 @WASD.performed += instance.OnWASD;
                 @WASD.canceled += instance.OnWASD;
             }
         }
     }
-    public TestmapActions @testmap => new TestmapActions(this);
-    public interface ITestmapActions
+    public PlayerMovementActions @PlayerMovement => new PlayerMovementActions(this);
+    public interface IPlayerMovementActions
     {
         void OnMousePosition(InputAction.CallbackContext context);
         void OnMouseLClick(InputAction.CallbackContext context);
         void OnMouseRClick(InputAction.CallbackContext context);
-        void OnSpace(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
         void OnWASD(InputAction.CallbackContext context);
     }
 }
