@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class SettingsGetter : MonoBehaviour
 {
-    public AudioSettings settingsMod;
+    public bluModule.AudioSettings settingsMod;
 
     private void Start()
     {
-        GameObject.FindObjectOfType<SettingsModule>()
+        settingsMod = GameObject.FindObjectOfType<bluModule.SettingsModule>().audioSettings;
+    }
+
+    public void SetMasterVolume(float input)
+    {
+        settingsMod.SetMasterVolume(input);
     }
 }
