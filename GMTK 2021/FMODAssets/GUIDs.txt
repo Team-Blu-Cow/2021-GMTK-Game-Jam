@@ -1,9 +1,0 @@
-{4e62d7b4-0849-4b05-adeb-50766e54da94} bank:/Master
-{d67ff760-7932-0747-2ba2-da889fa7dc0c} bank:/Master.strings
-{61257475-8877-44b4-a0f0-a824020a0ff9} bus:/
-{268bff12-35b5-4b0e-89e6-dd5f7d0b9518} bus:/Music
-{ec9fe561-22bb-4270-ac30-e38a814cbb76} bus:/Reverb
-{af35d069-304a-4749-b20d-de1a0a0db886} bus:/SFX
-{cf8e1108-37e2-4977-b37d-d5eab60d7a1f} event:/Warning Noise/New Event
-{04bd08bb-7dc5-48a0-aa40-1e5122cc3e6f} event:/music/Beef Stroganoff
-{79afde3d-e9ff-46b6-b06f-bab29daafa08} event:/player/footstep
