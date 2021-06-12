@@ -33,6 +33,7 @@ namespace bluModule
                     sceneModule = GetComponentInChildren<bluModule.SceneModule>();
                     GameObject.Instantiate(Resources.Load<GameObject>("Audio Module")).transform.parent = transform;
                     audioModule = GetComponentInChildren<bluModule.AudioModule>();
+                    audioModule.Init();
                     break;
 
                 case 1: // main menu
@@ -47,6 +48,7 @@ namespace bluModule
                     sceneModule = GetComponentInChildren<bluModule.SceneModule>();
                     GameObject.Instantiate(Resources.Load<GameObject>("Audio Module")).transform.parent = transform;
                     audioModule = GetComponentInChildren<bluModule.AudioModule>();
+                    audioModule.Init();
                     GameObject.Instantiate(Resources.Load<GameObject>("Settings Module")).transform.parent = transform;
                     settingsModule = GetComponentInChildren<bluModule.SettingsModule>();
                     break;
