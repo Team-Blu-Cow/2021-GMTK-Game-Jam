@@ -108,6 +108,7 @@ namespace bluModule
         private void CreateEvents()
         {
             NewAudioEvent("event:/player/footstep", 20);
+            NewAudioEvent("event:/environment/objects/interactables/power supply/hum");
             NewAudioEvent("event:/environment/objects/interactables/plugs/pick up", 5);
             NewAudioEvent("event:/environment/objects/interactables/plugs/put down", 5);
             NewAudioEvent("event:/environment/objects/nodes/button insert", 5);
@@ -115,7 +116,7 @@ namespace bluModule
             NewAudioEvent("event:/environment/objects/interactables/pressure plates/insert", 5);
             NewAudioEvent("event:/environment/objects/interactables/pressure plates/remove", 5);
             NewAudioEvent("event:/environment/objects/interactables/door/open", 3);
-            NewAudioEvent("event:/environment/objects/interactables/door/close");
+            NewAudioEvent("event:/environment/objects/interactables/door/close", 3);
             NewAudioEvent("event:/UI/buttons/on click");
             NewMusicEvent("event:/music/Beef Stroganoff");
             NewMusicEvent("event:/music/Main theme");
