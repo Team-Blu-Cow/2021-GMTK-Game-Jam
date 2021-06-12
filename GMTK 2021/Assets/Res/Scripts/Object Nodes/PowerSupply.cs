@@ -6,12 +6,12 @@ namespace Nodes
 {
     public class PowerSupply : Node
     {
-        protected override void OnEnable()
+        protected override void Start()
         {
             NodeClock.Instance.NodePowerSupplyUpdate += OnInvoke;
         }
 
-        protected override void OnDisable()
+        protected override void OnDestroy()
         {
             NodeClock.Instance.NodePowerSupplyUpdate -= OnInvoke;
         }
@@ -31,12 +31,16 @@ namespace Nodes
                 {
                     if (conns[i] != null)
                     {
-                        if (conns[i].node != null)
+                        if(conns[i].other != null)
                         {
-                            if (!conns[i].node.IsPowered())
+
+                            if (conns[i].other.node != null)
                             {
-                                conns[i].node.SetPowered();
-                                nodes.Enqueue(conns[i].node);
+                                if (!conns[i].other.node.IsPowered())
+                                {
+                                    conns[i].other.node.SetPowered();
+                                    nodes.Enqueue(conns[i].other.node);
+                                }
                             }
                         }
                     }

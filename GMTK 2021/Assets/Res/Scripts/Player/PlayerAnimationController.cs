@@ -9,9 +9,9 @@ public class PlayerAnimationController : MonoBehaviour
     bool flipped = false;
     bool falling = false;
 
-    [SerializeField] Transform mainAnimator;
-    [SerializeField] Transform body;
-    [SerializeField] Transform arms;
+    [SerializeField] private Transform mainAnimator;
+    [SerializeField] private Transform body;
+    [SerializeField] private Transform arms;
 
     public void Start()
     {
@@ -43,8 +43,6 @@ public class PlayerAnimationController : MonoBehaviour
 
     public static void Footstep()
     {
-        bluModule.Application.instance.audioModule.NewOneShot("event:/player/footstep");
+        bluModule.Application.instance.audioModule.PlayAudioEvent("event:/player/footstep");
     }
-
-
 }
