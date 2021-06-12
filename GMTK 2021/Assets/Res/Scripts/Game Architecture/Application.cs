@@ -29,6 +29,8 @@ namespace bluModule
             switch (SceneManager.GetActiveScene().buildIndex)
             {
                 case 0: // splash screen
+                    GameObject.Instantiate(Resources.Load<GameObject>("Settings Module")).transform.parent = transform;
+                    settingsModule = GetComponentInChildren<bluModule.SettingsModule>();
                     GameObject.Instantiate(Resources.Load<GameObject>("Scene Module")).transform.parent = transform;
                     sceneModule = GetComponentInChildren<bluModule.SceneModule>();
                     GameObject.Instantiate(Resources.Load<GameObject>("Audio Module")).transform.parent = transform;
@@ -37,6 +39,8 @@ namespace bluModule
                     break;
 
                 case 1: // main menu
+                    GameObject.Instantiate(Resources.Load<GameObject>("Settings Module")).transform.parent = transform;
+                    settingsModule = GetComponentInChildren<bluModule.SettingsModule>();
                     GameObject.Instantiate(Resources.Load<GameObject>("Audio Module")).transform.parent = transform;
                     audioModule = GetComponentInChildren<bluModule.AudioModule>();
                     audioModule.Init();
@@ -44,13 +48,13 @@ namespace bluModule
                     break;
 
                 default: // gameplay
+                    GameObject.Instantiate(Resources.Load<GameObject>("Settings Module")).transform.parent = transform;
+                    settingsModule = GetComponentInChildren<bluModule.SettingsModule>();
                     GameObject.Instantiate(Resources.Load<GameObject>("Scene Module")).transform.parent = transform;
                     sceneModule = GetComponentInChildren<bluModule.SceneModule>();
                     GameObject.Instantiate(Resources.Load<GameObject>("Audio Module")).transform.parent = transform;
                     audioModule = GetComponentInChildren<bluModule.AudioModule>();
                     audioModule.Init();
-                    GameObject.Instantiate(Resources.Load<GameObject>("Settings Module")).transform.parent = transform;
-                    settingsModule = GetComponentInChildren<bluModule.SettingsModule>();
                     break;
             }
         }

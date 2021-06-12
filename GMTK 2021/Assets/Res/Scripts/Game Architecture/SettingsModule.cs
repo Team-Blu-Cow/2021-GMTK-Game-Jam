@@ -6,7 +6,7 @@ namespace bluModule
 {
     public class SettingsModule : Module
     {
-        public AudioSettings audioSettings;
+        public AudioSettings audioSettings = new AudioSettings();
     }
 
     public class AudioSettings
