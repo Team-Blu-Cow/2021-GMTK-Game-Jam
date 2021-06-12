@@ -8,6 +8,7 @@ namespace bluModule
     public class SceneModule : Module
     {
         private Animator transition;
+        private GameObject transitionGO;
 
         public void SwitchScene(string in_Scene)
         {
@@ -23,7 +24,10 @@ namespace bluModule
 
         private void Awake()
         {
-            transition = Resources.Load<Animator>("Animations/Crossfade");
+            transitionGO = Instantiate(Resources.Load<GameObject>("Animations/Transition"), transform);
+            transitionGO.GetComponent<Canvas>().worldCamera = Camera.main; //!! camera Main, store camera in app class
+
+            transition = transitionGO.GetComponent<Animator>();
         }
     }
 }

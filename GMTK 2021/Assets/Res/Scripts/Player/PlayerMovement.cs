@@ -91,8 +91,6 @@ public class PlayerMovement : MonoBehaviour
             m_anim.SetBool("isGrounded", false);
             m_rb.AddForce(new Vector2(0, m_jumpHeight), ForceMode2D.Impulse);
         }
-
-        bluModule.Application.instance.sceneModule.SwitchScene("Sample Scene");
     }
 
     private void MoveStart(Vector2 in_velocity)
@@ -109,6 +107,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Pickup()
     {
+        bluModule.Application.instance.sceneModule.SwitchScene("SampleScene");
+
         if (!m_pickup)
         {
             Collider2D[] collisions = Physics2D.OverlapCircleAll(m_pickupSensor.position, m_pickupSensorRadius, walkable);
