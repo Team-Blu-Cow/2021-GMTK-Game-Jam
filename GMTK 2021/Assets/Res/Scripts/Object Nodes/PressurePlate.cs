@@ -8,6 +8,8 @@ namespace Nodes
     {
         private int m_collisionCount;
 
+        private bool m_isPressed = false;
+
         protected override void Start()
         {
             NodeClock.Instance.NodePowerSupplyUpdate += OnInvoke;
@@ -22,7 +24,7 @@ namespace Nodes
         private void Update()
         {
             Vector3 position = transform.parent.localPosition;
-            if (m_isPowered && position.y > 0.35)
+            if (m_isPressed && position.y > 0.35)
             {
                 transform.parent.localPosition = new Vector3(position.x, position.y - 0.005f, position.z);
             }
@@ -42,7 +44,7 @@ namespace Nodes
                 }
 
                 m_collisionCount++;
-                m_isPowered = true;
+                m_isPressed = true;
             }
         }
 
@@ -54,14 +56,15 @@ namespace Nodes
                 if (m_collisionCount == 0)
                 {
                     bluModule.Application.instance.audioModule.PlayAudioEvent("event:/environment/objects/interactables/pressure plates/remove");
-                    m_isPowered = false;
+                    m_isPressed = false;
                 }
             }
         }
 
         protected override void OnInvoke()
         {
-            if (m_isPowered)
+            m_isPowered = false;
+            if (m_isPressed)
             {
                 PowerConnectedNodes();
             }

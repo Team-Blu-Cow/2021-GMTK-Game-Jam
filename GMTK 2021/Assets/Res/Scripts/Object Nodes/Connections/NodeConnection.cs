@@ -13,6 +13,11 @@ namespace Nodes
 
         protected Nodes.Node m_node = null;
 
+        [SerializeField]
+        private bool m_allowPlayerInteraction = true;
+
+        public bool allowPlayerInteraction { get { return m_allowPlayerInteraction; } }
+
         private void Awake()
         {
             m_node = transform.parent.gameObject.GetComponent<Nodes.Node>();

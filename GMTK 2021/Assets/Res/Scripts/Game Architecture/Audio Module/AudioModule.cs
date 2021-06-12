@@ -9,11 +9,14 @@ namespace bluModule
         private Dictionary<string, AudioEvent> _musicEvents = new Dictionary<string, AudioEvent>();
         private Dictionary<string, AudioEvent> _audioEvents = new Dictionary<string, AudioEvent>();
 
-        public void NewAudioEvent(string name) // use "object/event"
+        public void NewAudioEvent(string name, int poly = 0) // use "object/event"
         {                                      // e.g. "player/footstep"
             if (name != null)
             {
-                _audioEvents.Add(name, new AudioEvent(name));
+                if (poly == 0)
+                    _audioEvents.Add(name, new AudioEvent(name));
+                else
+                    _audioEvents.Add(name, new AudioEvent(name, poly));
             }
             else
             {
@@ -104,15 +107,16 @@ namespace bluModule
 
         private void CreateEvents()
         {
-            NewAudioEvent("event:/player/footstep");
-            NewAudioEvent("event:/environment/objects/interactables/plugs/pick up");
-            NewAudioEvent("event:/environment/objects/interactables/plugs/put down");
-            NewAudioEvent("event:/environment/objects/nodes/button insert");
-            NewAudioEvent("event:/environment/objects/nodes/button remove");
-            NewAudioEvent("event:/environment/objects/interactables/pressure plates/insert");
-            NewAudioEvent("event:/environment/objects/interactables/pressure plates/remove");
-            NewAudioEvent("event:/environment/objects/interactables/door/open");
-            NewAudioEvent("event:/environment/objects/interactables/door/close");
+            NewAudioEvent("event:/player/footstep", 20);
+            NewAudioEvent("event:/environment/objects/interactables/power supply/hum");
+            NewAudioEvent("event:/environment/objects/interactables/plugs/pick up", 5);
+            NewAudioEvent("event:/environment/objects/interactables/plugs/put down", 5);
+            NewAudioEvent("event:/environment/objects/nodes/button insert", 5);
+            NewAudioEvent("event:/environment/objects/nodes/button remove", 5);
+            NewAudioEvent("event:/environment/objects/interactables/pressure plates/insert", 5);
+            NewAudioEvent("event:/environment/objects/interactables/pressure plates/remove", 5);
+            NewAudioEvent("event:/environment/objects/interactables/door/open", 3);
+            NewAudioEvent("event:/environment/objects/interactables/door/close", 3);
             NewAudioEvent("event:/UI/buttons/on click");
             NewMusicEvent("event:/music/Beef Stroganoff");
             NewMusicEvent("event:/music/Main theme");
