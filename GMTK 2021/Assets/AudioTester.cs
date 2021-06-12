@@ -15,23 +15,8 @@ public class AudioTester : MonoBehaviour
     {
         if (Keyboard.current.spaceKey.wasPressedThisFrame)
         {
-            bluModule.Application.instance.audioModule.PlayAudioEvent("event:/player/footstep");
+            bluModule.Application.instance.audioModule.PlayAudioEvent("event:/environment/objects/nodes/button remove");
         }
-        if (Keyboard.current.pKey.wasPressedThisFrame)
-        {
-            bluModule.Application.instance.audioModule.PlayMusicEvent("event:/music/Beef Stroganoff");
-        }
-        if (Keyboard.current.sKey.wasPressedThisFrame)
-        {
-            bluModule.Application.instance.audioModule.StopMusicEvent("event:/music/Beef Stroganoff");
-        }
-        if (Keyboard.current.lKey.wasPressedThisFrame)
-        {
-            bluModule.Application.instance.audioModule.StopMusicEvent("event:/music/Beef Stroganoff", true);
-        }
-        if (Keyboard.current.oKey.wasPressedThisFrame)
-        {
-            bluModule.Application.instance.audioModule.PauseMusicEvent("event:/music/Beef Stroganoff");
-        }
+        
     }
 }
