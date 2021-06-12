@@ -33,9 +33,19 @@ namespace bluModule
             }
         }
 
+        public void TogglePauseMusicEvent(string name)
+        {
+            _musicEvents[name].TogglePause();
+        }
+
         public void PauseMusicEvent(string name)
         {
             _musicEvents[name].Pause();
+        }
+
+        public void UnpauseMusicEvent(string name)
+        {
+            _musicEvents[name].Unpause();
         }
 
         public void StopMusicEvent(string name, bool fade = false)
