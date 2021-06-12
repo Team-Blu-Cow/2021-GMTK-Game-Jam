@@ -110,23 +110,30 @@ public class ButtonWrapperEditor : Editor
                         Indent();
                         if (!button.quit)
                         {
-                            button.open = GUILayout.Toggle(button.open, "Open");
-                            if (button.open)
+                            if (!button.swapScene)
                             {
-                                button.stack = GUILayout.Toggle(button.stack, "Stack");
+                                button.open = GUILayout.Toggle(button.open, "Open");
+                                if (button.open)
+                                {
+                                    button.stack = GUILayout.Toggle(button.stack, "Stack");
+                                }
+                                else
+                                {
+                                    button.stack = false;
+                                }
+
+                                if (Application.isPlaying && GUI.changed)
+                                {
+                                    button.button.onClick.RemoveAllListeners();
+                                    if (button.open)
+                                        button.button.onClick.AddListener(delegate { canvasManager.OpenCanvas(canvasManager.GetCanvasContainer(button.canvas), button.stack); });
+                                    else
+                                        button.button.onClick.AddListener(delegate { canvasManager.CloseCanvas(button.stack); });
+                                }
                             }
                             else
                             {
-                                button.stack = false;
-                            }
-
-                            if (Application.isPlaying && GUI.changed)
-                            {
-                                button.button.onClick.RemoveAllListeners();
-                                if (button.open)
-                                    button.button.onClick.AddListener(delegate { canvasManager.OpenCanvas(canvasManager.GetCanvasContainer(button.canvas), button.stack); });
-                                else
-                                    button.button.onClick.AddListener(delegate { canvasManager.CloseCanvas(button.stack); });
+                                button.open = false;
                             }
                         }
                         else
