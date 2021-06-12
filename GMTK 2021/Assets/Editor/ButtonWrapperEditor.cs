@@ -97,10 +97,27 @@ public class ButtonWrapperEditor : Editor
 
                         if (!button.swapScene)
                         {
+                            button.quit = GUILayout.Toggle(button.quit, "Quit");
+                        }
+                        else
+                        {
+                            button.quit = false;
+                        }
+                    }
+
+                    using (var HorizontalScope = new GUILayout.HorizontalScope())
+                    {
+                        Indent();
+                        if (!button.quit)
+                        {
                             button.open = GUILayout.Toggle(button.open, "Open");
                             if (button.open)
                             {
                                 button.stack = GUILayout.Toggle(button.stack, "Stack");
+                            }
+                            else
+                            {
+                                button.stack = false;
                             }
 
                             if (Application.isPlaying && GUI.changed)
@@ -111,6 +128,10 @@ public class ButtonWrapperEditor : Editor
                                 else
                                     button.button.onClick.AddListener(delegate { canvasManager.CloseCanvas(button.stack); });
                             }
+                        }
+                        else
+                        {
+                            button.open = false;
                         }
                     }
 

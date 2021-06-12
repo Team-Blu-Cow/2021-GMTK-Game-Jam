@@ -13,6 +13,7 @@ public class ButtonContainer
     public GameObject gameObject;
 
     public bool open;
+    public bool quit;
     public bool swapScene;
     public string sceneName = "";
 

@@ -15,11 +15,18 @@ namespace bluModule
             StartCoroutine(LoadLevel(in_Scene));
         }
 
+        public void Quit()
+        {
+            Debug.Log("Application Quitting");
+            UnityEngine.Application.Quit();
+        }
+
         private IEnumerator LoadLevel(string in_Scene)
         {
             transition.SetTrigger("Start");
             yield return new WaitForSeconds(1);
             SceneManager.LoadScene(in_Scene);
+            transition.SetTrigger("End");
         }
 
         private void Awake()
