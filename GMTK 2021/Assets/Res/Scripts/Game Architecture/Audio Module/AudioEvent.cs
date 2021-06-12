@@ -7,7 +7,6 @@ public class AudioEvent
     public bool released = false;
 
     private FMOD.Studio.EventInstance _instance;
-    private FMOD.Studio.PLAYBACK_STATE _STATE;
 
     private string _eventName = "event:/Warning Noise/New Event";
 
@@ -27,21 +26,41 @@ public class AudioEvent
         _instance.start();
     }
 
-    public void Pause()
+    public void TogglePause()
     {
         bool _paused;
         _instance.getPaused(out _paused);
         _instance.setPaused(!_paused);
     }
 
+    public void Pause()
+    {
+        bool _paused;
+        _instance.getPaused(out _paused);
+        if (_paused)
+            return;
+
+        _instance.setPaused(true);
+    }
+
+    public void Unpause()
+    {
+        bool _paused;
+        _instance.getPaused(out _paused);
+        if (!_paused)
+            return;
+
+        _instance.setPaused(false);
+    }
+
     public void FadeStop()
     {
-        _instance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        _instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
 
     public void HardStop()
     {
-        _instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        _instance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
     }
 
     public void DeleteEvent()
