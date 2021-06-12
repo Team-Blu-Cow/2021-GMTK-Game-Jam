@@ -6,6 +6,6 @@ public class PlayerBodySoundController : MonoBehaviour
 {
     public void Footstep()
     {
-        bluModule.Application.instance.audioModule.NewOneShot("event:/player/footstep");
+        bluModule.Application.instance.audioModule.PlayAudioEvent("event:/player/footstep");
     }
 }
