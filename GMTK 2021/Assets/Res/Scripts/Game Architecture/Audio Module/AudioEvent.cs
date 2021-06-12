@@ -68,4 +68,9 @@ public class AudioEvent
         _instance.release();
         released = true;
     }
+
+    public void SetParameter(string name, float value)
+    {
+        _instance.setParameterByName(name, value);
+    }
 }
