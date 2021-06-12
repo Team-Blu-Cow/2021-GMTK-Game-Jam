@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class PlayerAnimationController : MonoBehaviour
 {
-    Animator bodyAnim;
-    bool flipped = false;
-    bool falling = false;
+    private Animator bodyAnim;
+    private bool flipped = false;
+    private bool falling = false;
 
-    [SerializeField] Transform mainAnimator;
-    [SerializeField] Transform body;
-    [SerializeField] Transform arms;
+    [SerializeField] private Transform mainAnimator;
+    [SerializeField] private Transform body;
+    [SerializeField] private Transform arms;
 
     public void Start()
     {
         mainAnimator = transform.Find("Animations");
         body = mainAnimator.Find("Body");
-        
+
         bodyAnim = body.GetComponent<Animator>();
     }
 
@@ -37,8 +37,6 @@ public class PlayerAnimationController : MonoBehaviour
 
     public static void Footstep()
     {
-        bluModule.Application.instance.audioModule.NewOneShot("event:/player/footstep");
+        bluModule.Application.instance.audioModule.PlayAudioEvent("event:/player/footstep");
     }
-
-
 }
