@@ -26,7 +26,8 @@ namespace CanvasTool
 
         virtual public void OpenCanvas()
         {
-            canvas.enabled = true;
+            if (canvas)
+                canvas.enabled = true;
         }
     }
 }
