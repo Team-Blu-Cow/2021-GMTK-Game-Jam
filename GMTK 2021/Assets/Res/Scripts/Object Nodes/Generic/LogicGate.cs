@@ -12,7 +12,8 @@ namespace Nodes
         NOT,
         NAND,
         NOR,
-        XOR
+        XOR,
+        XNOR
     }
 
     public abstract class LogicGate : Node
