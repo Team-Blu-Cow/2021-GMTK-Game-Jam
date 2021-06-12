@@ -15,7 +15,7 @@ public class NodeClock : MonoBehaviour
 
     public event Action NodePowerSupplyUpdate;
 
-    private void Awake()
+    private void OnEnable()
     {
         if (m_instance == null)
         {
@@ -26,6 +26,8 @@ public class NodeClock : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public List<Nodes.InputConnection> m_allInputConnectors = new List<Nodes.InputConnection>();
 
     private void Update()
     {

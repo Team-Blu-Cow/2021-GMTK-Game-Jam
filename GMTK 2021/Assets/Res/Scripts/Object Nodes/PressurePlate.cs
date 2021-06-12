@@ -6,12 +6,12 @@ namespace Nodes
 {
     public class PressurePlate : Node
     {
-        protected override void OnEnable()
+        protected override void Start()
         {
             NodeClock.Instance.NodePowerSupplyUpdate += OnInvoke;
         }
 
-        protected override void OnDisable()
+        protected override void OnDestroy()
         {
             NodeClock.Instance.NodePowerSupplyUpdate -= OnInvoke;
         }
