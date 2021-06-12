@@ -73,8 +73,8 @@ namespace bluModule
         public void Init()
         {
             NewAudioEvent("event:/player/footstep");
-            NewAudioEvent("event:/environment/objects/interactables/pick up");
-            NewAudioEvent("event:/environment/objects/interactables/put down");
+            NewAudioEvent("event:/environment/objects/interactables/plugs/pick up");
+            NewAudioEvent("event:/environment/objects/interactables/plugs/put down");
             NewAudioEvent("event:/environment/objects/nodes/button insert");
             NewAudioEvent("event:/environment/objects/nodes/button remove");
             NewMusicEvent("event:/music/Beef Stroganoff");

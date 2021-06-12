@@ -5,8 +5,10 @@ using UnityEngine;
 public class AudioEvent
 {
     public bool released = false;
+
     private FMOD.Studio.EventInstance _instance;
     private FMOD.Studio.PLAYBACK_STATE _STATE;
+
     private string _eventName = "event:/Warning Noise/New Event";
 
     public AudioEvent(string name)
