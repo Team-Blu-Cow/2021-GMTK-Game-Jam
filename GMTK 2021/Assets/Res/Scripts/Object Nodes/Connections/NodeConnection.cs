@@ -106,5 +106,17 @@ namespace Nodes
 
             return false;
         }
+
+        private void OnDrawGizmos()
+        {
+            if (other != null)
+            {
+                if (other.other == this)
+                {
+                    Gizmos.color = Color.red;
+                    Gizmos.DrawLine(transform.position, other.transform.position);
+                }
+            }
+        }
     }
 }

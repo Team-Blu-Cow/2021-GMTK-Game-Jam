@@ -93,9 +93,15 @@ namespace bluModule
         public void StopAllEvents(bool fade = false)
         {
             if (fade)
+            {
+                GetMusicEvent("event:/music/Main theme").SetParameter("Track Ratio", 0f);
                 FMODUnity.RuntimeManager.GetBus("bus:/Master").stopAllEvents(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            }
             else
+            {
+                GetMusicEvent("event:/music/Main theme").SetParameter("Track Ratio", 0f);
                 FMODUnity.RuntimeManager.GetBus("bus:/Master").stopAllEvents(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            }
         }
 
         public void Init()
@@ -108,7 +114,6 @@ namespace bluModule
         private void CreateEvents()
         {
             NewAudioEvent("event:/player/footstep", 20);
-            NewAudioEvent("event:/environment/objects/interactables/power supply/hum");
             NewAudioEvent("event:/environment/objects/interactables/plugs/pick up", 5);
             NewAudioEvent("event:/environment/objects/interactables/plugs/put down", 5);
             NewAudioEvent("event:/environment/objects/nodes/button insert");

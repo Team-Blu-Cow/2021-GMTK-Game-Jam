@@ -21,16 +21,16 @@ namespace Nodes
             NodeClock.Instance.NodeUpdate += OnInvoke;
         }
 
-        private void OnDrawGizmos()
-        {
-            if (m_supplyConnection != null && node_in != null)
-            {
-                if (m_supplyConnection.other == node_in)
-                {
-                    Gizmos.color = Color.red;
-                    Gizmos.DrawLine(m_supplyConnection.transform.position, node_in.transform.position);
-                }
-            }
-        }
+        // private void OnDrawGizmos()
+        // {
+        //     if (m_supplyConnection != null && node_in != null)
+        //     {
+        //         if (m_supplyConnection.other == node_in)
+        //         {
+        //             Gizmos.color = Color.red;
+        //             Gizmos.DrawLine(m_supplyConnection.transform.position, node_in.transform.position);
+        //         }
+        //     }
+        // }
     }
 }
