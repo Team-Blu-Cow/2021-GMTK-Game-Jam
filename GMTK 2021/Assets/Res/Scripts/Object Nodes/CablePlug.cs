@@ -23,12 +23,12 @@ namespace Nodes
 
         private void OnDrawGizmos()
         {
-            if (m_supplyConnection != null)
+            if (m_supplyConnection != null && node_in != null)
             {
-                if (Connections.Count > 0)
+                if (m_supplyConnection.other == node_in)
                 {
                     Gizmos.color = Color.red;
-                    Gizmos.DrawLine(m_supplyConnection.transform.position, Connections[0].transform.position);
+                    Gizmos.DrawLine(m_supplyConnection.transform.position, node_in.transform.position);
                 }
             }
         }
