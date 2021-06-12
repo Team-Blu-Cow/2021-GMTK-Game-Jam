@@ -64,12 +64,11 @@ namespace bluModule
         {
             _audioEvents[name].DeleteEvent();
         }
+
         public void DeleteMusicEvent(string name)
         {
             _musicEvents[name].DeleteEvent();
         }
-
-
 
         public void Init()
         {
