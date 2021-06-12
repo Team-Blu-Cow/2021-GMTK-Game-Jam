@@ -11,6 +11,8 @@ namespace Nodes
 
         private BoxCollider2D boxcollider;
 
+        private Animator anim;
+
         protected override void Awake()
         {
             NodeConnection[] Con = gameObject.transform.GetComponentsInChildren<NodeConnection>();
@@ -20,22 +22,30 @@ namespace Nodes
             }
 
             boxcollider = GetComponent<BoxCollider2D>();
+            anim        = GetComponent<Animator>();
         }
 
         private void FixedUpdate()
         {
+
             if (IsPowered())
             {
-                if (!m_hasRunBefore && m_wasPowered == false)
+                if (m_wasPowered == false)
+                {
                     bluModule.Application.instance.audioModule.PlayAudioEvent("event:/environment/objects/interactables/door/open");
+                    anim.SetBool("open", true);
+                }
 
                 boxcollider.enabled = false;
                 m_wasPowered = true;
             }
             else
             {
-                if (!m_hasRunBefore && m_wasPowered == true)
+                if (m_wasPowered == true)
+                {
                     bluModule.Application.instance.audioModule.PlayAudioEvent("event:/environment/objects/interactables/door/close");
+                    anim.SetBool("open", false);
+                }
 
                 boxcollider.enabled = true;
                 m_wasPowered = false;
