@@ -6,6 +6,12 @@ namespace bluModule
     {
         public AudioSettings audioSettings = new AudioSettings();
         public SaveData saveData = new SaveData();
+
+        public void Init()
+        {
+            audioSettings.Init();
+            saveData.init();
+        }
     }
 
     public class AudioSettings
@@ -71,7 +77,7 @@ namespace bluModule
     {
         private int levelsComplete = 0;
 
-        public SaveData()
+        public void init()
         {
             levelsComplete = PlayerPrefs.GetInt("LevelsComplete", 0);
         }

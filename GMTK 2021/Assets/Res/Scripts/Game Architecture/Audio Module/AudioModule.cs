@@ -99,7 +99,7 @@ namespace bluModule
         {
             CreateEvents();
             Debug.Log("Attempting to init settings module");
-            bluModule.Application.instance.settingsModule.audioSettings.Init();
+            bluModule.Application.instance.settingsModule.Init();
         }
 
         private void CreateEvents()
