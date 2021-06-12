@@ -94,6 +94,7 @@ namespace bluModule
             NewAudioEvent("event:/environment/objects/nodes/button remove");
             NewAudioEvent("event:/environment/objects/interactables/pressure plates/insert");
             NewAudioEvent("event:/environment/objects/interactables/pressure plates/remove");
+            NewAudioEvent("event:/UI/buttons/on click");
             NewMusicEvent("event:/music/Beef Stroganoff");
             Debug.Log("Attempting to init settings module");
             bluModule.Application.instance.settingsModule.audioSettings.Init();
