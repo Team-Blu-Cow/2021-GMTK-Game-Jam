@@ -91,6 +91,8 @@ public class ButtonWrapperEditor : Editor
                             if (Application.isPlaying && GUI.changed)
                             {
                                 button.button.onClick.RemoveAllListeners();
+                                button.button.onClick.AddListener(delegate { bluModule.Application.instance.audioModule.PlayAudioEvent("event:/player/footstep"); });
+
                                 button.button.onClick.AddListener(delegate { bluModule.Application.instance.sceneModule.SwitchScene(button.sceneName); });
                             }
                         }
@@ -98,6 +100,14 @@ public class ButtonWrapperEditor : Editor
                         if (!button.swapScene)
                         {
                             button.quit = GUILayout.Toggle(button.quit, "Quit");
+
+                            if (Application.isPlaying && GUI.changed && button.quit)
+                            {
+                                button.button.onClick.RemoveAllListeners();
+                                button.button.onClick.AddListener(delegate { bluModule.Application.instance.audioModule.PlayAudioEvent("event:/player/footstep"); });
+
+                                button.button.onClick.AddListener(delegate { bluModule.Application.instance.sceneModule.Quit(); });
+                            }
                         }
                         else
                         {
@@ -125,6 +135,8 @@ public class ButtonWrapperEditor : Editor
                                 if (Application.isPlaying && GUI.changed)
                                 {
                                     button.button.onClick.RemoveAllListeners();
+                                    button.button.onClick.AddListener(delegate { bluModule.Application.instance.audioModule.PlayAudioEvent("event:/player/footstep"); });
+
                                     if (button.open)
                                         button.button.onClick.AddListener(delegate { canvasManager.OpenCanvas(canvasManager.GetCanvasContainer(button.canvas), button.stack); });
                                     else

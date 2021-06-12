@@ -18,12 +18,14 @@ namespace CanvasTool
             {
                 if (button.open)
                     button.button.onClick.AddListener(delegate { canvasManager.OpenCanvas(canvasManager.GetCanvasContainer(button.canvas), button.stack); });
-                else if (!button.swapScene)
-                    button.button.onClick.AddListener(delegate { canvasManager.CloseCanvas(button.stack); });
                 else if (button.quit)
                     button.button.onClick.AddListener(delegate { bluModule.Application.instance.sceneModule.Quit(); });
+                else if (!button.swapScene)
+                    button.button.onClick.AddListener(delegate { canvasManager.CloseCanvas(button.stack); });                
                 else
                     button.button.onClick.AddListener(delegate { bluModule.Application.instance.sceneModule.SwitchScene(button.sceneName); });
+
+                button.button.onClick.AddListener(delegate { bluModule.Application.instance.audioModule.PlayAudioEvent("event:/player/footstep"); });
             }
         }
 
