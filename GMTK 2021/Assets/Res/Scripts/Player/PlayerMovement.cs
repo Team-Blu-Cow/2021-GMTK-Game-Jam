@@ -57,8 +57,11 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         m_anim.UpdateAnim(m_rb.velocity);
-        CheckSurroundings();
 
+        if (m_velocity.y < 0.2)
+        {
+            CheckSurroundings();
+        }
         if (m_pickedUp)
         {
             m_pickedUp.transform.position = transform.position;
@@ -178,9 +181,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckSurroundings()
     {
+        m_grounded = Physics2D.OverlapCircle(m_groundSensor.position, m_groundSensorRadius, walkable);
         if (m_grounded)
             m_anim.SetBool("isGrounded", true);
-        m_grounded = Physics2D.OverlapCircle(m_groundSensor.position, m_groundSensorRadius, walkable);
+        else
+            m_anim.SetBool("isGrounded", false);
+
     }
 
     private void OnDrawGizmos()
