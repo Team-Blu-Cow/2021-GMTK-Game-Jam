@@ -51,13 +51,10 @@ namespace bluModule
         public void StopMusicEvent(string name, bool fade = false)
         {
             if (fade)
-            {
+
                 _musicEvents[name].FadeStop();
-            }
             else
-            {
                 _musicEvents[name].HardStop();
-            }
         }
 
         public void PlayAudioEvent(string name) // use copied path from event browser
@@ -78,6 +75,14 @@ namespace bluModule
         public void DeleteMusicEvent(string name)
         {
             _musicEvents[name].DeleteEvent();
+        }
+
+        public void StopAllEvents(bool fade = false)
+        {
+            if (fade)
+                FMODUnity.RuntimeManager.GetBus("bus:/Master").stopAllEvents(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            else
+                FMODUnity.RuntimeManager.GetBus("bus:/Master").stopAllEvents(FMOD.Studio.STOP_MODE.IMMEDIATE);
         }
 
         public void Init()
