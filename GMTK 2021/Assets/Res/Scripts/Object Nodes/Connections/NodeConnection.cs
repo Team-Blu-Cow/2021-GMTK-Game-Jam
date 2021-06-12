@@ -9,9 +9,11 @@ namespace Nodes
     {
         private Nodes.NodeConnection m_other = null;
 
-        private Nodes.Node m_node = null;
+        public Nodes.NodeConnection other { get { return m_other; } }
 
-        private void Start()
+        protected Nodes.Node m_node = null;
+
+        private void Awake()
         {
             m_node = transform.parent.gameObject.GetComponent<Nodes.Node>();
         }

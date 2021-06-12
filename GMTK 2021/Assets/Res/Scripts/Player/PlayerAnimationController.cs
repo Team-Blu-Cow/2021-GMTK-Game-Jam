@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class PlayerAnimationController : MonoBehaviour
 {
-    private Animator bodyAnim;
-    private bool flipped = false;
-    private bool falling = false;
+    Animator bodyAnim;
+    Animator armsAnim;
+    bool flipped = false;
+    bool falling = false;
 
     [SerializeField] private Transform mainAnimator;
     [SerializeField] private Transform body;
@@ -16,23 +17,31 @@ public class PlayerAnimationController : MonoBehaviour
     {
         mainAnimator = transform.Find("Animations");
         body = mainAnimator.Find("Body");
-
+        arms = body.Find("Arms");
+        
         bodyAnim = body.GetComponent<Animator>();
+        armsAnim = arms.GetComponent<Animator>();
+
+        //Time.timeScale = 0.25f;
     }
 
     public void SetBool(string name, bool state)
     {
         bodyAnim.SetBool(name, state);
+        armsAnim.SetBool(name, state);
     }
 
     public void UpdateAnim(Vector3 velocity)
     {
-        if (velocity.x != 0)
+        if (Mathf.Abs(velocity.x) >= PlayerMovement.directionEpsilon)
         {
             mainAnimator.localScale = new Vector3(Mathf.Sign(velocity.x), 1, 1);
         }
 
-        bodyAnim.SetBool("isFalling", (velocity.y < 0));
+        if(!bodyAnim.GetBool("isGrounded"))
+            SetBool("isFalling", (velocity.y <= 0)? true : false);
+        else
+            SetBool("isFalling", false);
     }
 
     public static void Footstep()

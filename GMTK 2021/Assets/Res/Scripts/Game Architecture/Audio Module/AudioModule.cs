@@ -64,17 +64,22 @@ namespace bluModule
         {
             _audioEvents[name].DeleteEvent();
         }
+
         public void DeleteMusicEvent(string name)
         {
             _musicEvents[name].DeleteEvent();
         }
 
-
-
         public void Init()
         {
             NewAudioEvent("event:/player/footstep");
+            NewAudioEvent("event:/environment/objects/interactables/pick up");
+            NewAudioEvent("event:/environment/objects/interactables/put down");
+            NewAudioEvent("event:/environment/objects/nodes/button insert");
+            NewAudioEvent("event:/environment/objects/nodes/button remove");
             NewMusicEvent("event:/music/Beef Stroganoff");
+            Debug.Log("Attempting to init settings module");
+            bluModule.Application.instance.settingsModule.audioSettings.Init();
         }
     }
 }

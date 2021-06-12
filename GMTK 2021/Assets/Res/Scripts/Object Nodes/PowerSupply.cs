@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace Nodes
 {
-    public class PowerSupply : Node
+    public class PowerSupply : SupplyNode
     {
-        protected override void OnEnable()
+        protected override void Start()
         {
             NodeClock.Instance.NodePowerSupplyUpdate += OnInvoke;
         }
 
-        protected override void OnDisable()
+        protected override void OnDestroy()
         {
             NodeClock.Instance.NodePowerSupplyUpdate -= OnInvoke;
         }
@@ -20,28 +20,7 @@ namespace Nodes
         {
             m_isPowered = true;
 
-            Queue<Node> nodes = new Queue<Node>();
-            nodes.Enqueue(this);
-
-            while (nodes.Count > 0)
-            {
-                Node node = nodes.Dequeue();
-                List<OutputConnection> conns = node.outputConnections;
-                for (int i = 0; i < conns.Count; i++)
-                {
-                    if (conns[i] != null)
-                    {
-                        if (conns[i].node != null)
-                        {
-                            if (!conns[i].node.IsPowered())
-                            {
-                                conns[i].node.SetPowered();
-                                nodes.Enqueue(conns[i].node);
-                            }
-                        }
-                    }
-                }
-            }
+            PowerConnectedNodes();
         }
     }
 };

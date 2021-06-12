@@ -29,12 +29,12 @@ namespace Nodes
             }
         }
 
-        protected virtual void OnEnable()
+        protected virtual void Start()
         {
             NodeClock.Instance.NodeUpdate += OnInvoke;
         }
 
-        protected virtual void OnDisable()
+        protected virtual void OnDestroy()
         {
             NodeClock.Instance.NodeUpdate -= OnInvoke;
         }

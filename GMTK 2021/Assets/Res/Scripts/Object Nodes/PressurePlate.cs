@@ -4,16 +4,16 @@ using UnityEngine;
 
 namespace Nodes
 {
-    public class PressurePlate : Node
+    public class PressurePlate : SupplyNode
     {
         private int m_collisionCount;
 
-        protected override void OnEnable()
+        protected override void Start()
         {
             NodeClock.Instance.NodePowerSupplyUpdate += OnInvoke;
         }
 
-        protected override void OnDisable()
+        protected override void OnDestroy()
         {
             NodeClock.Instance.NodePowerSupplyUpdate -= OnInvoke;
         }
@@ -57,28 +57,7 @@ namespace Nodes
         {
             if (m_isPowered)
             {
-                Queue<Node> nodes = new Queue<Node>();
-                nodes.Enqueue(this);
-
-                while (nodes.Count > 0)
-                {
-                    Node node = nodes.Dequeue();
-                    List<OutputConnection> conns = node.outputConnections;
-                    for (int i = 0; i < conns.Count; i++)
-                    {
-                        if (conns[i] != null)
-                        {
-                            if (conns[i].node != null)
-                            {
-                                if (!conns[i].node.IsPowered())
-                                {
-                                    conns[i].node.SetPowered();
-                                    nodes.Enqueue(conns[i].node);
-                                }
-                            }
-                        }
-                    }
-                }
+                PowerConnectedNodes();
             }
         }
     }

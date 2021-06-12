@@ -11,8 +11,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Res/Scenes/FMODTesting.unity
     guid: 170ad2b1ac0ccf341b70e7995efd05b7
-  - enabled: 1
-    path: Assets/Res/Scenes/Movement Tests.unity
-    guid: 02d01339acf9b1d44bd33c95191739a8
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 2a352d7c63e206a4db90627ec38a8ee3, type: 2}
