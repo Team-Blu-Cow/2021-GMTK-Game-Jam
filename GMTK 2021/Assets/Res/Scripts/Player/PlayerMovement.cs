@@ -134,14 +134,21 @@ public class PlayerMovement : MonoBehaviour
                         m_pickup = true;
                         m_pickedUp.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
 
-                        // SOUND PICKUP
-                        bluModule.Application.instance.audioModule.PlayAudioEvent("event:/environment/objects/interactables/plugs/pick up");
-
+                        bool playSound = true;
                         if (m_pickedUp.CompareTag("Plug"))
                         {
-                            m_pickedUp.GetComponent<Nodes.CablePlug>().node_out.Disconnect();
+                            Nodes.NodeConnection node = m_pickedUp.GetComponent<Nodes.CablePlug>().node_out;
+
+                            if (node.other != null)
+                                playSound = false;
+
+                            node.Disconnect();
                             m_anim.SetBool("isHoldingCable", true);
                         }
+
+                        // SOUND PICKUP
+                        if (playSound)
+                            bluModule.Application.instance.audioModule.PlayAudioEvent("event:/environment/objects/interactables/plugs/pick up");
 
                         if (collide.TryGetComponent<Rigidbody2D>(out var rb))
                         {
