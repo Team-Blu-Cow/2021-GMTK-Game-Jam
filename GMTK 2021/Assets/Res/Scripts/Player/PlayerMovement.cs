@@ -19,7 +19,6 @@ public class PlayerMovement : MonoBehaviour
 
     private LayerMask walkable;
 
-    
     [SerializeField]
     private Transform m_pickupSensor;
 
@@ -120,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Pickup()
     {
-        bluModule.Application.instance.sceneModule.SwitchScene("SampleScene");
+        // bluModule.Application.instance.sceneModule.SwitchScene("SampleScene");
 
         if (!m_pickup)
         {
@@ -134,11 +133,11 @@ public class PlayerMovement : MonoBehaviour
                     {
                         m_pickedUp = collide.gameObject;
                         m_pickup = true;
-                        m_pickedUp.GetComponent<BoxCollider2D>().enabled = false;
+                        // m_pickedUp.GetComponent<BoxCollider2D>().enabled = false;
 
                         if (m_pickedUp.CompareTag("Plug"))
                         {
-                            m_pickedUp.GetComponentInChildren<Nodes.NodeConnection>().Disconnect();
+                            m_pickedUp.GetComponent<Nodes.CablePlug>().node_out.Disconnect();
                             m_anim.SetBool("isHoldingCable", true);
                         }
 
@@ -164,7 +163,7 @@ public class PlayerMovement : MonoBehaviour
                     float dist = Vector3.Distance(conn.transform.position, transform.position);
                     if (dist < m_pickupRange)
                     {
-                        if (conn.Connect(m_pickedUp.GetComponentInChildren<Nodes.NodeConnection>()))
+                        if (conn.Connect(m_pickedUp.GetComponent<Nodes.CablePlug>().node_out))
                         {
                             // success
 
@@ -172,7 +171,7 @@ public class PlayerMovement : MonoBehaviour
 
                             m_pickedUp = null;
                             m_pickup = false;
-                            
+
                             return;
                         }
                         else
@@ -184,7 +183,6 @@ public class PlayerMovement : MonoBehaviour
 
                 m_anim.SetBool("isHoldingCable", false);
                 m_pickedUp.GetComponent<BoxCollider2D>().enabled = true;
-
             }
 
             if (m_pickedUp.TryGetComponent<Rigidbody2D>(out var rb))

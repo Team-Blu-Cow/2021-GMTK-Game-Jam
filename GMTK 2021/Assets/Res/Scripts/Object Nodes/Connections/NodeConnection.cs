@@ -60,7 +60,7 @@ namespace Nodes
             if (connParent == thisParent)
                 return false;
 
-            if (conn.HasConnection)
+            if (conn.HasConnection || this.HasConnection)
                 return false;
 
             if (CheckForCircularConnection(conn))

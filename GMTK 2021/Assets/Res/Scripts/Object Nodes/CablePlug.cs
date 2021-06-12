@@ -10,10 +10,10 @@ namespace Nodes
         private NodeConnection m_supplyConnection = null;
 
         [SerializeField]
-        private NodeConnection node_in = null;
+        public NodeConnection node_in = null;
 
         [SerializeField]
-        private NodeConnection node_out = null;
+        public NodeConnection node_out = null;
 
         protected override void Start()
         {
