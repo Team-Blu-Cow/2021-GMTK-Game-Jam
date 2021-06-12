@@ -200,11 +200,14 @@ public class PlayerMovement : MonoBehaviour
                 rb.freezeRotation = false;
                 rb.bodyType = RigidbodyType2D.Dynamic;
             }
+
+            // SOUND DROP
+            StartCoroutine(ObjectDropNoises.DropObjectSound(m_pickedUp));
+
             m_pickedUp = null;
             m_pickup = false;
 
-            // SOUND DROP
-            bluModule.Application.instance.audioModule.PlayAudioEvent("event:/environment/objects/interactables/plugs/put down");
+            // bluModule.Application.instance.audioModule.PlayAudioEvent("event:/environment/objects/interactables/plugs/put down");
         }
     }
 
