@@ -36,6 +36,11 @@ namespace Nodes
         {
             if (collision.CompareTag("Pickup") || collision.CompareTag("Player"))
             {
+                if (m_collisionCount == 0)
+                {
+                    bluModule.Application.instance.audioModule.PlayAudioEvent("event:/environment/objects/interactables/pressure plates/insert");
+                }
+
                 m_collisionCount++;
                 m_isPowered = true;
             }
@@ -48,6 +53,7 @@ namespace Nodes
                 m_collisionCount--;
                 if (m_collisionCount == 0)
                 {
+                    bluModule.Application.instance.audioModule.PlayAudioEvent("event:/environment/objects/interactables/pressure plates/remove");
                     m_isPowered = false;
                 }
             }
