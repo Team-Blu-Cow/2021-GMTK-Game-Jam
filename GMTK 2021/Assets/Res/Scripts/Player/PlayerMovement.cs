@@ -19,7 +19,6 @@ public class PlayerMovement : MonoBehaviour
 
     private LayerMask walkable;
 
-    
     [SerializeField]
     private Transform m_pickupSensor;
 
@@ -172,7 +171,7 @@ public class PlayerMovement : MonoBehaviour
 
                             m_pickedUp = null;
                             m_pickup = false;
-                            
+
                             return;
                         }
                         else
@@ -184,7 +183,6 @@ public class PlayerMovement : MonoBehaviour
 
                 m_anim.SetBool("isHoldingCable", false);
                 m_pickedUp.GetComponent<BoxCollider2D>().enabled = true;
-
             }
 
             if (m_pickedUp.TryGetComponent<Rigidbody2D>(out var rb))
