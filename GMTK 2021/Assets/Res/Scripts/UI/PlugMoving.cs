@@ -11,15 +11,18 @@ public class PlugMoving : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     private Transform m_pickupSensor;
 
     public float m_pickupRange;
+    private BoxCollider2D boxCollider;
+    private Rigidbody2D rb;
 
     private Vector3 previousPos;
-    private float previousAngle;
 
     private bool m_clicked = false;
 
     private void Awake()
     {
         m_input = new InputMaster();
+        boxCollider = GetComponent<BoxCollider2D>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Start is called before the first frame update
@@ -43,19 +46,24 @@ public class PlugMoving : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     {
         if (m_clicked)
         {
+            if (boxCollider.enabled == true)
+                boxCollider.enabled = false;
+
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(m_input.PlayerMovement.MousePosition.ReadValue<Vector2>());
-            transform.position = new Vector3(mousePos.x, mousePos.y, 0);
+            transform.position = new Vector3(mousePos.x, mousePos.y, transform.position.z);
 
             if (transform.position != previousPos)
             {
                 float angle = Vector2.SignedAngle(new Vector2(1, 0), transform.position - previousPos);
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, angle), 0.1f);
+
+                rb.rotation = Mathf.Lerp(transform.rotation.z, angle, 0.1f);
             }
 
             Collider2D overlap = Physics2D.OverlapBox(m_pickupSensor.position, new Vector2(m_pickupRange, 1), 0);
             if (overlap)
             {
-                transform.position = new Vector3(overlap.transform.position.x - ((1 * overlap.transform.localScale.x) / 2), overlap.transform.position.y, overlap.transform.position.z);
+                transform.position = new Vector3(overlap.transform.position.x - ((1 * overlap.transform.localScale.x) / 2), overlap.transform.position.y, transform.position.z);
                 transform.rotation = Quaternion.identity;
             }
 
@@ -63,20 +71,8 @@ public class PlugMoving : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         }
         else
         {
-            RectTransform rectTransform = GetComponent<RectTransform>();
-
-            Vector2 topRight = new Vector2(rectTransform.position.x + rectTransform.rect.width / 2, transform.position.y + rectTransform.rect.height / 2);
-            Vector2 bottomLeft = new Vector2(rectTransform.position.x - rectTransform.rect.width / 2, transform.position.y - rectTransform.rect.height / 2);
-
-            Collider2D[] overlap = Physics2D.OverlapAreaAll(topRight, bottomLeft);
-
-            if (overlap.Length > 0)
-            {
-                Rigidbody2D rb = GetComponent<Rigidbody2D>();
-
-                rb.velocity = new Vector2(rb.velocity.x, 0);
-                transform.position = previousPos;
-            }
+            if (boxCollider.enabled == false)
+                boxCollider.enabled = true;
         }
     }
 
@@ -94,6 +90,7 @@ public class PlugMoving : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     {
         if (eventData.pointerCurrentRaycast.gameObject.CompareTag("Plug"))
         {
+            rb.simulated = false;
             m_clicked = true;
 
             Collider2D overlap = Physics2D.OverlapBox(m_pickupSensor.position, new Vector2(m_pickupRange, 1), 0);
@@ -111,6 +108,11 @@ public class PlugMoving : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         if (overlap && overlap.CompareTag("MenuButton"))
         {
             overlap.GetComponent<MenuButton>().Power();
+            rb.simulated = false;
+        }
+        else
+        {
+            rb.simulated = true;
         }
     }
 

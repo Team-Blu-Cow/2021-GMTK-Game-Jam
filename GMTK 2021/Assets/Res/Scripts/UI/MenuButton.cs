@@ -14,7 +14,7 @@ public class MenuButton : MonoBehaviour
     {
         m_input = new InputMaster();
 
-        m_input.PlayerMovement.MouseLClick.canceled += ctx => MouseDown();
+        m_input.PlayerMovement.MouseLClick.started += ctx => MouseDown();
         UnPower();
     }
 
@@ -51,7 +51,7 @@ public class MenuButton : MonoBehaviour
                 }
                 else
                 {
-                    bluModule.Application.instance.audioModule.PlayAudioEvent("event:/UI/buttons/on click");
+                    bluModule.Application.instance.audioModule.PlayAudioEvent("event:/UI/buttons/denied");
                 }
             }
         }
