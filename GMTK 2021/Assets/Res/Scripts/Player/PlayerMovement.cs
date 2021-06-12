@@ -55,7 +55,9 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         m_anim.UpdateAnim(m_rb.velocity);
-        CheckSurroundings();
+
+        if (m_rb.velocity.y < 0.2)
+            CheckSurroundings();
 
         if (m_pickedUp)
         {
@@ -89,6 +91,8 @@ public class PlayerMovement : MonoBehaviour
             m_anim.SetBool("isGrounded", false);
             m_rb.AddForce(new Vector2(0, m_jumpHeight), ForceMode2D.Impulse);
         }
+
+        bluModule.Application.instance.sceneModule.SwitchScene("Sample Scene");
     }
 
     private void MoveStart(Vector2 in_velocity)
@@ -142,9 +146,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckSurroundings()
     {
+        m_grounded = Physics2D.OverlapCircle(m_groundSensor.position, m_groundSensorRadius, walkable);
         if (m_grounded)
             m_anim.SetBool("isGrounded", true);
-        m_grounded = Physics2D.OverlapCircle(m_groundSensor.position, m_groundSensorRadius, walkable);
     }
 
     private void OnDrawGizmos()
