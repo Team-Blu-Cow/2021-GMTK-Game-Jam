@@ -25,6 +25,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float m_pickupSensorRadius;
 
+    [SerializeField]
+    private float m_wallDetectionDist;
+
     [Header("Transforms")]
     [SerializeField]
     private Transform m_cableHoldPoint;
@@ -36,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
     private GameObject m_pickedUp;
 
     private Vector2 m_velocity;
+    private float x_dir;
     private Rigidbody2D m_rb;
 
     private float m_pickupRange = 1f;
@@ -67,6 +71,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        // get input
+        // update animations
+
+        x_dir = m_velocity.x;
+
         m_anim.UpdateAnim(m_rb.velocity);
 
         if (m_velocity.y < 0.2)
@@ -86,10 +95,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (m_velocity.x != 0)
-        {
-            m_rb.velocity = new Vector2(m_maxSpeed * Mathf.Sign(m_velocity.x), m_rb.velocity.y);
-        }
+        //if (m_velocity.x != 0)
+        //{ 
+            m_rb.velocity = new Vector2(m_maxSpeed * JUtil.JUtils.BetterSign(x_dir), m_rb.velocity.y);
+        //}
     }
 
     private void OnEnable()
@@ -235,12 +244,6 @@ public class PlayerMovement : MonoBehaviour
         m_grounded = Physics2D.OverlapCircle(m_groundSensor.position, m_groundSensorRadius, walkable);
         m_grounded |= Physics2D.OverlapCircle(m_groundSensor.position + new Vector3((spritewidth*0.6f), 0), m_groundSensorRadius, walkable);
         m_grounded |= Physics2D.OverlapCircle(m_groundSensor.position + new Vector3((spritewidth*0.6f), 0), m_groundSensorRadius, walkable);
-
-        
-        /*m_grounded = Physics2D.OverlapArea(
-            m_groundSensor.position + new Vector3((spritewidth / 2f), -0.5f),
-            m_groundSensor.position - new Vector3((spritewidth / 2f), -0.5f)
-            );*/
 
         if (m_grounded)
             m_anim.SetBool("isGrounded", true);
