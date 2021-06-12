@@ -28,6 +28,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Transforms")]
     [SerializeField]
     private Transform m_cableHoldPoint;
+    [SerializeField]
+    private Transform m_HoldPoint;
 
     private bool m_grounded = false;
     private bool m_pickup;
@@ -73,7 +75,10 @@ public class PlayerMovement : MonoBehaviour
         }
         if (m_pickedUp)
         {
-            m_pickedUp.transform.position = m_cableHoldPoint.position;
+            if(m_pickedUp.CompareTag("Plug"))
+                m_pickedUp.transform.position = m_cableHoldPoint.position;
+            else
+                m_pickedUp.transform.position = m_HoldPoint.position;
             if (Mathf.Abs(m_velocity.x) >= directionEpsilon)
                 m_pickedUp.transform.localScale = new Vector3(Mathf.Sign(m_velocity.x), 1, 1);
         }
@@ -103,6 +108,7 @@ public class PlayerMovement : MonoBehaviour
         {
             m_grounded = false;
             m_anim.SetBool("isGrounded", false);
+            m_anim.SetBool("isJumping", true);
             m_rb.AddForce(new Vector2(0, m_jumpHeight), ForceMode2D.Impulse);
         }
     }
@@ -146,6 +152,11 @@ public class PlayerMovement : MonoBehaviour
                             node.Disconnect();
                             m_anim.SetBool("isHoldingCable", true);
                         }
+                        else
+                        {
+                            m_anim.SetBool("isHolding", true);
+                        }
+                        
 
                         // SOUND PICKUP
                         if (playSound)
@@ -183,7 +194,7 @@ public class PlayerMovement : MonoBehaviour
 
                                 m_pickedUp = null;
                                 m_pickup = false;
-
+                                m_anim.SetBool("isHoldingCable", false);
                                 return;
                             }
                             else
@@ -195,6 +206,10 @@ public class PlayerMovement : MonoBehaviour
                 }
 
                 m_anim.SetBool("isHoldingCable", false);
+            }
+            else
+            {
+                m_anim.SetBool("isHolding", false);
             }
 
             if (m_pickedUp.TryGetComponent<Rigidbody2D>(out var rb))
@@ -216,7 +231,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckSurroundings()
     {
+        float spritewidth = GetComponent<BoxCollider2D>().bounds.extents.x;
         m_grounded = Physics2D.OverlapCircle(m_groundSensor.position, m_groundSensorRadius, walkable);
+        m_grounded |= Physics2D.OverlapCircle(m_groundSensor.position + new Vector3((spritewidth*0.6f), 0), m_groundSensorRadius, walkable);
+        m_grounded |= Physics2D.OverlapCircle(m_groundSensor.position + new Vector3((spritewidth*0.6f), 0), m_groundSensorRadius, walkable);
+
+        
+        /*m_grounded = Physics2D.OverlapArea(
+            m_groundSensor.position + new Vector3((spritewidth / 2f), -0.5f),
+            m_groundSensor.position - new Vector3((spritewidth / 2f), -0.5f)
+            );*/
+
         if (m_grounded)
             m_anim.SetBool("isGrounded", true);
         else
@@ -227,7 +252,11 @@ public class PlayerMovement : MonoBehaviour
     {
         Gizmos.color = Color.green;
 
+        float bodyWidth = GetComponent<BoxCollider2D>().bounds.extents.x;
+
         Gizmos.DrawWireSphere(m_groundSensor.position, m_groundSensorRadius);
+        Gizmos.DrawWireSphere(m_groundSensor.position + new Vector3(bodyWidth * 0.6f, 0), m_groundSensorRadius);
+        Gizmos.DrawWireSphere(m_groundSensor.position - new Vector3(bodyWidth * 0.6f, 0), m_groundSensorRadius);
         Gizmos.DrawWireSphere(m_pickupSensor.position, m_pickupSensorRadius);
     }
 
