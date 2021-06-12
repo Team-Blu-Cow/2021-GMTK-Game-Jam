@@ -57,7 +57,8 @@ public class PlayerMovement : MonoBehaviour
 
         m_input.PlayerMovement.Pickup.performed += _ => Pickup();
 
-        walkable = LayerMask.GetMask("Walkable");
+        string[] layers = new string[] { "Walkable", "Plugs" };
+        walkable = LayerMask.GetMask(layers);
     }
 
     // Update is called once per frame
@@ -119,8 +120,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Pickup()
     {
-        // bluModule.Application.instance.sceneModule.SwitchScene("SampleScene");
-
         if (!m_pickup)
         {
             Collider2D[] collisions = Physics2D.OverlapCircleAll(m_pickupSensor.position, m_pickupSensorRadius, walkable);
@@ -133,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
                     {
                         m_pickedUp = collide.gameObject;
                         m_pickup = true;
-                        // m_pickedUp.GetComponent<BoxCollider2D>().enabled = false;
+                        m_pickedUp.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
 
                         if (m_pickedUp.CompareTag("Plug"))
                         {
@@ -182,7 +181,7 @@ public class PlayerMovement : MonoBehaviour
                 }
 
                 m_anim.SetBool("isHoldingCable", false);
-                m_pickedUp.GetComponent<BoxCollider2D>().enabled = true;
+                m_pickedUp.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
             }
 
             if (m_pickedUp.TryGetComponent<Rigidbody2D>(out var rb))
