@@ -43,6 +43,8 @@ namespace bluModule
                     settingsModule = GetComponentInChildren<bluModule.SettingsModule>();
                     GameObject.Instantiate(Resources.Load<GameObject>("Audio Module")).transform.parent = transform;
                     audioModule = GetComponentInChildren<bluModule.AudioModule>();
+                    GameObject.Instantiate(Resources.Load<GameObject>("Scene Module")).transform.parent = transform;
+                    sceneModule = GetComponentInChildren<bluModule.SceneModule>();
                     audioModule.Init();
 
                     break;
