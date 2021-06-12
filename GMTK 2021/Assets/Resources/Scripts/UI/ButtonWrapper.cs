@@ -21,7 +21,7 @@ namespace CanvasTool
                 else if (button.quit)
                     button.button.onClick.AddListener(delegate { bluModule.Application.instance.sceneModule.Quit(); });
                 else if (!button.swapScene)
-                    button.button.onClick.AddListener(delegate { canvasManager.CloseCanvas(button.stack); });
+                    button.button.onClick.AddListener(delegate { canvasManager.CloseCanvas(true); });
                 else
                     button.button.onClick.AddListener(delegate { bluModule.Application.instance.sceneModule.SwitchScene(button.sceneName); });
 

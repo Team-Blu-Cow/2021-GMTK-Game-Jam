@@ -8,6 +8,8 @@ namespace Nodes
     {
         protected void PowerConnectedNodes()
         {
+            m_isPowered = true;
+
             Queue<Node> nodes = new Queue<Node>();
             nodes.Enqueue(this);
 

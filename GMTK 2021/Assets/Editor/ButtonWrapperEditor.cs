@@ -75,6 +75,11 @@ public class ButtonWrapperEditor : Editor
 
                     using (var VerticalScope = new GUILayout.VerticalScope())
                     {
+                        if (button.canvas == null)
+                        {
+                            button.canvas = new System.Collections.Generic.List<Canvas>();
+                        }
+
                         for (int x = 0; x < button.canvas.Count; x++)
                         {
                             using (var HorizontalScope = new GUILayout.HorizontalScope())
@@ -163,7 +168,7 @@ public class ButtonWrapperEditor : Editor
                                     if (button.open)
                                         button.button.onClick.AddListener(delegate { canvasManager.OpenCanvas(canvasManager.GetCanvasContainer(button.canvas[0]), button.stack); });
                                     else
-                                        button.button.onClick.AddListener(delegate { canvasManager.CloseCanvas(button.stack); });
+                                        button.button.onClick.AddListener(delegate { canvasManager.CloseCanvas(true); });
                                 }
                             }
                             else
