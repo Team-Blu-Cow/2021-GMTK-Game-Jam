@@ -6,6 +6,8 @@ namespace Nodes
 {
     public class PressurePlate : SupplyNode
     {
+        private int m_collisionCount;
+
         protected override void Start()
         {
             NodeClock.Instance.NodePowerSupplyUpdate += OnInvoke;
@@ -32,17 +34,22 @@ namespace Nodes
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject.name == "Box")
+            if (collision.CompareTag("Pickup") || collision.CompareTag("Player"))
             {
+                m_collisionCount++;
                 m_isPowered = true;
             }
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.gameObject.name == "Box")
+            if (collision.CompareTag("Pickup") || collision.CompareTag("Player"))
             {
-                m_isPowered = false;
+                m_collisionCount--;
+                if (m_collisionCount == 0)
+                {
+                    m_isPowered = false;
+                }
             }
         }
 

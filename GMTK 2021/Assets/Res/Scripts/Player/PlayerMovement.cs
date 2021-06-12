@@ -2,9 +2,15 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Movement Parameters")]
     [SerializeField]
     private int m_maxSpeed;
 
+    [SerializeField]
+    [Range(0, 100)]
+    private int m_jumpHeight;
+
+    [Header("Sensors")]
     [SerializeField]
     private Transform m_groundSensor;
 
@@ -13,15 +19,16 @@ public class PlayerMovement : MonoBehaviour
 
     private LayerMask walkable;
 
+    
     [SerializeField]
     private Transform m_pickupSensor;
 
     [SerializeField]
     private float m_pickupSensorRadius;
 
+    [Header("Transforms")]
     [SerializeField]
-    [Range(0, 100)]
-    private int m_jumpHeight;
+    private Transform m_cableHoldPoint;
 
     private bool m_grounded = false;
     private bool m_pickup;
@@ -34,7 +41,8 @@ public class PlayerMovement : MonoBehaviour
 
     private InputMaster m_input;
 
-    public PlayerAnimationController m_anim;
+    private PlayerAnimationController m_anim;
+    public static float directionEpsilon = 0.05f;
 
     private void Awake()
     {
@@ -64,7 +72,9 @@ public class PlayerMovement : MonoBehaviour
         }
         if (m_pickedUp)
         {
-            m_pickedUp.transform.position = transform.position;
+            m_pickedUp.transform.position = m_cableHoldPoint.position;
+            if (Mathf.Abs(m_velocity.x) >= directionEpsilon)
+                m_pickedUp.transform.localScale = new Vector3(Mathf.Sign(m_velocity.x), 1, 1);
         }
     }
 
@@ -110,6 +120,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Pickup()
     {
+        bluModule.Application.instance.sceneModule.SwitchScene("SampleScene");
+
         if (!m_pickup)
         {
             Collider2D[] collisions = Physics2D.OverlapCircleAll(m_pickupSensor.position, m_pickupSensorRadius, walkable);
@@ -122,10 +134,12 @@ public class PlayerMovement : MonoBehaviour
                     {
                         m_pickedUp = collide.gameObject;
                         m_pickup = true;
+                        m_pickedUp.GetComponent<BoxCollider2D>().enabled = false;
 
                         if (m_pickedUp.CompareTag("Plug"))
                         {
                             m_pickedUp.GetComponentInChildren<Nodes.NodeConnection>().Disconnect();
+                            m_anim.SetBool("isHoldingCable", true);
                         }
 
                         if (collide.TryGetComponent<Rigidbody2D>(out var rb))
@@ -153,10 +167,12 @@ public class PlayerMovement : MonoBehaviour
                         if (conn.Connect(m_pickedUp.GetComponentInChildren<Nodes.NodeConnection>()))
                         {
                             // success
+
                             m_pickedUp.transform.position = conn.transform.position;
 
                             m_pickedUp = null;
                             m_pickup = false;
+                            
                             return;
                         }
                         else
@@ -165,6 +181,10 @@ public class PlayerMovement : MonoBehaviour
                         }
                     }
                 }
+
+                m_anim.SetBool("isHoldingCable", false);
+                m_pickedUp.GetComponent<BoxCollider2D>().enabled = true;
+
             }
 
             if (m_pickedUp.TryGetComponent<Rigidbody2D>(out var rb))

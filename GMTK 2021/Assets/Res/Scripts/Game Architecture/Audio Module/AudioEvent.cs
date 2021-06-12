@@ -25,7 +25,6 @@ public class AudioEvent
         _instance.start();
     }
 
-
     public void Pause()
     {
         bool _paused;
@@ -37,11 +36,12 @@ public class AudioEvent
     {
         _instance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
     }
+
     public void HardStop()
     {
         _instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-
     }
+
     public void DeleteEvent()
     {
         _instance.release();
