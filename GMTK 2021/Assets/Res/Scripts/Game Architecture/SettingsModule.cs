@@ -51,5 +51,20 @@ namespace bluModule
             PlayerPrefs.SetFloat("MusicVolume", musicVol);
             musicBus.setVolume(musicVol);
         }
+
+        public float GetMasterVolume()
+        {
+            return masterVol;
+        }
+
+        public float GetSFXVolume()
+        {
+            return SFXVol;
+        }
+
+        public float GetMusicVolume()
+        {
+            return musicVol;
+        }
     }
 }
