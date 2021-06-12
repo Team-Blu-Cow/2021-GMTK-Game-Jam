@@ -77,6 +77,16 @@ namespace bluModule
             _musicEvents[name].DeleteEvent();
         }
 
+        public AudioEvent GetAudioEvent(string name)
+        {
+            return _audioEvents[name];
+        }
+
+        public AudioEvent GetMusicEvent(string name)
+        {
+            return _musicEvents[name];
+        }
+
         public void StopAllEvents(bool fade = false)
         {
             if (fade)
@@ -101,8 +111,11 @@ namespace bluModule
             NewAudioEvent("event:/environment/objects/nodes/button remove");
             NewAudioEvent("event:/environment/objects/interactables/pressure plates/insert");
             NewAudioEvent("event:/environment/objects/interactables/pressure plates/remove");
+            NewAudioEvent("event:/environment/objects/interactables/door/open");
+            NewAudioEvent("event:/environment/objects/interactables/door/close");
             NewAudioEvent("event:/UI/buttons/on click");
             NewMusicEvent("event:/music/Beef Stroganoff");
+            NewMusicEvent("event:/music/Main theme");
         }
     }
 }
