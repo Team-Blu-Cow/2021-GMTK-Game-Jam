@@ -33,7 +33,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     public void UpdateAnim(Vector3 velocity)
     {
-        if (velocity.x != 0)
+        if (Mathf.Abs(velocity.x) >= PlayerMovement.directionEpsilon)
         {
             mainAnimator.localScale = new Vector3(Mathf.Sign(velocity.x), 1, 1);
         }
