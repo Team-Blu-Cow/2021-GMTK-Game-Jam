@@ -123,6 +123,7 @@ namespace bluModule
             NewAudioEvent("event:/environment/objects/interactables/door/open", 3);
             NewAudioEvent("event:/environment/objects/interactables/door/close", 3);
             NewAudioEvent("event:/UI/buttons/on click");
+            NewAudioEvent("event:/UI/buttons/denied");
             NewMusicEvent("event:/music/Beef Stroganoff");
             NewMusicEvent("event:/music/Main theme");
         }
