@@ -8,12 +8,16 @@ namespace Nodes
     {
         protected bool m_isPowered = false;
 
+        protected bool m_isLogicGate = false;
+
+        public bool isLogicGate { get { return m_isLogicGate; } }
+
         public void SetPowered()
         {
             m_isPowered = true;
         }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             NodeConnection[] Con = gameObject.transform.GetComponentsInChildren<NodeConnection>();
 
