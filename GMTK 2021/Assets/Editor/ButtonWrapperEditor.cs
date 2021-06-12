@@ -168,7 +168,7 @@ public class ButtonWrapperEditor : Editor
                                     if (button.open)
                                         button.button.onClick.AddListener(delegate { canvasManager.OpenCanvas(canvasManager.GetCanvasContainer(button.canvas[0]), button.stack); });
                                     else
-                                        button.button.onClick.AddListener(delegate { canvasManager.CloseCanvas(button.stack); });
+                                        button.button.onClick.AddListener(delegate { canvasManager.CloseCanvas(true); });
                                 }
                             }
                             else

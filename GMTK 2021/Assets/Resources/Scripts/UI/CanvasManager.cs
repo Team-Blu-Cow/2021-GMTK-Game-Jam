@@ -62,7 +62,11 @@ namespace CanvasTool
             }
 
             CloseCanvas(true);
-            OpenCanvas(startingCanvas);
+
+            if (startingCanvas.canvas != null)
+            {
+                OpenCanvas(startingCanvas);
+            }
         }
 
         public void OpenCanvas(List<CanvasContainer> containers, bool stack = false)

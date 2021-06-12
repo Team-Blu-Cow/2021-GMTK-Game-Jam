@@ -13,15 +13,17 @@ public class LevelSelection : MonoBehaviour
         levels = GetComponentsInChildren<Button>();
         int levelsComplete = bluModule.Application.instance.settingsModule.saveData.GetLevelsComplete();
 
-        if (levelsComplete > levels.Length)
+        if (levelsComplete > levels.Length - 1)
         {
-            levelsComplete = levels.Length;
+            levelsComplete = levels.Length - 1;
         }
 
         foreach (Button btn in levels)
         {
             btn.interactable = false;
         }
+
+        levels[levels.Length - 1].interactable = true;
 
         ColorBlock colors;
 
