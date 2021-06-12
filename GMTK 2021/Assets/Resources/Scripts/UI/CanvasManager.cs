@@ -65,6 +65,66 @@ namespace CanvasTool
             OpenCanvas(startingCanvas);
         }
 
+        public void OpenCanvas(List<CanvasContainer> containers, bool stack = false)
+        {
+            foreach (CanvasContainer container in containers)
+            {
+                // If the canvas is already open
+                if (openCanvases.Contains(container))
+                {
+                    // Close untill at desired canvas
+                    while (openCanvases.Peek() != container)
+                    {
+                        // Close canvases
+                        CanvasContainer top = openCanvases.Pop();
+                        top.CloseCanvas();
+                    }
+                    overlay.canvas.sortingOrder = openCanvases.Count;
+                    break;
+                }
+
+                if (stack)
+                {
+                    if (openCanvases.Count > 0 && openCanvases.Peek().layer == container.layer)
+                    {
+                        openCanvases.Pop();
+                    }
+
+                    //close on same layer
+                    if (container.layer != 0)
+                    {
+                        foreach (CanvasContainer canvas in canvases)
+                        {
+                            if (container.layer == canvas.layer)
+                            {
+                                canvas.CloseCanvas();
+                            }
+                        }
+                    }
+
+                    openCanvases.Push(container);
+                }
+                else
+                {
+                    // Close canvases
+                    foreach (CanvasContainer canvas in canvases)
+                    {
+                        canvas.CloseCanvas();
+                    }
+                    openCanvases.Clear();
+                }
+            }
+
+            int i = 0;
+            foreach (CanvasContainer container in containers)
+            {
+                container.OpenCanvas();
+                container.canvas.sortingOrder = openCanvases.Count + i;
+                i++;
+            }
+            overlay.canvas.sortingOrder = openCanvases.Count;
+        }
+
         public void OpenCanvas(CanvasContainer container, bool stack = false)
         {
             //overlay.canvas.enabled = true;
@@ -111,6 +171,7 @@ namespace CanvasTool
                 {
                     canvas.CloseCanvas();
                 }
+                openCanvases.Clear();
             }
 
             container.OpenCanvas();
@@ -173,6 +234,16 @@ namespace CanvasTool
         public CanvasContainer GetCanvasContainer(Canvas in_canvas)
         {
             return canvases.Find(i => i.canvas == in_canvas);
+        }
+
+        public List<CanvasContainer> GetCanvasContainers(List<Canvas> in_canvas)
+        {
+            List<CanvasContainer> temp = new List<CanvasContainer>();
+            foreach (Canvas canvas in in_canvas)
+            {
+                temp.Add(canvases.Find(i => i.canvas == canvas));
+            }
+            return temp;
         }
 
         public CanvasContainer GetCanvasContainer(int in_index)

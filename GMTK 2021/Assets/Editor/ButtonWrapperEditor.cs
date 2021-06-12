@@ -73,12 +73,35 @@ public class ButtonWrapperEditor : Editor
                         button.image.sprite = (Sprite)EditorGUILayout.ObjectField(sprite, typeof(Sprite), true);
                     }
 
-                    using (var HorizontalScope = new GUILayout.HorizontalScope())
+                    using (var VerticalScope = new GUILayout.VerticalScope())
                     {
-                        Indent();
-                        GUILayout.Label("Swap Canvas", GUILayout.Width(100));
-                        button.canvas = (Canvas)EditorGUILayout.ObjectField(button.canvas, typeof(Canvas), true);
+                        for (int x = 0; x < button.canvas.Count; x++)
+                        {
+                            using (var HorizontalScope = new GUILayout.HorizontalScope())
+                            {
+                                Indent();
+                                GUILayout.Label("Swap Canvas", GUILayout.Width(100));
+                                button.canvas[x] = (Canvas)EditorGUILayout.ObjectField(button.canvas[x], typeof(Canvas), true);
+                                if (GUILayout.Button(deleteButtonContent))
+                                {
+                                    button.canvas.Remove(button.canvas[x]);
+                                }
+                            }
+                        }
+
+                        using (var HorizontalScope = new GUILayout.HorizontalScope())
+                        {
+                            Indent();
+                            GUILayout.Label("Add Swap Canvas", GUILayout.Width(120));
+
+                            if (GUILayout.Button(addButtonContent))
+                            {
+                                button.canvas.Add(new Canvas());
+                            }
+                        }
                     }
+
+                    Indent();
 
                     using (var HorizontalScope = new GUILayout.HorizontalScope())
                     {
@@ -138,7 +161,7 @@ public class ButtonWrapperEditor : Editor
                                     button.button.onClick.AddListener(delegate { bluModule.Application.instance.audioModule.PlayAudioEvent("event:/UI/buttons/on click"); });
 
                                     if (button.open)
-                                        button.button.onClick.AddListener(delegate { canvasManager.OpenCanvas(canvasManager.GetCanvasContainer(button.canvas), button.stack); });
+                                        button.button.onClick.AddListener(delegate { canvasManager.OpenCanvas(canvasManager.GetCanvasContainer(button.canvas[0]), button.stack); });
                                     else
                                         button.button.onClick.AddListener(delegate { canvasManager.CloseCanvas(button.stack); });
                                 }

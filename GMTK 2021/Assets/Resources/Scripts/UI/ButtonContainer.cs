@@ -2,11 +2,13 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
+using System.Collections.Generic;
 
 [Serializable]
 public class ButtonContainer
 {
-    public Canvas canvas;
+    public List<Canvas> canvas;
+
     public Button button;
     public Image image;
     public TextMeshProUGUI textMeshPro;
