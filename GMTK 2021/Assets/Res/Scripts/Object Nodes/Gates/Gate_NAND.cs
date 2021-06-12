@@ -9,7 +9,7 @@ namespace Nodes
     {
         public Gate_NAND()
         {
-            m_type = LogicGateType.AND;
+            m_type = LogicGateType.NAND;
         }
 
         public override bool IsGatesOutputsActive()

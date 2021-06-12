@@ -8,7 +8,7 @@ namespace Nodes
     {
         public Gate_XNOR()
         {
-            m_type = LogicGateType.OR;
+            m_type = LogicGateType.XNOR;
         }
 
         public override bool IsGatesOutputsActive()
