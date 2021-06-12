@@ -13,6 +13,7 @@ namespace bluModule
         public void SwitchScene(string in_Scene)
         {
             StartCoroutine(LoadLevel(in_Scene));
+            bluModule.Application.instance.audioModule.StopAllEvents(true);
         }
 
         public void Quit()

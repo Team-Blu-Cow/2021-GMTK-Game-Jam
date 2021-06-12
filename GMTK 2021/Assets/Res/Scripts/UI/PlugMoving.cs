@@ -61,6 +61,23 @@ public class PlugMoving : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
             previousPos = transform.position;
         }
+        else
+        {
+            RectTransform rectTransform = GetComponent<RectTransform>();
+
+            Vector2 topRight = new Vector2(rectTransform.position.x + rectTransform.rect.width / 2, transform.position.y + rectTransform.rect.height / 2);
+            Vector2 bottomLeft = new Vector2(rectTransform.position.x - rectTransform.rect.width / 2, transform.position.y - rectTransform.rect.height / 2);
+
+            Collider2D[] overlap = Physics2D.OverlapAreaAll(topRight, bottomLeft);
+
+            if (overlap.Length > 0)
+            {
+                Rigidbody2D rb = GetComponent<Rigidbody2D>();
+
+                rb.velocity = new Vector2(rb.velocity.x, 0);
+                transform.position = previousPos;
+            }
+        }
     }
 
     private void OnEnable()
@@ -78,12 +95,23 @@ public class PlugMoving : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         if (eventData.pointerCurrentRaycast.gameObject.CompareTag("Plug"))
         {
             m_clicked = true;
+
+            Collider2D overlap = Physics2D.OverlapBox(m_pickupSensor.position, new Vector2(m_pickupRange, 1), 0);
+            if (overlap && overlap.CompareTag("MenuButton"))
+            {
+                overlap.GetComponent<MenuButton>().UnPower();
+            }
         }
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         m_clicked = false;
+        Collider2D overlap = Physics2D.OverlapBox(m_pickupSensor.position, new Vector2(m_pickupRange, 1), 0);
+        if (overlap && overlap.CompareTag("MenuButton"))
+        {
+            overlap.GetComponent<MenuButton>().Power();
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)

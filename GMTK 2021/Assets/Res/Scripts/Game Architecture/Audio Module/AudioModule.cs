@@ -111,8 +111,8 @@ namespace bluModule
             NewAudioEvent("event:/environment/objects/interactables/power supply/hum");
             NewAudioEvent("event:/environment/objects/interactables/plugs/pick up", 5);
             NewAudioEvent("event:/environment/objects/interactables/plugs/put down", 5);
-            NewAudioEvent("event:/environment/objects/nodes/button insert", 5);
-            NewAudioEvent("event:/environment/objects/nodes/button remove", 5);
+            NewAudioEvent("event:/environment/objects/nodes/button insert");
+            NewAudioEvent("event:/environment/objects/nodes/button remove");
             NewAudioEvent("event:/environment/objects/interactables/pressure plates/insert", 5);
             NewAudioEvent("event:/environment/objects/interactables/pressure plates/remove", 5);
             NewAudioEvent("event:/environment/objects/interactables/door/open", 3);

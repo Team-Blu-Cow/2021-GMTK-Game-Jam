@@ -3,49 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Level
+public class LevelSelection : MonoBehaviour
 {
-    public class LevelSelection : MonoBehaviour
+    private Button[] levels;
+
+    // Start is called before the first frame update
+    private void Start()
     {
-        private Button[] levels;
+        levels = GetComponentsInChildren<Button>();
+        int levelsComplete = bluModule.Application.instance.settingsModule.saveData.GetLevelsComplete();
 
-        // Start is called before the first frame update
-        private void Start()
+        if (levelsComplete > levels.Length - 1)
         {
-            levels = GetComponentsInChildren<Button>();
-            int levelsComplete = bluModule.Application.instance.settingsModule.saveData.GetLevelsComplete();
-
-            if (levelsComplete > levels.Length - 1)
-            {
-                levelsComplete = levels.Length - 1;
-            }
-
-            foreach (Button btn in levels)
-            {
-                btn.interactable = false;
-            }
-
-            levels[levels.Length - 1].interactable = true;
-
-            ColorBlock colors;
-
-            for (int i = 0; i < levelsComplete; i++)
-            {
-                colors = levels[i].colors;
-                colors.normalColor = Color.green;
-                levels[i].colors = colors;
-                levels[i].interactable = true;
-            }
-
-            colors = levels[levelsComplete].colors;
-            colors.normalColor = Color.red;
-            levels[levelsComplete].colors = colors;
-            levels[levelsComplete].interactable = true;
+            levelsComplete = levels.Length - 1;
         }
 
-        // Update is called once per frame
-        private void Update()
+        foreach (Button btn in levels)
         {
+            btn.interactable = false;
         }
+
+        levels[levels.Length - 1].interactable = true;
+
+        ColorBlock colors;
+
+        for (int i = 0; i < levelsComplete; i++)
+        {
+            colors = levels[i].colors;
+            colors.normalColor = Color.green;
+            levels[i].colors = colors;
+            levels[i].interactable = true;
+        }
+
+        colors = levels[levelsComplete].colors;
+        colors.normalColor = Color.red;
+        levels[levelsComplete].colors = colors;
+        levels[levelsComplete].interactable = true;
+    }
+
+    // Update is called once per frame
+    private void Update()
+    {
     }
 }

@@ -9,6 +9,7 @@ TagManager:
   - Pickup
   - PressurePlate
   - Plug
+  - MenuButton
   layers:
   - Default
   - TransparentFX
