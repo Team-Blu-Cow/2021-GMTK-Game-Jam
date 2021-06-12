@@ -175,8 +175,11 @@ namespace CanvasTool
             }
 
             container.OpenCanvas();
-            container.canvas.sortingOrder = openCanvases.Count;
-            overlay.canvas.sortingOrder = openCanvases.Count;
+            if (container.canvas)
+                container.canvas.sortingOrder = openCanvases.Count;
+
+            if (overlay.canvas)
+                overlay.canvas.sortingOrder = openCanvases.Count;
         }
 
         public void CloseCanvas(bool all = false)
