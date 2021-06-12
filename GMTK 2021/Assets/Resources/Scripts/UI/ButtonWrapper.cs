@@ -25,7 +25,7 @@ namespace CanvasTool
                 else
                     button.button.onClick.AddListener(delegate { bluModule.Application.instance.sceneModule.SwitchScene(button.sceneName); });
 
-                button.button.onClick.AddListener(delegate { bluModule.Application.instance.audioModule.PlayAudioEvent("event:/player/footstep"); });
+                button.button.onClick.AddListener(delegate { bluModule.Application.instance.audioModule.PlayAudioEvent("event:/UI/buttons/on click"); });
             }
         }
 
