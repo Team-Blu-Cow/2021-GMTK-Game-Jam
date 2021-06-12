@@ -134,6 +134,9 @@ public class PlayerMovement : MonoBehaviour
                         m_pickup = true;
                         m_pickedUp.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
 
+                        // SOUND PICKUP
+                        bluModule.Application.instance.audioModule.PlayAudioEvent("event:/environment/objects/interactables/plugs/pick up");
+
                         if (m_pickedUp.CompareTag("Plug"))
                         {
                             m_pickedUp.GetComponent<Nodes.CablePlug>().node_out.Disconnect();
@@ -191,6 +194,9 @@ public class PlayerMovement : MonoBehaviour
             }
             m_pickedUp = null;
             m_pickup = false;
+
+            // SOUND DROP
+            bluModule.Application.instance.audioModule.PlayAudioEvent("event:/environment/objects/interactables/plugs/put down");
         }
     }
 
