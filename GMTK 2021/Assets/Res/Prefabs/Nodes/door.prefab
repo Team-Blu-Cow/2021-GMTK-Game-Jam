@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6852096787640004647}
     m_Modifications:
+    - target: {fileID: -4811871523762345412, guid: 685084c3e0decff4c8d81aac9808949a, type: 3}
+      propertyPath: m_allowPlayerInteraction
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3380215986324499477, guid: 685084c3e0decff4c8d81aac9808949a, type: 3}
       propertyPath: m_Name
       value: Connection

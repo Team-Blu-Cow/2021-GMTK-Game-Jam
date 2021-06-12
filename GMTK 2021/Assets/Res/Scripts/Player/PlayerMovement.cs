@@ -173,20 +173,23 @@ public class PlayerMovement : MonoBehaviour
                     float dist = Vector3.Distance(conn.transform.position, transform.position);
                     if (dist < m_pickupRange)
                     {
-                        if (conn.Connect(m_pickedUp.GetComponent<Nodes.CablePlug>().node_out))
+                        if (conn.allowPlayerInteraction)
                         {
-                            // success
+                            if (conn.Connect(m_pickedUp.GetComponent<Nodes.CablePlug>().node_out))
+                            {
+                                // success
 
-                            m_pickedUp.transform.position = conn.transform.position;
+                                m_pickedUp.transform.position = conn.transform.position;
 
-                            m_pickedUp = null;
-                            m_pickup = false;
+                                m_pickedUp = null;
+                                m_pickup = false;
 
-                            return;
-                        }
-                        else
-                        {
-                            // fail
+                                return;
+                            }
+                            else
+                            {
+                                // failed to connect plug to connector
+                            }
                         }
                     }
                 }
