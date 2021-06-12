@@ -30,6 +30,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 m_velocity;
     private Rigidbody2D m_rb;
 
+    private float m_pickupRange = 1f;
+
     private InputMaster m_input;
 
     public PlayerAnimationController m_anim;
@@ -69,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
         {
             m_rb.velocity = new Vector2(m_maxSpeed * Mathf.Sign(m_velocity.x), m_rb.velocity.y);
         }
+
     }
 
     private void OnEnable()
@@ -113,10 +116,16 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (collide)
                 {
-                    if (collide.gameObject.CompareTag("Pickup"))
+                    if (collide.gameObject.CompareTag("Pickup") || collide.gameObject.CompareTag("Plug"))
                     {
                         m_pickedUp = collide.gameObject;
                         m_pickup = true;
+
+                        if(m_pickedUp.CompareTag("Plug"))
+                        {
+                            m_pickedUp.GetComponentInChildren<Nodes.OutputConnection>().Disconnect();
+                        }
+
 
                         if (collide.TryGetComponent<Rigidbody2D>(out var rb))
                         {
@@ -130,6 +139,33 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            if (m_pickedUp.CompareTag("Plug"))
+            {
+                // try plug it in
+                Nodes.InputConnection conn = FindClosestInputConnector();
+
+                if (conn != null)
+                {
+                    float dist = Vector3.Distance(conn.transform.position, transform.position);
+                    if (dist < m_pickupRange)
+                    {
+                        if (conn.Connect(m_pickedUp.GetComponentInChildren<Nodes.OutputConnection>()))
+                        {
+                            // success
+                            m_pickedUp.transform.position = conn.transform.position;
+
+                            m_pickedUp = null;
+                            m_pickup = false;
+                            return;
+                        }
+                        else
+                        {
+                            // fail
+                        }
+                    }
+                }
+            }
+
             if (m_pickedUp.TryGetComponent<Rigidbody2D>(out var rb))
             {
                 m_pickedUp.GetComponent<BoxCollider2D>().isTrigger = false;
@@ -153,5 +189,36 @@ public class PlayerMovement : MonoBehaviour
 
         Gizmos.DrawWireSphere(m_groundSensor.position, m_groundSensorRadius);
         Gizmos.DrawWireSphere(m_pickupSensor.position, m_pickupSensorRadius);
+    }
+
+    private Nodes.InputConnection FindClosestInputConnector()
+    {
+        Nodes.InputConnection closest = null;
+        float closestDist = 0f;
+
+        for (int i = 0; i < NodeClock.Instance.m_allInputConnectors.Count; i++)
+        {
+            float dist = Vector3.Distance(NodeClock.Instance.m_allInputConnectors[i].transform.position, transform.position);
+
+            if (closest == null)
+            {
+                if (m_pickedUp != NodeClock.Instance.m_allInputConnectors[i].transform.parent.gameObject)
+                {
+                    closest = NodeClock.Instance.m_allInputConnectors[i];
+                    closestDist = dist;
+                }
+            }
+
+            if (dist < closestDist)
+            {
+                if (m_pickedUp != NodeClock.Instance.m_allInputConnectors[i].transform.parent.gameObject)
+                {
+                    closestDist = dist;
+                    closest = NodeClock.Instance.m_allInputConnectors[i];
+                }
+            }
+        }
+
+        return closest;
     }
 }

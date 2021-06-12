@@ -7,6 +7,21 @@ namespace Nodes
     [System.Serializable]
     public class InputConnection : NodeConnection
     {
+        private void Awake()
+        {
+            m_node = transform.parent.gameObject.GetComponent<Nodes.Node>();
+        }
+
+        private void Start()
+        {
+            NodeClock.Instance.m_allInputConnectors.Add(this);
+        }
+
+        private void OnDestroy()
+        {
+            NodeClock.Instance.m_allInputConnectors.Remove(this);
+        }
+
         public bool Connect(OutputConnection conn)
         {
             if (conn == null)
@@ -14,7 +29,6 @@ namespace Nodes
 
             GameObject connParent = conn.transform.parent.gameObject;
             GameObject thisParent = transform.parent.gameObject;
-            
 
             if (connParent == null)
                 return false;
@@ -30,7 +44,6 @@ namespace Nodes
 
             conn.SetConnection(this);
             SetConnection(conn);
-
 
             return true;
         }
@@ -57,6 +70,5 @@ namespace Nodes
 
             return false;
         }
-
     }
 }
