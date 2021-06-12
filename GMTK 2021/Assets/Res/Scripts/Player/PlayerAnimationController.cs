@@ -38,7 +38,10 @@ public class PlayerAnimationController : MonoBehaviour
             mainAnimator.localScale = new Vector3(Mathf.Sign(velocity.x), 1, 1);
         }
 
-        SetBool("isFalling", (velocity.y <= 0)? true : false);
+        if(!bodyAnim.GetBool("isGrounded"))
+            SetBool("isFalling", (velocity.y <= 0)? true : false);
+        else
+            SetBool("isFalling", false);
     }
 
     public static void Footstep()
