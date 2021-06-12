@@ -181,13 +181,13 @@ public class PlayerMovement : MonoBehaviour
                 }
 
                 m_anim.SetBool("isHoldingCable", false);
-                m_pickedUp.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
             }
 
             if (m_pickedUp.TryGetComponent<Rigidbody2D>(out var rb))
             {
                 m_pickedUp.GetComponent<BoxCollider2D>().isTrigger = false;
                 rb.freezeRotation = false;
+                rb.bodyType = RigidbodyType2D.Dynamic;
             }
             m_pickedUp = null;
             m_pickup = false;

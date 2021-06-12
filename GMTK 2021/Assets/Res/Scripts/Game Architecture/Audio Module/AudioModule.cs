@@ -87,6 +87,13 @@ namespace bluModule
 
         public void Init()
         {
+            CreateEvents();
+            Debug.Log("Attempting to init settings module");
+            bluModule.Application.instance.settingsModule.audioSettings.Init();
+        }
+
+        private void CreateEvents()
+        {
             NewAudioEvent("event:/player/footstep");
             NewAudioEvent("event:/environment/objects/interactables/plugs/pick up");
             NewAudioEvent("event:/environment/objects/interactables/plugs/put down");
@@ -96,8 +103,6 @@ namespace bluModule
             NewAudioEvent("event:/environment/objects/interactables/pressure plates/remove");
             NewAudioEvent("event:/UI/buttons/on click");
             NewMusicEvent("event:/music/Beef Stroganoff");
-            Debug.Log("Attempting to init settings module");
-            bluModule.Application.instance.settingsModule.audioSettings.Init();
         }
     }
 }
