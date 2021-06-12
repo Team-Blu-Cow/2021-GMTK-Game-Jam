@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace bluModule
@@ -7,6 +5,7 @@ namespace bluModule
     public class SettingsModule : Module
     {
         public AudioSettings audioSettings = new AudioSettings();
+        public SaveData saveData = new SaveData();
     }
 
     public class AudioSettings
@@ -50,6 +49,27 @@ namespace bluModule
             musicVol = in_vol;
             PlayerPrefs.SetFloat("MusicVolume", musicVol);
             musicBus.setVolume(musicVol);
+        }
+    }
+
+    public class SaveData
+    {
+        private int levelsComplete = 0;
+
+        public SaveData()
+        {
+            levelsComplete = PlayerPrefs.GetInt("LevelsComplete", 0);
+        }
+
+        public int GetLevelsComplete()
+        {
+            return levelsComplete;
+        }
+
+        public void SetLevelsComplete(int input)
+        {
+            levelsComplete = input;
+            PlayerPrefs.SetInt("LevelsComplete", input);
         }
     }
 }
