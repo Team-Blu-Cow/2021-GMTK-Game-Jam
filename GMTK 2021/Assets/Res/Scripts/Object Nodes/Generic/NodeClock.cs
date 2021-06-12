@@ -27,7 +27,7 @@ public class NodeClock : MonoBehaviour
         }
     }
 
-    public List<Nodes.InputConnection> m_allInputConnectors = new List<Nodes.InputConnection>();
+    public List<Nodes.NodeConnection> m_Connectors = new List<Nodes.NodeConnection>();
 
     private void Update()
     {

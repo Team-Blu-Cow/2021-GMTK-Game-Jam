@@ -7,12 +7,17 @@ namespace Nodes
     public class CablePlug : Node
     {
         [SerializeField]
-        private OutputConnection m_supplyConnection = null;
+        private NodeConnection m_supplyConnection = null;
+
+        [SerializeField]
+        private NodeConnection node_in = null;
+
+        [SerializeField]
+        private NodeConnection node_out = null;
 
         protected override void Start()
         {
-            InputConnection incon = GetComponentInChildren<InputConnection>();
-            incon.Connect(m_supplyConnection);
+            node_in.Connect(m_supplyConnection);
             NodeClock.Instance.NodeUpdate += OnInvoke;
         }
 
@@ -20,10 +25,10 @@ namespace Nodes
         {
             if (m_supplyConnection != null)
             {
-                if (inputConnections.Count > 0)
+                if (Connections.Count > 0)
                 {
                     Gizmos.color = Color.red;
-                    Gizmos.DrawLine(m_supplyConnection.transform.position, inputConnections[0].transform.position);
+                    Gizmos.DrawLine(m_supplyConnection.transform.position, Connections[0].transform.position);
                 }
             }
         }

@@ -74,7 +74,6 @@ public class PlayerMovement : MonoBehaviour
         {
             m_rb.velocity = new Vector2(m_maxSpeed * Mathf.Sign(m_velocity.x), m_rb.velocity.y);
         }
-
     }
 
     private void OnEnable()
@@ -124,11 +123,10 @@ public class PlayerMovement : MonoBehaviour
                         m_pickedUp = collide.gameObject;
                         m_pickup = true;
 
-                        if(m_pickedUp.CompareTag("Plug"))
+                        if (m_pickedUp.CompareTag("Plug"))
                         {
-                            m_pickedUp.GetComponentInChildren<Nodes.OutputConnection>().Disconnect();
+                            m_pickedUp.GetComponentInChildren<Nodes.NodeConnection>().Disconnect();
                         }
-
 
                         if (collide.TryGetComponent<Rigidbody2D>(out var rb))
                         {
@@ -145,14 +143,14 @@ public class PlayerMovement : MonoBehaviour
             if (m_pickedUp.CompareTag("Plug"))
             {
                 // try plug it in
-                Nodes.InputConnection conn = FindClosestInputConnector();
+                Nodes.NodeConnection conn = FindClosestInputConnector();
 
                 if (conn != null)
                 {
                     float dist = Vector3.Distance(conn.transform.position, transform.position);
                     if (dist < m_pickupRange)
                     {
-                        if (conn.Connect(m_pickedUp.GetComponentInChildren<Nodes.OutputConnection>()))
+                        if (conn.Connect(m_pickedUp.GetComponentInChildren<Nodes.NodeConnection>()))
                         {
                             // success
                             m_pickedUp.transform.position = conn.transform.position;
@@ -186,7 +184,6 @@ public class PlayerMovement : MonoBehaviour
             m_anim.SetBool("isGrounded", true);
         else
             m_anim.SetBool("isGrounded", false);
-
     }
 
     private void OnDrawGizmos()
@@ -197,30 +194,30 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.DrawWireSphere(m_pickupSensor.position, m_pickupSensorRadius);
     }
 
-    private Nodes.InputConnection FindClosestInputConnector()
+    private Nodes.NodeConnection FindClosestInputConnector()
     {
-        Nodes.InputConnection closest = null;
+        Nodes.NodeConnection closest = null;
         float closestDist = 0f;
 
-        for (int i = 0; i < NodeClock.Instance.m_allInputConnectors.Count; i++)
+        for (int i = 0; i < NodeClock.Instance.m_Connectors.Count; i++)
         {
-            float dist = Vector3.Distance(NodeClock.Instance.m_allInputConnectors[i].transform.position, transform.position);
+            float dist = Vector3.Distance(NodeClock.Instance.m_Connectors[i].transform.position, transform.position);
 
             if (closest == null)
             {
-                if (m_pickedUp != NodeClock.Instance.m_allInputConnectors[i].transform.parent.gameObject)
+                if (m_pickedUp != NodeClock.Instance.m_Connectors[i].transform.parent.gameObject)
                 {
-                    closest = NodeClock.Instance.m_allInputConnectors[i];
+                    closest = NodeClock.Instance.m_Connectors[i];
                     closestDist = dist;
                 }
             }
 
             if (dist < closestDist)
             {
-                if (m_pickedUp != NodeClock.Instance.m_allInputConnectors[i].transform.parent.gameObject)
+                if (m_pickedUp != NodeClock.Instance.m_Connectors[i].transform.parent.gameObject)
                 {
                     closestDist = dist;
-                    closest = NodeClock.Instance.m_allInputConnectors[i];
+                    closest = NodeClock.Instance.m_Connectors[i];
                 }
             }
         }

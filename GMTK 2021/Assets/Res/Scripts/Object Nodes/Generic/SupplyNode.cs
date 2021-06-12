@@ -14,7 +14,7 @@ namespace Nodes
             while (nodes.Count > 0)
             {
                 Node node = nodes.Dequeue();
-                List<OutputConnection> conns = node.outputConnections;
+                List<NodeConnection> conns = node.Connections;
                 for (int i = 0; i < conns.Count; i++)
                 {
                     if (conns[i] != null)

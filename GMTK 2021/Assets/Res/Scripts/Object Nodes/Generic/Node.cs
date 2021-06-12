@@ -15,17 +15,11 @@ namespace Nodes
 
         private void Awake()
         {
-            InputConnection[] inCon = gameObject.transform.GetComponentsInChildren<InputConnection>();
-            OutputConnection[] outCon = gameObject.transform.GetComponentsInChildren<OutputConnection>();
+            NodeConnection[] Con = gameObject.transform.GetComponentsInChildren<NodeConnection>();
 
-            for (int i = 0; i < inCon.Length; i++)
+            for (int i = 0; i < Con.Length; i++)
             {
-                m_inputConnections.Add(inCon[i]);
-            }
-
-            for (int i = 0; i < outCon.Length; i++)
-            {
-                m_outputConnections.Add(outCon[i]);
+                m_Connections.Add(Con[i]);
             }
         }
 
@@ -44,12 +38,9 @@ namespace Nodes
             m_isPowered = false;
         }
 
-        protected List<InputConnection> m_inputConnections = new List<InputConnection>();
+        protected List<NodeConnection> m_Connections = new List<NodeConnection>();
 
-        protected List<OutputConnection> m_outputConnections = new List<OutputConnection>();
-
-        public List<InputConnection> inputConnections { get { return m_inputConnections; } }
-        public List<OutputConnection> outputConnections { get { return m_outputConnections; } }
+        public List<NodeConnection> Connections { get { return m_Connections; } }
 
         public bool IsPowered()
         {
