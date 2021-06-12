@@ -17,7 +17,7 @@ namespace Nodes
 
         protected override void Start()
         {
-            node_in.Connect(m_supplyConnection);
+            node_in.Connect(m_supplyConnection, false);
             NodeClock.Instance.NodeUpdate += OnInvoke;
         }
 

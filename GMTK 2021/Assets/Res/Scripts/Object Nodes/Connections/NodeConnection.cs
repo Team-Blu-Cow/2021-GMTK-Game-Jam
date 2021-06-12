@@ -37,16 +37,19 @@ namespace Nodes
             m_other = node;
         }
 
-        public void Disconnect()
+        public void Disconnect(bool playAudio = true)
         {
             if (m_other != null)
             {
+                if (playAudio)
+                    bluModule.Application.instance.audioModule.PlayAudioEvent("event:/environment/objects/nodes/button remove");
+
                 m_other.SetConnection(null);
                 this.SetConnection(null);
             }
         }
 
-        public bool Connect(NodeConnection conn)
+        public bool Connect(NodeConnection conn, bool playAudio = true)
         {
             if (conn == null)
                 return false;
@@ -69,10 +72,14 @@ namespace Nodes
             conn.SetConnection(this);
             SetConnection(conn);
 
+            if (playAudio)
+                bluModule.Application.instance.audioModule.PlayAudioEvent("event:/environment/objects/nodes/button insert");
+
             return true;
         }
 
         // return true if there is an error
+
         private bool CheckForCircularConnection(NodeConnection conn)
         {
             Queue<GameObject> toVisit = new Queue<GameObject>();
