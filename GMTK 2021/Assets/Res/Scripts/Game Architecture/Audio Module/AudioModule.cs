@@ -78,6 +78,7 @@ namespace bluModule
             NewAudioEvent("event:/environment/objects/nodes/button insert");
             NewAudioEvent("event:/environment/objects/nodes/button remove");
             NewMusicEvent("event:/music/Beef Stroganoff");
+            bluModule.Application.instance.settingsModule.audioSettings.Init();
         }
     }
 }
