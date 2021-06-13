@@ -164,6 +164,7 @@ public class PlayerMovement : MonoBehaviour
 
                             node.Disconnect();
                             m_anim.SetBool("isHoldingCable", true);
+                            m_pickedUp.GetComponent<SpriteRenderer>().sortingOrder = 1;
                         }
                         else
                         {
@@ -203,6 +204,7 @@ public class PlayerMovement : MonoBehaviour
                                 // success
 
                                 m_pickedUp.transform.position = conn.transform.position;
+                                m_pickedUp.GetComponent<SpriteRenderer>().sortingOrder = -2;
 
                                 m_pickedUp = null;
                                 m_pickup = false;
