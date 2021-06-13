@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Transforms")]
     [SerializeField]
     private Transform m_cableHoldPoint;
+
     [SerializeField]
     private Transform m_HoldPoint;
 
@@ -84,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (m_pickedUp)
         {
-            if(m_pickedUp.CompareTag("Plug"))
+            if (m_pickedUp.CompareTag("Plug"))
                 m_pickedUp.transform.position = m_cableHoldPoint.position;
             else
                 m_pickedUp.transform.position = m_HoldPoint.position;
@@ -96,8 +97,8 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         //if (m_velocity.x != 0)
-        //{ 
-            m_rb.velocity = new Vector2(m_maxSpeed * JUtil.JUtils.BetterSign(x_dir), m_rb.velocity.y);
+        //{
+        m_rb.velocity = new Vector2(m_maxSpeed * JUtil.JUtils.BetterSign(x_dir), m_rb.velocity.y);
         //}
     }
 
@@ -165,7 +166,6 @@ public class PlayerMovement : MonoBehaviour
                         {
                             m_anim.SetBool("isHolding", true);
                         }
-                        
 
                         // SOUND PICKUP
                         if (playSound)
@@ -236,14 +236,26 @@ public class PlayerMovement : MonoBehaviour
 
             // bluModule.Application.instance.audioModule.PlayAudioEvent("event:/environment/objects/interactables/plugs/put down");
         }
+
+        Collider2D[] collision = Physics2D.OverlapCircleAll(transform.position, 0.5f, walkable);
+
+        foreach (Collider2D collide in collision)
+        {
+            if (collide.gameObject.CompareTag("Exit"))
+            {
+                var instance = bluModule.Application.instance;
+                instance.settingsModule.saveData.SetLevelsComplete(instance.sceneModule.currentLevel);
+                instance.sceneModule.SwitchScene("Level" + instance.sceneModule.currentLevel + 1);
+            }
+        }
     }
 
     private void CheckSurroundings()
     {
         float spritewidth = GetComponent<BoxCollider2D>().bounds.extents.x;
         m_grounded = Physics2D.OverlapCircle(m_groundSensor.position, m_groundSensorRadius, walkable);
-        m_grounded |= Physics2D.OverlapCircle(m_groundSensor.position + new Vector3((spritewidth*0.6f), 0), m_groundSensorRadius, walkable);
-        m_grounded |= Physics2D.OverlapCircle(m_groundSensor.position + new Vector3((spritewidth*0.6f), 0), m_groundSensorRadius, walkable);
+        m_grounded |= Physics2D.OverlapCircle(m_groundSensor.position + new Vector3((spritewidth * 0.6f), 0), m_groundSensorRadius, walkable);
+        m_grounded |= Physics2D.OverlapCircle(m_groundSensor.position + new Vector3((spritewidth * 0.6f), 0), m_groundSensorRadius, walkable);
 
         if (m_grounded)
             m_anim.SetBool("isGrounded", true);

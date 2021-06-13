@@ -10,6 +10,7 @@ TagManager:
   - PressurePlate
   - Plug
   - MenuButton
+  - Exit
   layers:
   - Default
   - TransparentFX

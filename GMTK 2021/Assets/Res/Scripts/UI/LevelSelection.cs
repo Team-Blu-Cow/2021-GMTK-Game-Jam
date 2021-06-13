@@ -33,6 +33,9 @@ public class LevelSelection : MonoBehaviour
             colors.normalColor = Color.green;
             levels[i].colors = colors;
             levels[i].interactable = true;
+
+            int copy = i + 1;
+            levels[i].onClick.AddListener(delegate { bluModule.Application.instance.sceneModule.currentLevel = copy; });
         }
 
         colors = levels[levelsComplete].colors;
