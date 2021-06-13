@@ -13,6 +13,8 @@ namespace Nodes
 
         private bool wasPowered;
 
+        public Collider2D collider;
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (IsPowered())
@@ -28,6 +30,8 @@ namespace Nodes
 
         private void Update()
         {
+            collider.enabled = IsPowered();
+
             if (IsPowered() && !wasPowered)
                 particles.Play();
 
