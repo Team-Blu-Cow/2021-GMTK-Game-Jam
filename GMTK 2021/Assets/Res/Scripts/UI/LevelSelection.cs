@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 
 public class LevelSelection : MonoBehaviour
@@ -24,30 +25,38 @@ public class LevelSelection : MonoBehaviour
             levelsComplete = bluModule.Application.instance.sceneModule.MAX_LEVELS;
         }
 
-        if (levelsComplete < bluModule.Application.instance.sceneModule.menuLevel+5)
-            levelsComplete %= 5;
-
-        if (levelsComplete > m_levels.Length - 1)
+        if (levelsComplete < bluModule.Application.instance.sceneModule.menuLevel + 5)
         {
-            levelsComplete = m_levels.Length - 1;
+            if (levelsComplete != 0)
+            {
+                levelsComplete %= 5;
+                if (levelsComplete == 0)
+                    levelsComplete = 5;
+            }
         }
+        else
+        {
+            levelsComplete = 5;
+        }
+        
 
         foreach (MenuSwap btn in m_levels)
         {
             btn.m_active = false;
-            btn.GetComponent<SpriteRenderer>().color = Color.gray;
+            //btn.GetComponent<SpriteRenderer>().color = Color.gray;
+            btn.GetComponentInChildren<TextMeshProUGUI>().color = Color.gray;
         }
 
         m_levels[m_levels.Length - 1].m_active = true;
-        m_levels[m_levels.Length - 1].GetComponent<SpriteRenderer>().color = Color.red;
+        m_levels[m_levels.Length - 1].GetComponentInChildren<TextMeshProUGUI>().color = Color.red;
 
         for (int i = 0; i < levelsComplete; i++)
         {
-            m_levels[i].GetComponent<SpriteRenderer>().color = Color.red;
+            m_levels[i].GetComponentInChildren<TextMeshProUGUI>().color = Color.red;
             m_levels[i].m_active = true;
         }
 
-        m_levels[levelsComplete].GetComponent<SpriteRenderer>().color = Color.red;
+        m_levels[levelsComplete].GetComponentInChildren<TextMeshProUGUI>().color = Color.red;
         m_levels[levelsComplete].m_active = true;
 
     }

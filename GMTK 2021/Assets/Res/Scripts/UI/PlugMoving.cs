@@ -66,7 +66,7 @@ public class PlugMoving : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
             Collider2D overlap = Physics2D.OverlapCircle(m_pickupSensor.position, m_pickupRange);
             if (overlap && overlap.gameObject.CompareTag("MenuButton"))
             {
-                transform.position = new Vector3(overlap.transform.position.x - ((1 * overlap.transform.localScale.x) / 2), overlap.transform.position.y, transform.position.z);
+                transform.position = new Vector3(overlap.transform.position.x - 1.5f, overlap.transform.position.y, transform.position.z);
                 transform.rotation = Quaternion.identity;
                 GetComponentInParent<Canvas>().sortingOrder = -5;
             }

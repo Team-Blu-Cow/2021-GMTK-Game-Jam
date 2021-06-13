@@ -16,7 +16,8 @@ public class MenuLevels : MenuButton
         var sceneModule = bluModule.Application.instance.sceneModule;
         if (next)
         {
-            if (bluModule.Application.instance.settingsModule.saveData.GetLevelsComplete() > sceneModule.menuLevel + 5)
+            int levelsComplete = bluModule.Application.instance.settingsModule.saveData.GetLevelsComplete();
+            if (sceneModule.menuLevel + 5 < sceneModule.MAX_LEVELS && levelsComplete >= sceneModule.menuLevel + 4)
                 sceneModule.menuLevel += 5;
         }
         else
@@ -28,8 +29,8 @@ public class MenuLevels : MenuButton
         TextMeshProUGUI[] text = canvasManager.GetCanvasContainer("ButtonText").gameObject.GetComponentsInChildren<TextMeshProUGUI>();
         for (int i = 0; i < 5; i++)
         {
-            text[i].text = "Level " + (i + sceneModule.menuLevel + 1);
-            transform.parent.GetComponentsInChildren<MenuSwap>()[i].SetScene("Level" + (i + sceneModule.menuLevel + 1));
+            text[i].text = "Level " + (i + sceneModule.menuLevel);
+            transform.parent.GetComponentsInChildren<MenuSwap>()[i].SetScene("Level" + (i + sceneModule.menuLevel));
         }
 
         GetComponentInParent<LevelSelection>().CheckLevels();

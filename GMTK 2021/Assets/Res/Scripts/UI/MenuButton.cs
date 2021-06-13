@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
@@ -64,7 +65,8 @@ public class MenuButton : MonoBehaviour
         if (m_active)
         {
             m_powered = true;
-            GetComponent<SpriteRenderer>().color = Color.green;
+
+            GetComponentInChildren<TextMeshProUGUI>().color = Color.green;
             bluModule.Application.instance.audioModule.PlayAudioEvent("event:/environment/objects/nodes/button insert");
         }
     }
@@ -74,7 +76,7 @@ public class MenuButton : MonoBehaviour
         if (m_powered)
         {
             m_powered = false;
-            GetComponent<SpriteRenderer>().color = Color.red;
+            GetComponentInChildren<TextMeshProUGUI>().color = Color.red;
             bluModule.Application.instance.audioModule.PlayAudioEvent("event:/environment/objects/nodes/button remove");
         }
     }
