@@ -241,7 +241,7 @@ public class PlayerMovement : MonoBehaviour
             // bluModule.Application.instance.audioModule.PlayAudioEvent("event:/environment/objects/interactables/plugs/put down");
         }
 
-        Collider2D[] collision = Physics2D.OverlapCircleAll(transform.position, 0.5f, pickupable);
+        Collider2D[] collision = Physics2D.OverlapCircleAll(transform.position + new Vector3(0, 0.5f, 0), 0.5f);
 
         foreach (Collider2D collide in collision)
         {
@@ -249,7 +249,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 var instance = bluModule.Application.instance;
                 instance.settingsModule.saveData.SetLevelsComplete(instance.sceneModule.currentLevel);
-                instance.sceneModule.SwitchScene("Level" + instance.sceneModule.currentLevel + 1);
+                instance.sceneModule.SwitchScene("Level" + (instance.sceneModule.currentLevel + 1));
             }
         }
     }
@@ -277,6 +277,7 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.DrawWireSphere(m_groundSensor.position + new Vector3(bodyWidth * 0.6f, 0), m_groundSensorRadius);
         Gizmos.DrawWireSphere(m_groundSensor.position - new Vector3(bodyWidth * 0.6f, 0), m_groundSensorRadius);
         Gizmos.DrawWireSphere(m_pickupSensor.position, m_pickupSensorRadius);
+        Gizmos.DrawWireSphere(transform.position + new Vector3(0, 0.5f, 0), 0.5f);
     }
 
     private Nodes.NodeConnection FindClosestInputConnector()
