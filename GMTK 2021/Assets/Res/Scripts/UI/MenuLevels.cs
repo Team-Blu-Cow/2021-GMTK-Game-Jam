@@ -14,7 +14,6 @@ public class MenuLevels : MenuButton
     protected override void Clicked()
     {
         var sceneModule = bluModule.Application.instance.sceneModule;
-        bluModule.Application.instance.settingsModule.saveData.SetLevelsComplete(6);
         if (next)
         {
             if (bluModule.Application.instance.settingsModule.saveData.GetLevelsComplete() > sceneModule.menuLevel + 5)
