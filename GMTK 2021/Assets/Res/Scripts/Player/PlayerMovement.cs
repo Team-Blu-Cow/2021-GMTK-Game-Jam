@@ -62,7 +62,6 @@ public class PlayerMovement : MonoBehaviour
         m_input.PlayerMovement.Jump.started += _ => Jump();
         m_input.PlayerMovement.WASD.started += ctx => MoveStart(ctx.ReadValue<Vector2>());
         m_input.PlayerMovement.WASD.canceled += _ => MoveEnd();
-        m_input.PlayerMovement.Pause.performed += _ => Pause();
 
         m_input.PlayerMovement.Pickup.performed += _ => Pickup();
 
@@ -241,7 +240,7 @@ public class PlayerMovement : MonoBehaviour
             // bluModule.Application.instance.audioModule.PlayAudioEvent("event:/environment/objects/interactables/plugs/put down");
         }
 
-        Collider2D[] collision = Physics2D.OverlapCircleAll(transform.position, 0.5f, pickupable);
+        Collider2D[] collision = Physics2D.OverlapCircleAll(transform.position + new Vector3(0, 0.5f, 0), 0.5f);
 
         foreach (Collider2D collide in collision)
         {
@@ -249,7 +248,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 var instance = bluModule.Application.instance;
                 instance.settingsModule.saveData.SetLevelsComplete(instance.sceneModule.currentLevel);
-                instance.sceneModule.SwitchScene("Level" + instance.sceneModule.currentLevel + 1);
+                instance.sceneModule.SwitchScene("Level" + (instance.sceneModule.currentLevel + 1));
             }
         }
     }
@@ -277,6 +276,7 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.DrawWireSphere(m_groundSensor.position + new Vector3(bodyWidth * 0.6f, 0), m_groundSensorRadius);
         Gizmos.DrawWireSphere(m_groundSensor.position - new Vector3(bodyWidth * 0.6f, 0), m_groundSensorRadius);
         Gizmos.DrawWireSphere(m_pickupSensor.position, m_pickupSensorRadius);
+        Gizmos.DrawWireSphere(transform.position + new Vector3(0, 0.5f, 0), 0.5f);
     }
 
     private Nodes.NodeConnection FindClosestInputConnector()
@@ -308,17 +308,5 @@ public class PlayerMovement : MonoBehaviour
         }
 
         return closest;
-    }
-
-    private void Pause()
-    {
-        CanvasTool.CanvasManager canvasManager = FindObjectOfType<CanvasTool.CanvasManager>();
-        canvasManager.OpenCanvas(canvasManager.GetCanvasContainer("Pause"));
-        Time.timeScale = 0;
-    }
-
-    public void UnPause()
-    {
-        Time.timeScale = 1;
     }
 }
