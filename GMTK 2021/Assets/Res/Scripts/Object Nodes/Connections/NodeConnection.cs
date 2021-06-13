@@ -14,6 +14,11 @@ namespace Nodes
         [SerializeField]
         protected Nodes.Node m_node = null;
 
+        public bool isPowered()
+        {
+            return m_node.IsPowered();
+        }
+
         [SerializeField]
         private bool m_allowPlayerInteraction = true;
 
