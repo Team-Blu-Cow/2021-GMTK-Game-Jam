@@ -5,12 +5,28 @@ using UnityEngine.InputSystem;
 
 public class TunesMachine : MonoBehaviour
 {
+    public static TunesMachine _instance;
+
     private float ratio = 0f;
 
     // Start is called before the first frame update
     private bool track = false;
 
     private bool done = true;
+
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        else if (this != _instance)
+        {
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(this);
+    }
 
     private void Start()
     {

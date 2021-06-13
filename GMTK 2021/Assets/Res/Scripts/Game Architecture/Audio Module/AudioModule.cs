@@ -104,6 +104,32 @@ namespace bluModule
             }
         }
 
+        public void StopAllMusicEvents(bool fade = false)
+        {
+            if (fade)
+            {
+                GetMusicEvent("event:/music/Main theme").SetParameter("Track Ratio", 0f);
+                FMODUnity.RuntimeManager.GetBus("bus:/Master/Music").stopAllEvents(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            }
+            else
+            {
+                GetMusicEvent("event:/music/Main theme").SetParameter("Track Ratio", 0f);
+                FMODUnity.RuntimeManager.GetBus("bus:/Master/Music").stopAllEvents(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            }
+        }
+
+        public void StopAllSFXEvents(bool fade = false)
+        {
+            if (fade)
+            {
+                FMODUnity.RuntimeManager.GetBus("bus:/Master/SFX").stopAllEvents(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            }
+            else
+            {
+                FMODUnity.RuntimeManager.GetBus("bus:/Master/SFX").stopAllEvents(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            }
+        }
+
         public void Init()
         {
             CreateEvents();

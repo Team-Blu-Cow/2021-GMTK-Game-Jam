@@ -11,11 +11,12 @@ namespace bluModule
         private GameObject transitionGO;
         public int currentLevel = 0;
         public int menuLevel = 1;
+        public const int MAX_LEVELS = 10;
 
         public void SwitchScene(string in_Scene)
         {
             StartCoroutine(LoadLevel(in_Scene));
-            bluModule.Application.instance.audioModule.StopAllEvents(true);
+            bluModule.Application.instance.audioModule.StopAllSFXEvents(true);
         }
 
         public void Quit()
