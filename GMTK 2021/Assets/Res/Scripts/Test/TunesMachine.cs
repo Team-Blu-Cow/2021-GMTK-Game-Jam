@@ -50,6 +50,5 @@ public class TunesMachine : MonoBehaviour
         }
 
         done = true;
-        yield break;
     }
 }

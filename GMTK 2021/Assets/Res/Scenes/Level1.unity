@@ -123,6 +123,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &149316710
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1351441952617699005, guid: c89b5a142713d5f45998b3f705cde96a, type: 3}
+      propertyPath: m_Name
+      value: Pause Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 5515099856406353270, guid: c89b5a142713d5f45998b3f705cde96a, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5515099856406353270, guid: c89b5a142713d5f45998b3f705cde96a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.07316278
+      objectReference: {fileID: 0}
+    - target: {fileID: 5515099856406353270, guid: c89b5a142713d5f45998b3f705cde96a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.48459077
+      objectReference: {fileID: 0}
+    - target: {fileID: 5515099856406353270, guid: c89b5a142713d5f45998b3f705cde96a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.423799
+      objectReference: {fileID: 0}
+    - target: {fileID: 5515099856406353270, guid: c89b5a142713d5f45998b3f705cde96a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5515099856406353270, guid: c89b5a142713d5f45998b3f705cde96a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5515099856406353270, guid: c89b5a142713d5f45998b3f705cde96a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5515099856406353270, guid: c89b5a142713d5f45998b3f705cde96a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5515099856406353270, guid: c89b5a142713d5f45998b3f705cde96a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5515099856406353270, guid: c89b5a142713d5f45998b3f705cde96a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5515099856406353270, guid: c89b5a142713d5f45998b3f705cde96a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c89b5a142713d5f45998b3f705cde96a, type: 3}
 --- !u!1001 &180566943
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -562,11 +619,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8556638536384703812, guid: 12da4d95c194de6459d5c55f7b2ea4b2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.977255
+      value: -5.699
       objectReference: {fileID: 0}
     - target: {fileID: 8556638536384703812, guid: 12da4d95c194de6459d5c55f7b2ea4b2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.8340944
+      value: -1.839
       objectReference: {fileID: 0}
     - target: {fileID: 8556638536384703812, guid: 12da4d95c194de6459d5c55f7b2ea4b2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -950,30 +1007,6 @@ CompositeCollider2D:
   - m_Collider: {fileID: 1888937905}
     m_ColliderPaths:
     - - X: 80000000
-        Y: -40000100
-      - X: 80000041
-        Y: -40000100
-      - X: 80000100
-        Y: -40000041
-      - X: 80000100
-        Y: 80000041
-      - X: 80000041
-        Y: 80000100
-      - X: 80000000
-        Y: 80000100
-      - X: 80000000
-        Y: 90000000
-      - X: 70000100
-        Y: 90000000
-      - X: 70000100
-        Y: 90000041
-      - X: 70000041
-        Y: 90000100
-      - X: 39999959
-        Y: 90000100
-      - X: 39999900
-        Y: 90000041
-      - X: 39999900
         Y: 90000000
       - X: 0
         Y: 90000000
@@ -992,21 +1025,17 @@ CompositeCollider2D:
     - - X: -70000000
         Y: -20000000
       - X: -70000000
-        Y: 9999900
-      - X: -100
-        Y: 9999900
-      - X: -100
-        Y: -41
-      - X: -41
-        Y: -100
-      - X: 10000041
-        Y: -100
-      - X: 10000100
-        Y: -41
-      - X: 10000100
-        Y: 9999900
+        Y: 10000000
+      - X: 0
+        Y: 10000000
+      - X: 0
+        Y: 0
+      - X: 10000000
+        Y: 0
+      - X: 10000000
+        Y: 10000000
       - X: 30000000
-        Y: 9999900
+        Y: 10000000
       - X: 30000000
         Y: -20000000
   m_CompositePaths:
@@ -1021,12 +1050,12 @@ CompositeCollider2D:
       - {x: -11.99997, y: -7}
     - - {x: 3, y: -1.9999707}
       - {x: -7, y: -1.9999707}
-      - {x: -6.9999704, y: 0.99999}
-      - {x: -0.00001, y: 0.9999606}
-      - {x: 0.0000252, y: -0.00001}
-      - {x: 1.00001, y: 0.0000252}
-      - {x: 1.0000395, y: 0.99999}
-      - {x: 3, y: 0.9999606}
+      - {x: -6.9999704, y: 1}
+      - {x: 0, y: 0.9999706}
+      - {x: 0.000029300001, y: 0}
+      - {x: 1, y: 0.000029300001}
+      - {x: 1.0000294, y: 1}
+      - {x: 3, y: 0.9999706}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!19719996 &1888937905
