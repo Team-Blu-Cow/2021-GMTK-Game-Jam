@@ -104,6 +104,7 @@ public class PlugMoving : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
             Collider2D overlap = Physics2D.OverlapBox(m_pickupSensor.position, new Vector2(m_pickupRange, 1), 0);
             if (overlap && overlap.CompareTag("MenuButton"))
             {
+                bluModule.Application.instance.audioModule.PlayAudioEvent("event:/environment/objects/nodes/button remove");
                 overlap.GetComponent<MenuButton>().UnPower();
             }
         }
@@ -116,6 +117,8 @@ public class PlugMoving : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         Collider2D overlap = Physics2D.OverlapBox(m_pickupSensor.position, new Vector2(m_pickupRange, 1), 0);
         if (overlap && overlap.CompareTag("MenuButton"))
         {
+            bluModule.Application.instance.audioModule.PlayAudioEvent("event:/environment/objects/nodes/button insert");
+
             overlap.GetComponent<MenuButton>().Power();
             rb.simulated = false;
         }

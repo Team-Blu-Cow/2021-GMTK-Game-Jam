@@ -10,7 +10,7 @@ public class TunesMachine : MonoBehaviour
     private float ratio = 0f;
 
     // Start is called before the first frame update
-    private bool track = false;
+    private bool track = true;
 
     private bool done = true;
 
@@ -31,6 +31,11 @@ public class TunesMachine : MonoBehaviour
     private void Start()
     {
         bluModule.Application.instance.audioModule.PlayMusicEvent("event:/music/Main theme");
+    }
+
+    private void Update()
+    {
+        bluModule.Application.instance.audioModule.GetMusicEvent("event:/music/Main theme").SetParameter("Track Ratio", ratio); ;
     }
 
     public void SwapTrack()

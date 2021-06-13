@@ -51,6 +51,8 @@ public class PlayerMovement : MonoBehaviour
     private PlayerAnimationController m_anim;
     public static float directionEpsilon = 0.05f;
 
+    private bool nextLevel = false;
+
     private void Awake()
     {
         m_rb = GetComponent<Rigidbody2D>();
@@ -246,8 +248,9 @@ public class PlayerMovement : MonoBehaviour
 
         foreach (Collider2D collide in collision)
         {
-            if (collide.gameObject.CompareTag("Exit"))
+            if (collide.gameObject.CompareTag("Exit") && !nextLevel)
             {
+                nextLevel = true;
                 var instance = bluModule.Application.instance;
                 instance.settingsModule.saveData.SetLevelsComplete(instance.sceneModule.currentLevel);
                 instance.sceneModule.SwitchScene("Level" + (instance.sceneModule.currentLevel + 1));
