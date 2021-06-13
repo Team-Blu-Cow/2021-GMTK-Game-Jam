@@ -23,9 +23,6 @@ namespace Nodes
                     {
                         if (conns[i].other.node.isLogicGate)
                         {
-                            if (conns[i].other.node.IsPowered())
-                                continue;
-
                             ProcessGate(conns[i], nodes);
                         }
                         else
@@ -53,6 +50,9 @@ namespace Nodes
                 List<NodeConnection> gateConns = gate.GateOutputs;
 
                 if (gateConns.Contains(connection))
+                    return;
+
+                if (gate.gateType == LogicGateType.XOR)
                     return;
 
                 for (int c = 0; c < gateConns.Count; c++)

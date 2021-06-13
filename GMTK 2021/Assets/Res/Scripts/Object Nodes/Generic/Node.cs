@@ -12,9 +12,9 @@ namespace Nodes
 
         public bool isLogicGate { get { return m_isLogicGate; } }
 
-        public void SetPowered()
+        public void SetPowered(bool powered = true)
         {
-            m_isPowered = true;
+            m_isPowered = powered;
         }
 
         protected virtual void Awake()
