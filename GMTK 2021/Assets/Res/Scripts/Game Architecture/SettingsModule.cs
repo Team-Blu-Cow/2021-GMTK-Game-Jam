@@ -110,9 +110,12 @@ namespace bluModule
 
         public void SetLevelsComplete(int input)
         {
-            levelsComplete = input;
-            PlayerPrefs.SetInt("LevelsComplete", input);
-            PlayerPrefs.Save();
+            if (input > levelsComplete)
+            {
+                levelsComplete = input;
+                PlayerPrefs.SetInt("LevelsComplete", input);
+                PlayerPrefs.Save();
+            }
         }
 
         public void SetFullscreen(bool input)
