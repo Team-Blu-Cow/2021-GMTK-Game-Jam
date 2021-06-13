@@ -52,6 +52,7 @@ namespace Nodes
                                     {
                                         if (!gateConns[c].other.node.IsPowered())
                                         {
+                                            conns[i].other.node.SetPowered();
                                             nodes.Enqueue(gateConns[c].other.node);
                                         }
                                     }
