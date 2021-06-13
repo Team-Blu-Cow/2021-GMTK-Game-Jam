@@ -73,6 +73,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""reset"",
+                    ""type"": ""Button"",
+                    ""id"": ""c90e2d53-9a14-4b41-9f5d-54a4a711aee7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -196,6 +204,17 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""27e12f2e-934d-4098-afeb-d296877250da"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""reset"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -211,6 +230,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_PlayerMovement_WASD = m_PlayerMovement.FindAction("WASD", throwIfNotFound: true);
         m_PlayerMovement_Pickup = m_PlayerMovement.FindAction("Pickup", throwIfNotFound: true);
         m_PlayerMovement_Pause = m_PlayerMovement.FindAction("Pause", throwIfNotFound: true);
+        m_PlayerMovement_reset = m_PlayerMovement.FindAction("reset", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -267,6 +287,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerMovement_WASD;
     private readonly InputAction m_PlayerMovement_Pickup;
     private readonly InputAction m_PlayerMovement_Pause;
+    private readonly InputAction m_PlayerMovement_reset;
     public struct PlayerMovementActions
     {
         private @InputMaster m_Wrapper;
@@ -278,6 +299,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @WASD => m_Wrapper.m_PlayerMovement_WASD;
         public InputAction @Pickup => m_Wrapper.m_PlayerMovement_Pickup;
         public InputAction @Pause => m_Wrapper.m_PlayerMovement_Pause;
+        public InputAction @reset => m_Wrapper.m_PlayerMovement_reset;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -308,6 +330,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Pause.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnPause;
+                @reset.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnReset;
+                @reset.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnReset;
+                @reset.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnReset;
             }
             m_Wrapper.m_PlayerMovementActionsCallbackInterface = instance;
             if (instance != null)
@@ -333,6 +358,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @reset.started += instance.OnReset;
+                @reset.performed += instance.OnReset;
+                @reset.canceled += instance.OnReset;
             }
         }
     }
@@ -346,5 +374,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnWASD(InputAction.CallbackContext context);
         void OnPickup(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnReset(InputAction.CallbackContext context);
     }
 }

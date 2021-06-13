@@ -64,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
         m_input.PlayerMovement.Jump.started += _ => Jump();
         m_input.PlayerMovement.WASD.started += ctx => MoveStart(ctx.ReadValue<Vector2>());
         m_input.PlayerMovement.WASD.canceled += _ => MoveEnd();
+        m_input.PlayerMovement.reset.performed += _ => Reset();
 
         m_input.PlayerMovement.Pickup.performed += _ => Pickup();
 
@@ -74,11 +75,18 @@ public class PlayerMovement : MonoBehaviour
         pickupable = LayerMask.GetMask(layers);
     }
 
+    public void Reset()
+    {
+        bluModule.Application.instance.sceneModule.SwitchScene(gameObject.scene.name);
+    }
+
     // Update is called once per frame
     private void Update()
     {
         // get input
         // update animations
+
+
 
         x_dir = m_velocity.x;
 
