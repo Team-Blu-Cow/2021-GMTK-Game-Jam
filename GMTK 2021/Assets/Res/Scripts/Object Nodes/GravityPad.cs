@@ -9,6 +9,10 @@ namespace Nodes
         [SerializeField]
         private float m_force;
 
+        public ParticleSystem particles;
+
+        private bool wasPowered;
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (IsPowered())
@@ -18,7 +22,19 @@ namespace Nodes
                 {
                     rb.AddForce(new Vector2(0, m_force), ForceMode2D.Impulse);
                 }
+                //particles.Play();
             }
+        }
+
+        private void Update()
+        {
+            if (IsPowered() && !wasPowered)
+                particles.Play();
+
+            if (!IsPowered())
+                particles.Stop();
+
+            wasPowered = IsPowered();
         }
     }
 }

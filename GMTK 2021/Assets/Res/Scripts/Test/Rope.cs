@@ -15,6 +15,10 @@ public class Rope : MonoBehaviour
     public float lineWidth = 0.1f;
     public float scalar = 1f;
 
+    [Header("Rope end")]
+    public SpriteRenderer[] ropeEnds;
+    public Sprite[] ropeEndSprites;
+
     // Use this for initialization
     private void Start()
     {
@@ -32,6 +36,24 @@ public class Rope : MonoBehaviour
     private void Update()
     {
         this.DrawRope();
+        if (ropeEnds[0] != null)
+        {
+            ropeEnds[0].transform.position = ConnectionInput.transform.position;
+            if (ConnectionInput.GetComponent<Nodes.NodeConnection>().node.IsPowered())
+                ropeEnds[0].sprite = ropeEndSprites[0];
+            else
+                ropeEnds[0].sprite = ropeEndSprites[1];
+
+
+        }
+        if (ropeEnds[1] != null)
+        {
+            ropeEnds[1].transform.position = ConnectionOutput.transform.position;
+            if (ConnectionOutput.GetComponent<Nodes.NodeConnection>().node.IsPowered())
+                ropeEnds[1].sprite = ropeEndSprites[0];
+            else
+                ropeEnds[1].sprite = ropeEndSprites[1];
+        }
     }
 
     private void FixedUpdate()
