@@ -19,6 +19,11 @@ public class LevelSelection : MonoBehaviour
 
         int levelsComplete = bluModule.Application.instance.settingsModule.saveData.GetLevelsComplete();
 
+        if (levelsComplete > bluModule.Application.instance.sceneModule.MAX_LEVELS)
+        {
+            levelsComplete = bluModule.Application.instance.sceneModule.MAX_LEVELS;
+        }
+
         if (levelsComplete < bluModule.Application.instance.sceneModule.menuLevel+5)
             levelsComplete %= 5;
 

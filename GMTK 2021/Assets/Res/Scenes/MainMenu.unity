@@ -3516,6 +3516,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5481648805523109406, guid: 0e9419fc06fd67e45abaaf7032e17681, type: 3}
+      propertyPath: lineWidth
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481648805523109406, guid: 0e9419fc06fd67e45abaaf7032e17681, type: 3}
       propertyPath: ConnectionInput
       value: 
       objectReference: {fileID: 1258242998}
