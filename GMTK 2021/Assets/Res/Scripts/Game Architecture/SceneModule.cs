@@ -14,7 +14,7 @@ namespace bluModule
         public void SwitchScene(string in_Scene)
         {
             StartCoroutine(LoadLevel(in_Scene));
-            bluModule.Application.instance.audioModule.StopAllEvents(true);
+            bluModule.Application.instance.audioModule.StopAllSFXEvents(true);
         }
 
         public void Quit()

@@ -41,6 +41,8 @@ namespace bluModule
             masterVol = in_vol;
             PlayerPrefs.SetFloat("MasterVolume", masterVol);
             masterBus.setVolume(masterVol);
+
+            PlayerPrefs.Save();
         }
 
         public void SetSFXVolume(float in_vol)
@@ -48,6 +50,8 @@ namespace bluModule
             SFXVol = in_vol;
             PlayerPrefs.SetFloat("SFXVolume", SFXVol);
             SFXBus.setVolume(SFXVol);
+
+            PlayerPrefs.Save();
         }
 
         public void SetMusicVolume(float in_vol)
@@ -55,6 +59,8 @@ namespace bluModule
             musicVol = in_vol;
             PlayerPrefs.SetFloat("MusicVolume", musicVol);
             musicBus.setVolume(musicVol);
+
+            PlayerPrefs.Save();
         }
 
         public float GetMasterVolume()
@@ -76,10 +82,15 @@ namespace bluModule
     public class SaveData
     {
         private int levelsComplete = 0;
+        private bool fullscreen = false;
+        private Resolution savedResolution = new Resolution();
 
         public void init()
         {
+            savedResolution.width = PlayerPrefs.GetInt("resolutionX", 800);
+            savedResolution.height = PlayerPrefs.GetInt("resolutiony", 450);
             levelsComplete = PlayerPrefs.GetInt("LevelsComplete", 0);
+            fullscreen = PlayerPrefs.GetInt("fullscreen", 0) == 1 ? true : false;
         }
 
         public int GetLevelsComplete()
@@ -87,10 +98,36 @@ namespace bluModule
             return levelsComplete;
         }
 
+        public bool GetFullscreen()
+        {
+            return fullscreen;
+        }
+
+        public Resolution GetResolution()
+        {
+            return savedResolution;
+        }
+
         public void SetLevelsComplete(int input)
         {
             levelsComplete = input;
             PlayerPrefs.SetInt("LevelsComplete", input);
+            PlayerPrefs.Save();
+        }
+
+        public void SetFullscreen(bool input)
+        {
+            fullscreen = input;
+            PlayerPrefs.SetInt("fullscreen", input ? 1 : 0);
+            PlayerPrefs.Save();
+        }
+
+        public void SetResolution(Resolution input)
+        {
+            savedResolution = input;
+            PlayerPrefs.SetInt("resolutionX", savedResolution.width);
+            PlayerPrefs.SetInt("resolutiony", savedResolution.height);
+            PlayerPrefs.Save();
         }
     }
 }
