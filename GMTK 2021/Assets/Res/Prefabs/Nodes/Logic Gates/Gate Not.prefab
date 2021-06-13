@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -5259712286672536373, guid: 19db2544cd9247e44bd4b0633a572a25, type: 3}
+  m_Sprite: {fileID: -2575753838150538586, guid: 08cb74cf085edb94c87db4075a20e83d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -184,7 +184,9 @@ MonoBehaviour:
   - {fileID: 4455559588127276729}
   m_outputConnections:
   - {fileID: 5073739672196526970}
-  m_symbolSprites: []
+  m_symbolSprites:
+  - {fileID: -9124150989176367663, guid: 08cb74cf085edb94c87db4075a20e83d, type: 3}
+  - {fileID: -2575753838150538586, guid: 08cb74cf085edb94c87db4075a20e83d, type: 3}
   m_gateStates: 
   m_symbolRenderer: {fileID: 0}
 --- !u!1001 &66884947167319173
