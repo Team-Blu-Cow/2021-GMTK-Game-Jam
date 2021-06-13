@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private float m_groundSensorRadius;
 
     private LayerMask walkable;
+    private LayerMask pickupable;
 
     [SerializeField]
     private Transform m_pickupSensor;
@@ -65,8 +66,11 @@ public class PlayerMovement : MonoBehaviour
 
         m_input.PlayerMovement.Pickup.performed += _ => Pickup();
 
-        string[] layers = new string[] { "Walkable", "Plugs" };
+        string[] layers = new string[] { "Walkable" };
         walkable = LayerMask.GetMask(layers);
+
+        layers = new string[] { "Walkable", "Plugs" };
+        pickupable = LayerMask.GetMask(layers);
     }
 
     // Update is called once per frame
@@ -139,7 +143,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!m_pickup)
         {
-            Collider2D[] collisions = Physics2D.OverlapCircleAll(m_pickupSensor.position, m_pickupSensorRadius, walkable);
+            Collider2D[] collisions = Physics2D.OverlapCircleAll(m_pickupSensor.position, m_pickupSensorRadius, pickupable);
 
             foreach (Collider2D collide in collisions)
             {
@@ -237,7 +241,7 @@ public class PlayerMovement : MonoBehaviour
             // bluModule.Application.instance.audioModule.PlayAudioEvent("event:/environment/objects/interactables/plugs/put down");
         }
 
-        Collider2D[] collision = Physics2D.OverlapCircleAll(transform.position, 0.5f, walkable);
+        Collider2D[] collision = Physics2D.OverlapCircleAll(transform.position, 0.5f, pickupable);
 
         foreach (Collider2D collide in collision)
         {
