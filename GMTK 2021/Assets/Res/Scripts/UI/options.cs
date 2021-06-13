@@ -10,6 +10,13 @@ public class options : MonoBehaviour
     //public Dropdown resDropdown;
     private List<Resolution> resolutions;
 
+    private void Awake()
+    {
+        setFullscreen(bluModule.Application.instance.settingsModule.saveData.GetFullscreen());
+        Resolution res = bluModule.Application.instance.settingsModule.saveData.GetResolution();
+        Screen.SetResolution(res.width, res.height, Screen.fullScreen, res.refreshRate);
+    }
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -43,10 +50,12 @@ public class options : MonoBehaviour
     {
         Resolution res = resolutions[resolution];
         Screen.SetResolution(res.width, res.height, Screen.fullScreen, res.refreshRate);
+        bluModule.Application.instance.settingsModule.saveData.SetResolution(res);
     }
 
     public void setFullscreen(bool fullscreen)
     {
         Screen.fullScreen = fullscreen;
+        bluModule.Application.instance.settingsModule.saveData.SetFullscreen(fullscreen);
     }
 }

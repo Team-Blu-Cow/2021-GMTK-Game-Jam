@@ -8,7 +8,11 @@ public class MenuSwap : MenuButton
 
     protected override void Clicked()
     {
-            bluModule.Application.instance.sceneModule.SwitchScene(m_SceneSwap);
+        if (m_SceneSwap.Contains("Level"))
+        {
+            bluModule.Application.instance.sceneModule.currentLevel = m_SceneSwap[5] - 48;
+        }
+        bluModule.Application.instance.sceneModule.SwitchScene(m_SceneSwap);
     }
 
     public void SetScene(string scene)

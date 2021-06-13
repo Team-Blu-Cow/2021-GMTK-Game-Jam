@@ -10,6 +10,8 @@ namespace CanvasTool
         [SerializeField]
         private List<CanvasContainer> canvases;
 
+        private int sortingBoost = 20;
+
         public Camera mainCamera;
 
         public List<string> layerNames;
@@ -83,7 +85,7 @@ namespace CanvasTool
                         CanvasContainer top = openCanvases.Pop();
                         top.CloseCanvas();
                     }
-                    overlay.canvas.sortingOrder = openCanvases.Count;
+                    overlay.canvas.sortingOrder = openCanvases.Count + sortingBoost;
                     break;
                 }
 
@@ -123,10 +125,10 @@ namespace CanvasTool
             foreach (CanvasContainer container in containers)
             {
                 container.OpenCanvas();
-                container.canvas.sortingOrder = openCanvases.Count + i;
+                container.canvas.sortingOrder = openCanvases.Count + i + sortingBoost;
                 i++;
             }
-            overlay.canvas.sortingOrder = openCanvases.Count;
+            overlay.canvas.sortingOrder = openCanvases.Count + sortingBoost;
         }
 
         public void OpenCanvas(CanvasContainer container, bool stack = false)
@@ -143,7 +145,7 @@ namespace CanvasTool
                     CanvasContainer top = openCanvases.Pop();
                     top.CloseCanvas();
                 }
-                overlay.canvas.sortingOrder = openCanvases.Count;
+                overlay.canvas.sortingOrder = openCanvases.Count + sortingBoost;
                 return;
             }
 
@@ -180,10 +182,10 @@ namespace CanvasTool
 
             container.OpenCanvas();
             if (container.canvas)
-                container.canvas.sortingOrder = openCanvases.Count;
+                container.canvas.sortingOrder = openCanvases.Count + sortingBoost;
 
             if (overlay.canvas)
-                overlay.canvas.sortingOrder = openCanvases.Count;
+                overlay.canvas.sortingOrder = openCanvases.Count + sortingBoost;
         }
 
         public void CloseCanvas(bool all = false)
