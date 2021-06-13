@@ -60,7 +60,9 @@ namespace Nodes
             NodeClock.Instance.NodeLogicGates -= OnLogicInvoke;
         }
 
-        public virtual void OnLogicInvoke() { }
+        public virtual void OnLogicInvoke()
+        {
+        }
 
         public abstract bool IsGatesOutputsActive();
 
@@ -95,12 +97,25 @@ namespace Nodes
 
         private void Update()
         {
+            if (m_symbolSprites != null && m_symbolSprites.Length == 2 && gateType == LogicGateType.NOT)
+            {
+                if (m_gateStates[0])
+                {
+                    m_symbolRenderer.sprite = m_symbolSprites[0];
+                }
+                else
+                {
+                    m_symbolRenderer.sprite = m_symbolSprites[1];
+                }
+                return;
+            }
+
             if (m_symbolSprites == null || m_symbolSprites.Length != 4)
                 return;
 
-            if(m_gateStates[0])
+            if (m_gateStates[0])
             {
-                if(m_gateStates[1])
+                if (m_gateStates[1])
                     m_symbolRenderer.sprite = m_symbolSprites[0];
                 else
                     m_symbolRenderer.sprite = m_symbolSprites[2];
@@ -113,6 +128,5 @@ namespace Nodes
                     m_symbolRenderer.sprite = m_symbolSprites[1];
             }
         }
-
     }
 }
