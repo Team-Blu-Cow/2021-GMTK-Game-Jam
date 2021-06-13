@@ -6,6 +6,8 @@ namespace Nodes
 {
     public class Terminal : Node
     {
+        private List<Sprite> m_sprites;
+
         [SerializeField]
         private NodeConnection m_connectionSocket = null;
 

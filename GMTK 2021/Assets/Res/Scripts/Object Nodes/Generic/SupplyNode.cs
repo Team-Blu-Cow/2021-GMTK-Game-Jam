@@ -21,15 +21,14 @@ namespace Nodes
                 {
                     if (conns[i] != null && conns[i].other != null && conns[i].other.node != null)
                     {
-                        if (conns[i].other.node.IsPowered())
-                        { continue; }
-
                         if (conns[i].other.node.isLogicGate)
                         {
                             ProcessGate(conns[i], nodes);
                         }
                         else
                         {
+                            if (conns[i].other.node.IsPowered())
+                                continue;
                             conns[i].other.node.SetPowered();
                             nodes.Enqueue(conns[i].other.node);
                         }
