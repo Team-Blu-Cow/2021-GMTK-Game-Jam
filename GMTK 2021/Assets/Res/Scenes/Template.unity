@@ -3665,8 +3665,8 @@ Transform:
   m_LocalPosition: {x: 0.45960104, y: -0.6595183, z: 31.902401}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1731408207}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1484024190
 MonoBehaviour:
@@ -3784,7 +3784,6 @@ Transform:
   m_Children:
   - {fileID: 1475597560}
   - {fileID: 1552080298}
-  - {fileID: 1484024189}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
