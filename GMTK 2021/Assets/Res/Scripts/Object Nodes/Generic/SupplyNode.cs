@@ -23,6 +23,9 @@ namespace Nodes
                     {
                         if (conns[i].other.node.isLogicGate)
                         {
+                            if (conns[i].other.node.IsPowered())
+                                continue;
+
                             ProcessGate(conns[i], nodes);
                         }
                         else
@@ -45,17 +48,23 @@ namespace Nodes
 
             if (gate.IsGatesOutputsActive())
             {
+                gate.SetPowered();
+
                 List<NodeConnection> gateConns = gate.GateOutputs;
+
+                if (gateConns.Contains(connection))
+                    return;
 
                 for (int c = 0; c < gateConns.Count; c++)
                 {
                     if (!gateConns[c].other.node.IsPowered())
                     {
+                        gateConns[c].other.node.SetPowered();
                         nodes.Enqueue(gateConns[c].other.node);
                     }
                 }
 
-                if (!connection.other.node.IsPowered())
+                if (!connection.other.node.IsPowered() && false)
                 {
                     connection.other.node.SetPowered();
                     nodes.Enqueue(connection.other.node);
