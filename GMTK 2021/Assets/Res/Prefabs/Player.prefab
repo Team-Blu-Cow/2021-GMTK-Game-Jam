@@ -163,7 +163,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 4
   m_Sprite: {fileID: -6304645754370784149, guid: ad5522bf0cd67db459efa16baef08769, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -324,6 +324,7 @@ MonoBehaviour:
   m_groundSensorRadius: 0.1
   m_pickupSensor: {fileID: 101247310}
   m_pickupSensorRadius: 0.3
+  m_wallDetectionDist: 0
   m_cableHoldPoint: {fileID: 1866242122}
   m_HoldPoint: {fileID: 901892656}
 --- !u!114 &2544882910289073990
@@ -447,7 +448,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: -2311659948842064771, guid: 2be86d0b63bd7de48a7cce6eac6df3be, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

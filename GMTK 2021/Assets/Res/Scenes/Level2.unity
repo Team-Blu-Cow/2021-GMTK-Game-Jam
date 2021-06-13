@@ -767,6 +767,10 @@ PrefabInstance:
       propertyPath: m_connectionOther
       value: 
       objectReference: {fileID: 966815330}
+    - target: {fileID: 2768008525900953413, guid: ca9a32debd401d84f911b565142f034f, type: 3}
+      propertyPath: m_SortingOrder
+      value: -2
+      objectReference: {fileID: 0}
     - target: {fileID: 3441085647382069422, guid: ca9a32debd401d84f911b565142f034f, type: 3}
       propertyPath: m_Name
       value: terminal
@@ -4979,6 +4983,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 924006126, guid: 847f74ddf4c76504192b640cde5a555d, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1547425513, guid: 847f74ddf4c76504192b640cde5a555d, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 1834723088179467646, guid: 847f74ddf4c76504192b640cde5a555d, type: 3}
       propertyPath: m_node
       value: 
