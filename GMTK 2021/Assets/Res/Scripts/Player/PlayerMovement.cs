@@ -252,6 +252,10 @@ public class PlayerMovement : MonoBehaviour
                 instance.settingsModule.saveData.SetLevelsComplete(instance.sceneModule.currentLevel);
                 instance.sceneModule.SwitchScene("Level" + (instance.sceneModule.currentLevel + 1));
                 instance.sceneModule.currentLevel++;
+                if (instance.sceneModule.currentLevel == instance.sceneModule.MAX_LEVELS + 1)
+                {
+                    FindObjectOfType<TunesMachine>().SwapTrack();
+                }
             }
         }
     }

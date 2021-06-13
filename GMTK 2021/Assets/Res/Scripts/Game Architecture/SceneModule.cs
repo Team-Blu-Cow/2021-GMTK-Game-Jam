@@ -11,7 +11,7 @@ namespace bluModule
         private GameObject transitionGO;
         public int currentLevel = 1;
         public int menuLevel = 1;
-        public const int MAX_LEVELS = 10;
+        public int MAX_LEVELS = 10;
 
         public void SwitchScene(string in_Scene)
         {
