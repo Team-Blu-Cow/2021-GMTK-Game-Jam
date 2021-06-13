@@ -34,6 +34,7 @@ namespace bluModule
         private void Awake()
         {
             transitionGO = Instantiate(Resources.Load<GameObject>("Animations/Transition"), transform);
+            transitionGO.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
             transitionGO.GetComponent<Canvas>().worldCamera = Camera.main; //!! camera Main, store camera in app class
 
             transition = transitionGO.GetComponent<Animator>();
