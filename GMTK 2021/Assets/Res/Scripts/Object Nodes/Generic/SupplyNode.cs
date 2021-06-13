@@ -29,6 +29,7 @@ namespace Nodes
                         {
                             if (conns[i].other.node.IsPowered())
                                 continue;
+
                             conns[i].other.node.SetPowered();
                             nodes.Enqueue(conns[i].other.node);
                         }
