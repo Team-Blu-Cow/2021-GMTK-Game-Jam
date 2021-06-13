@@ -27,6 +27,6 @@ public class HideButtons : MonoBehaviour
             transform.GetChild(i).gameObject.SetActive(true);
         }
 
-        canvasManager.OpenCanvas(canvasManager.GetCanvasContainer("Buttons"));
+        canvasManager.OpenCanvas(canvasManager.GetCanvasContainer("ButtonText"));
     }
 }

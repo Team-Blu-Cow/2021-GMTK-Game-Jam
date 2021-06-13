@@ -4878,7 +4878,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 21.3, y: 0}
+  m_AnchoredPosition: {x: 10, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1568804184
@@ -4895,7 +4895,7 @@ GameObject:
   - component: {fileID: 1568804188}
   - component: {fileID: 1568804187}
   m_Layer: 0
-  m_Name: Buttons
+  m_Name: ButtonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5322,7 +5322,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_pickupSensor: {fileID: 1464520804}
-  m_pickupRange: 0.2
+  m_pickupRange: 0.5
 --- !u!114 &1657883902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9185,7 +9185,7 @@ MonoBehaviour:
   - gameObject: {fileID: 1568804184}
     canvas: {fileID: 1568804186}
     canvasScaler: {fileID: 1568804185}
-    name: Buttons
+    name: ButtonText
     desc: Stores the buttons
     layer: 0
     transition: 0

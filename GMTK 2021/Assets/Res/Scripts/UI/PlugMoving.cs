@@ -46,6 +46,8 @@ public class PlugMoving : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     {
         if (m_clicked)
         {
+            GetComponentInParent<Canvas>().sortingOrder = 0;
+
             if (boxCollider.enabled == true)
                 boxCollider.enabled = false;
 
@@ -60,11 +62,17 @@ public class PlugMoving : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
                 rb.rotation = Mathf.Lerp(transform.rotation.z, angle, 0.1f);
             }
 
-            Collider2D overlap = Physics2D.OverlapBox(m_pickupSensor.position, new Vector2(m_pickupRange, 1), 0);
-            if (overlap)
+            //Collider2D overlap = Physics2D.OverlapBox(m_pickupSensor.position, new Vector2(m_pickupRange, 1), 0);
+            Collider2D overlap = Physics2D.OverlapCircle(m_pickupSensor.position, m_pickupRange);
+            if (overlap && overlap.gameObject.CompareTag("MenuButton"))
             {
                 transform.position = new Vector3(overlap.transform.position.x - ((1 * overlap.transform.localScale.x) / 2), overlap.transform.position.y, transform.position.z);
                 transform.rotation = Quaternion.identity;
+                GetComponentInParent<Canvas>().sortingOrder = -5;
+            }
+            else if (overlap && overlap.gameObject.layer == LayerMask.NameToLayer("Walkable"))
+            {
+                transform.position = previousPos;
             }
 
             previousPos = transform.position;
@@ -104,6 +112,7 @@ public class PlugMoving : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     public void OnPointerUp(PointerEventData eventData)
     {
         m_clicked = false;
+
         Collider2D overlap = Physics2D.OverlapBox(m_pickupSensor.position, new Vector2(m_pickupRange, 1), 0);
         if (overlap && overlap.CompareTag("MenuButton"))
         {
@@ -126,6 +135,6 @@ public class PlugMoving : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(m_pickupSensor.position, new Vector3(m_pickupRange, 1f, 0));
+        Gizmos.DrawWireSphere(m_pickupSensor.position, m_pickupRange);
     }
 }
