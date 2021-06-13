@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
         m_input = new InputMaster();
         m_anim = GetComponent<PlayerAnimationController>();
 
-        Debug.Log((m_anim == null));
+        // Debug.Log((m_anim == null));
 
         m_input.PlayerMovement.Jump.started += _ => Jump();
         m_input.PlayerMovement.WASD.started += ctx => MoveStart(ctx.ReadValue<Vector2>());
