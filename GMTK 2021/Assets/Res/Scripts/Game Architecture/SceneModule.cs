@@ -9,9 +9,9 @@ namespace bluModule
     {
         private Animator transition;
         private GameObject transitionGO;
-        public int currentLevel = 0;
+        public int currentLevel = 1;
         public int menuLevel = 1;
-        public const int MAX_LEVELS = 10;
+        public const int MAX_LEVELS = 12;
 
         public void SwitchScene(string in_Scene)
         {

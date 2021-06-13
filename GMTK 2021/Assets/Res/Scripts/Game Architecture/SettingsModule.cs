@@ -87,6 +87,10 @@ namespace bluModule
 
         public void init()
         {
+#if UNITY_EDITOR
+            PlayerPrefs.SetInt("LevelsComplete", 0);
+#endif
+
             savedResolution.width = PlayerPrefs.GetInt("resolutionX", 800);
             savedResolution.height = PlayerPrefs.GetInt("resolutiony", 450);
             levelsComplete = PlayerPrefs.GetInt("LevelsComplete", 0);
