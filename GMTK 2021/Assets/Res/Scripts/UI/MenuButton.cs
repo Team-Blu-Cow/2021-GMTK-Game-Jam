@@ -65,9 +65,7 @@ public class MenuButton : MonoBehaviour
         if (m_active)
         {
             m_powered = true;
-
             GetComponentInChildren<TextMeshProUGUI>().color = Color.green;
-            bluModule.Application.instance.audioModule.PlayAudioEvent("event:/environment/objects/nodes/button insert");
         }
     }
 
@@ -77,7 +75,6 @@ public class MenuButton : MonoBehaviour
         {
             m_powered = false;
             GetComponentInChildren<TextMeshProUGUI>().color = Color.red;
-            bluModule.Application.instance.audioModule.PlayAudioEvent("event:/environment/objects/nodes/button remove");
         }
     }
 
