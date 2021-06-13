@@ -249,6 +249,7 @@ public class PlayerMovement : MonoBehaviour
                 var instance = bluModule.Application.instance;
                 instance.settingsModule.saveData.SetLevelsComplete(instance.sceneModule.currentLevel);
                 instance.sceneModule.SwitchScene("Level" + (instance.sceneModule.currentLevel + 1));
+                instance.sceneModule.currentLevel++;
             }
         }
     }
