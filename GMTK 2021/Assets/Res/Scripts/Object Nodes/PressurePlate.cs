@@ -28,7 +28,7 @@ namespace Nodes
             {
                 transform.parent.localPosition = new Vector3(position.x, position.y - 0.005f, position.z);
             }
-            else if (position.y < 0.65)
+            else if (!m_isPressed && position.y < 0.65)
             {
                 transform.parent.localPosition = new Vector3(position.x, position.y + 0.005f, position.z);
             }
