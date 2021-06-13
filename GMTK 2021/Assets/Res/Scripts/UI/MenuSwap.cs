@@ -8,7 +8,11 @@ public class MenuSwap : MenuButton
 
     protected override void Clicked()
     {
-        if (m_powered)
             bluModule.Application.instance.sceneModule.SwitchScene(m_SceneSwap);
+    }
+
+    public void SetScene(string scene)
+    {
+        m_SceneSwap = scene;
     }
 }

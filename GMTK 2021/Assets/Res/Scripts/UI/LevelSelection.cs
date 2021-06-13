@@ -5,47 +5,45 @@ using UnityEngine.UI;
 
 public class LevelSelection : MonoBehaviour
 {
-    private Button[] levels;
+    private MenuSwap[] m_levels;
 
     // Start is called before the first frame update
     private void Start()
     {
-        levels = GetComponentsInChildren<Button>();
+        CheckLevels();
+    }
+
+    public void CheckLevels()
+    {
+        m_levels = GetComponentsInChildren<MenuSwap>();
+
         int levelsComplete = bluModule.Application.instance.settingsModule.saveData.GetLevelsComplete();
 
-        if (levelsComplete > levels.Length - 1)
+        if (levelsComplete < bluModule.Application.instance.sceneModule.menuLevel+5)
+            levelsComplete %= 5;
+
+        if (levelsComplete > m_levels.Length - 1)
         {
-            levelsComplete = levels.Length - 1;
+            levelsComplete = m_levels.Length - 1;
         }
 
-        foreach (Button btn in levels)
+        foreach (MenuSwap btn in m_levels)
         {
-            btn.interactable = false;
+            btn.m_active = false;
+            btn.GetComponent<SpriteRenderer>().color = Color.gray;
         }
 
-        levels[levels.Length - 1].interactable = true;
-
-        ColorBlock colors;
+        m_levels[m_levels.Length - 1].m_active = true;
+        m_levels[m_levels.Length - 1].GetComponent<SpriteRenderer>().color = Color.red;
 
         for (int i = 0; i < levelsComplete; i++)
         {
-            colors = levels[i].colors;
-            colors.normalColor = Color.green;
-            levels[i].colors = colors;
-            levels[i].interactable = true;
-
-            int copy = i + 1;
-            levels[i].onClick.AddListener(delegate { bluModule.Application.instance.sceneModule.currentLevel = copy; });
+            m_levels[i].GetComponent<SpriteRenderer>().color = Color.red;
+            m_levels[i].m_active = true;
         }
 
-        colors = levels[levelsComplete].colors;
-        colors.normalColor = Color.red;
-        levels[levelsComplete].colors = colors;
-        levels[levelsComplete].interactable = true;
-    }
+        m_levels[levelsComplete].GetComponent<SpriteRenderer>().color = Color.red;
+        m_levels[levelsComplete].m_active = true;
 
-    // Update is called once per frame
-    private void Update()
-    {
     }
 }

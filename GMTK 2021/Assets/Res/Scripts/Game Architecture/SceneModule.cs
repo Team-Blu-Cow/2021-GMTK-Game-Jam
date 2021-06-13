@@ -10,6 +10,7 @@ namespace bluModule
         private Animator transition;
         private GameObject transitionGO;
         public int currentLevel = 0;
+        public int menuLevel = 1;
 
         public void SwitchScene(string in_Scene)
         {

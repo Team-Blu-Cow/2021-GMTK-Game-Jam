@@ -7,8 +7,8 @@ using UnityEngine.EventSystems;
 public class MenuButton : MonoBehaviour
 {
     protected bool m_powered = false;
-    private float m_clock = 0;
     private InputMaster m_input;
+    public bool m_active = true;
 
     private void Awake()
     {
@@ -21,7 +21,6 @@ public class MenuButton : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        m_clock += Time.deltaTime;
     }
 
     private void OnEnable()
@@ -46,7 +45,10 @@ public class MenuButton : MonoBehaviour
             {
                 if (hit.collider.GetComponent<MenuButton>().m_powered)
                 {
-                    Clicked();
+                    if (m_powered)
+                    {
+                        Clicked();
+                    }
                     bluModule.Application.instance.audioModule.PlayAudioEvent("event:/UI/buttons/on click");
                 }
                 else
@@ -59,9 +61,12 @@ public class MenuButton : MonoBehaviour
 
     public void Power()
     {
-        m_powered = true;
-        GetComponent<SpriteRenderer>().color = Color.green;
-        bluModule.Application.instance.audioModule.PlayAudioEvent("event:/environment/objects/nodes/button insert");
+        if (m_active)
+        {
+            m_powered = true;
+            GetComponent<SpriteRenderer>().color = Color.green;
+            bluModule.Application.instance.audioModule.PlayAudioEvent("event:/environment/objects/nodes/button insert");
+        }
     }
 
     public void UnPower()
@@ -76,7 +81,6 @@ public class MenuButton : MonoBehaviour
 
     protected virtual void Clicked()
     {
-        if (m_powered)
-            Debug.Log("Clicked");
+        Debug.Log("Clicked");
     }
 }

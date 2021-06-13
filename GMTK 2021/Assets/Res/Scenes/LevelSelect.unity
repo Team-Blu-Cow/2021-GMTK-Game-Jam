@@ -3606,6 +3606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62fd1669ec6b35d47a76da784292c4af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_active: 0
   m_SceneSwap: Level3
 --- !u!61 &964286465
 BoxCollider2D:
@@ -4094,6 +4095,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62fd1669ec6b35d47a76da784292c4af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_active: 0
   m_SceneSwap: Level5
 --- !u!61 &1103327695
 BoxCollider2D:
@@ -4485,6 +4487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62fd1669ec6b35d47a76da784292c4af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_active: 0
   m_SceneSwap: Level4
 --- !u!61 &1269130001
 BoxCollider2D:
@@ -4608,6 +4611,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a304d8928ce495e42bbf14524bf93e5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_active: 1
+  next: 1
 --- !u!61 &1278110175
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4937,6 +4942,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62fd1669ec6b35d47a76da784292c4af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_active: 0
   m_SceneSwap: Level2
 --- !u!61 &1464716019
 BoxCollider2D:
@@ -5060,6 +5066,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62fd1669ec6b35d47a76da784292c4af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_active: 0
   m_SceneSwap: MainMenu
 --- !u!61 &1467153901
 BoxCollider2D:
@@ -5183,6 +5190,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a304d8928ce495e42bbf14524bf93e5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_active: 1
+  next: 0
 --- !u!61 &1580500962
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5541,6 +5550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62fd1669ec6b35d47a76da784292c4af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_active: 0
   m_SceneSwap: Level1
 --- !u!61 &2006907384
 BoxCollider2D:
