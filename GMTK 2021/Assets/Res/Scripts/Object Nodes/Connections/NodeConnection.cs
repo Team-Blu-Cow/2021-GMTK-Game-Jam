@@ -11,6 +11,7 @@ namespace Nodes
 
         public Nodes.NodeConnection other { get { return m_other; } }
 
+        [SerializeField]
         protected Nodes.Node m_node = null;
 
         [SerializeField]

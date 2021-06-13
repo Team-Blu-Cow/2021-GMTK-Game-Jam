@@ -28,7 +28,11 @@ namespace Nodes
 
         public LogicGateType gateType { get { return m_type; } }
 
-        protected bool[] m_gateStates = null;
+        [SerializeField] protected Sprite[] m_symbolSprites;
+
+        [SerializeField] protected bool[] m_gateStates = null;
+
+        [SerializeField] protected SpriteRenderer m_symbolRenderer;
 
         public LogicGate()
         {
@@ -41,6 +45,7 @@ namespace Nodes
         {
             m_gateStates = new bool[m_inputConnections.Count];
             DisableInputs();
+            m_symbolRenderer = transform.Find("power symbol").GetComponent<SpriteRenderer>();
         }
 
         public abstract bool IsGatesOutputsActive();
@@ -58,10 +63,42 @@ namespace Nodes
             }
         }
 
+        protected override void OnInvoke()
+        {
+            m_isPowered = false;
+
+            for (int i = 0; i < m_gateStates.Length; i++)
+            {
+                m_gateStates[i] = false;
+            }
+        }
+
         private void DisableInputs()
         {
             for (int i = 0; i < m_gateStates.Length; i++)
             { m_gateStates[i] = false; }
         }
+
+        private void Update()
+        {
+            if (m_symbolSprites == null || m_symbolSprites.Length != 4)
+                return;
+
+            if(m_gateStates[0])
+            {
+                if(m_gateStates[1])
+                    m_symbolRenderer.sprite = m_symbolSprites[0];
+                else
+                    m_symbolRenderer.sprite = m_symbolSprites[2];
+            }
+            else
+            {
+                if (m_gateStates[1])
+                    m_symbolRenderer.sprite = m_symbolSprites[3];
+                else
+                    m_symbolRenderer.sprite = m_symbolSprites[1];
+            }
+        }
+
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Nodes
 {
-    public abstract class Node : MonoBehaviour
+    public class Node : MonoBehaviour
     {
         protected bool m_isPowered = false;
 

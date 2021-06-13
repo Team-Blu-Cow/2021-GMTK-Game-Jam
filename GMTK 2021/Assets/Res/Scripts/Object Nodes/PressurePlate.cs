@@ -24,11 +24,12 @@ namespace Nodes
         private void Update()
         {
             Vector3 position = transform.parent.localPosition;
-            if (m_isPressed && position.y > 0.35)
+            if (m_isPressed && position.y > -0.07)
             {
                 transform.parent.localPosition = new Vector3(position.x, position.y - 0.005f, position.z);
             }
-            else if (!m_isPressed && position.y < 0.65)
+
+            else if (!m_isPressed && position.y < 0)
             {
                 transform.parent.localPosition = new Vector3(position.x, position.y + 0.005f, position.z);
             }
