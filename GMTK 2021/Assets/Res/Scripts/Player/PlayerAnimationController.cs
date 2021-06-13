@@ -27,7 +27,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     public void SetBool(string name, bool state)
     {
-        if (name != "isHoldingCable")
+        if (name != "isHoldingCable" || name != "isHolding")
             bodyAnim.SetBool(name, state);
         armsAnim.SetBool(name, state);
     }
@@ -39,10 +39,11 @@ public class PlayerAnimationController : MonoBehaviour
             mainAnimator.localScale = new Vector3(Mathf.Sign(velocity.x), 1, 1);
         }
 
-        if (!bodyAnim.GetBool("isGrounded"))
-            SetBool("isFalling", (velocity.y <= 0) ? true : false);
-        else
-            SetBool("isFalling", false);
+        falling = (velocity.y <= 0) ? true : false;
+
+        SetBool("isFalling", falling);
+        if(falling)
+            SetBool("isJumping", false);
     }
 
     public static void Footstep()
