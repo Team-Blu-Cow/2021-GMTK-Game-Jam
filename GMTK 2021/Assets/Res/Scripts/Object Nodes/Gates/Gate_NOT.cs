@@ -5,32 +5,21 @@ using UnityEngine;
 namespace Nodes
 
 {
-    public class Gate_NAND : LogicGate
+    public class Gate_NOT : LogicGate
     {
-        public Gate_NAND()
+        public Gate_NOT()
         {
-            m_type = LogicGateType.NAND;
+            m_type = LogicGateType.NOT;
         }
 
         public override bool IsGatesOutputsActive()
         {
-            bool ret = false;
-
-            for (int i = 0; i < m_gateStates.Length; i++)
-            {
-                if (m_gateStates[i] == false)
-                {
-                    ret = true;
-                    break;
-                }
-            }
-
-            return ret;
+            return false;
         }
 
         public override void OnLogicInvoke()
         {
-            if ((m_gateStates[0] && m_gateStates[1]) == false)
+            if (m_gateStates[0] == false)
             {
                 m_isPowered = true;
 
@@ -40,7 +29,17 @@ namespace Nodes
                 while (nodes.Count > 0)
                 {
                     Node node = nodes.Dequeue();
-                    List<NodeConnection> conns = node.Connections;
+
+                    List<NodeConnection> conns;
+                    if (node == this)
+                    {
+                        conns = m_outputConnections;
+                    }
+                    else
+                    {
+                        conns = node.Connections;
+                    }
+
                     for (int i = 0; i < conns.Count; i++)
                     {
                         if (conns[i] != null && conns[i].other != null && conns[i].other.node != null)
@@ -82,7 +81,5 @@ namespace Nodes
                 }
             }
         }
-
-
     }
 }

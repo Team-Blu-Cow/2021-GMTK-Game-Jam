@@ -15,6 +15,8 @@ public class NodeClock : MonoBehaviour
 
     public event Action NodePowerSupplyUpdate;
 
+    public event Action NodeLogicGates;
+
     private void OnEnable()
     {
         if (m_instance == null)
@@ -37,6 +39,7 @@ public class NodeClock : MonoBehaviour
         {
             NodeUpdate?.Invoke();
             NodePowerSupplyUpdate?.Invoke();
+            NodeLogicGates?.Invoke();
         }
     }
 }

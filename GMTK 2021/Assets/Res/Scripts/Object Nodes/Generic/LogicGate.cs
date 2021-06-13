@@ -19,10 +19,10 @@ namespace Nodes
     public abstract class LogicGate : Node
     {
         [SerializeField]
-        private List<NodeConnection> m_inputConnections = new List<NodeConnection>();
+        protected List<NodeConnection> m_inputConnections = new List<NodeConnection>();
 
         [SerializeField]
-        private List<NodeConnection> m_outputConnections = new List<NodeConnection>();
+        protected List<NodeConnection> m_outputConnections = new List<NodeConnection>();
 
         protected LogicGateType m_type = LogicGateType._notype;
 
@@ -47,6 +47,20 @@ namespace Nodes
             DisableInputs();
             m_symbolRenderer = transform.Find("power symbol").GetComponent<SpriteRenderer>();
         }
+
+        protected override void Start()
+        {
+            NodeClock.Instance.NodeUpdate += OnInvoke;
+            NodeClock.Instance.NodeLogicGates += OnLogicInvoke;
+        }
+
+        protected override void OnDestroy()
+        {
+            NodeClock.Instance.NodeUpdate -= OnInvoke;
+            NodeClock.Instance.NodeLogicGates -= OnLogicInvoke;
+        }
+
+        public virtual void OnLogicInvoke() { }
 
         public abstract bool IsGatesOutputsActive();
 
